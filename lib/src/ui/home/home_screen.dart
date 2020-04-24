@@ -19,6 +19,7 @@ class HomeScreen extends StatelessWidget {
     var mediaQuery = MediaQuery.of(context);
 
     return Scaffold(
+      backgroundColor: Color.fromARGB(255, 225, 228, 242),
       key: scaffoldState,
       body: BlocProvider<HomeBloc>(
         builder: (context) => HomeBloc(),
@@ -27,7 +28,7 @@ class HomeScreen extends StatelessWidget {
           children: <Widget>[
             Container(
               decoration: BoxDecoration(
-                color: Color(0xFFF1F5F9),
+                color: Color(0xFFB8BEDD),
                 borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(20),
                 ),
@@ -70,7 +71,8 @@ class HomeScreen extends StatelessWidget {
         'Top stories at the moment',
         style: Theme.of(context).textTheme.caption.merge(
               TextStyle(
-                color: Color(0xFF325384).withOpacity(0.5),
+                color: Color(0xFF34234d).withOpacity(0.5),
+                fontFamily: "Helvetica",
               ),
             ),
       ),
@@ -85,7 +87,8 @@ class HomeScreen extends StatelessWidget {
         style: Theme.of(context).textTheme.subtitle.merge(
               TextStyle(
                 fontSize: 18.0,
-                color: Color(0xFF325384).withOpacity(0.8),
+                color: Color(0xFF34234d).withOpacity(0.8),
+                fontFamily: "Helvetica",
               ),
             ),
       ),
@@ -115,6 +118,7 @@ class HomeScreen extends StatelessWidget {
                 'What are you looking for?',
                 style: TextStyle(
                   color: Colors.black26,
+                  fontFamily: "Helvetica",
                 ),
               ),
             ),
@@ -149,7 +153,8 @@ class HomeScreen extends StatelessWidget {
 
 class WidgetTitle extends StatelessWidget {
   final String strToday;
-
+  final Color headingColor = Color(0xFF34234d);
+  final Color subHeadingColor = Color(0xFF34234d);
   WidgetTitle(this.strToday);
 
   @override
@@ -161,10 +166,11 @@ class WidgetTitle extends StatelessWidget {
           text: TextSpan(
             children: [
               TextSpan(
-                text: 'News Today\n',
+                text: 'Ariel - News for you\n',
                 style: Theme.of(context).textTheme.title.merge(
                       TextStyle(
-                        color: Color(0xFF325384),
+                        color: headingColor,
+                        fontFamily: "Helvetica",
                       ),
                     ),
               ),
@@ -172,8 +178,9 @@ class WidgetTitle extends StatelessWidget {
                 text: strToday,
                 style: Theme.of(context).textTheme.caption.merge(
                       TextStyle(
-                        color: Color(0xFF325384).withOpacity(0.8),
+                        color: subHeadingColor.withOpacity(0.8),
                         fontSize: 10.0,
+                        fontFamily: "Helvetica",
                       ),
                     ),
               ),
@@ -201,7 +208,10 @@ class _WidgetCategoryState extends State<WidgetCategory> {
     Category('assets/images/img_technology.png', 'Technology'),
   ];
   int indexSelectedCategory = 0;
-
+  final Color allColor = Color.fromARGB(255, 225, 228, 242);
+  final Color selectedColor = Color(0xFF34234d);
+  final Color unSelectedColor = Color(0xFF34234d);
+  final Color selectedBorderColor = Color(0xFF34234d);
   @override
   void initState() {
     final homeBloc = BlocProvider.of<HomeBloc>(context);
@@ -240,17 +250,17 @@ class _WidgetCategoryState extends State<WidgetCategory> {
                           height: 48.0,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            color: Color(0xFFBDCDDE),
+                            color: allColor,
                             border: indexSelectedCategory == index
                                 ? Border.all(
-                                    color: Colors.white,
+                                    color: selectedBorderColor,
                                     width: 5.0,
                                   )
                                 : null,
                           ),
                           child: Icon(
                             Icons.apps,
-                            color: Colors.white,
+                            color: selectedBorderColor,
                           ),
                         )
                       : Container(
@@ -264,7 +274,7 @@ class _WidgetCategoryState extends State<WidgetCategory> {
                             ),
                             border: indexSelectedCategory == index
                                 ? Border.all(
-                                    color: Colors.white,
+                                    color: selectedBorderColor,
                                     width: 5.0,
                                   )
                                 : null,
@@ -276,7 +286,10 @@ class _WidgetCategoryState extends State<WidgetCategory> {
                   itemCategory.title,
                   style: TextStyle(
                     fontSize: 14,
-                    color: Color(0xFF325384),
+                    fontFamily: "HelveticaL",
+                    color: indexSelectedCategory == index
+                        ? selectedColor
+                        : unSelectedColor,
                     fontWeight: indexSelectedCategory == index
                         ? FontWeight.bold
                         : FontWeight.normal,
@@ -300,6 +313,7 @@ class WidgetLatestNews extends StatefulWidget {
 }
 
 class _WidgetLatestNewsState extends State<WidgetLatestNews> {
+  final Color newsTitleColor = Color(0xFF325384);
   @override
   Widget build(BuildContext context) {
     MediaQueryData mediaQuery = MediaQuery.of(context);
@@ -339,63 +353,75 @@ class _WidgetLatestNewsState extends State<WidgetLatestNews> {
       );
     } else if (state is DataSuccess) {
       ResponseTopHeadlinesNews data = state.data;
-      return ListView.separated(
+      return ListView.builder(
         padding: EdgeInsets.zero,
         itemCount: data.articles.length,
-        separatorBuilder: (context, index) {
-          return Divider();
-        },
+        // separatorBuilder: (context, index) {
+        //   return Divider();
+        // },
         itemBuilder: (context, index) {
           Article itemArticle = data.articles[index];
           if (index == 0) {
             return Stack(
               children: <Widget>[
-                ClipRRect(
-                  child: CachedNetworkImage(
-                    imageUrl: itemArticle.urlToImage,
-                    height: 192.0,
-                    width: mediaQuery.size.width,
-                    fit: BoxFit.cover,
-                    placeholder: (context, url) => Platform.isAndroid
-                        ? CircularProgressIndicator()
-                        : CupertinoActivityIndicator(),
-                    errorWidget: (context, url, error) => Image.asset(
-                      'assets/images/img_not_found.jpg',
+                Card(
+                  elevation: 0,
+                  shape: RoundedRectangleBorder(
+                      borderRadius:
+                          BorderRadius.only(bottomLeft: Radius.circular(25))),
+                  child: ClipRRect(
+                    child: CachedNetworkImage(
+                      imageUrl: itemArticle.urlToImage,
+                      height: 192.0,
+                      width: mediaQuery.size.width,
                       fit: BoxFit.cover,
+                      placeholder: (context, url) => Platform.isAndroid
+                          ? CircularProgressIndicator()
+                          : CupertinoActivityIndicator(),
+                      errorWidget: (context, url, error) => Image.asset(
+                        'assets/images/img_not_found.jpg',
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(25.0),
+                      // topLeft: Radius.circular(25.0),
                     ),
                   ),
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(8.0),
-                  ),
                 ),
-                GestureDetector(
-                  onTap: () async {
-                    if (await canLaunch(itemArticle.url)) {
-                      await launch(itemArticle.url);
-                    } else {
-                      scaffoldState.currentState.showSnackBar(SnackBar(
-                        content: Text('Could not launch news'),
-                      ));
-                    }
-                  },
-                  child: Container(
-                    width: mediaQuery.size.width,
-                    height: 192.0,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(8.0),
-                      ),
-                      gradient: LinearGradient(
-                        colors: [
-                          Colors.black.withOpacity(0.8),
-                          Colors.black.withOpacity(0.0),
-                        ],
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        stops: [
-                          0.0,
-                          0.7,
-                        ],
+                Card(
+                  color: Colors.transparent,
+                  elevation: 0,
+                  child: GestureDetector(
+                    onTap: () async {
+                      if (await canLaunch(itemArticle.url)) {
+                        await launch(itemArticle.url);
+                      } else {
+                        scaffoldState.currentState.showSnackBar(SnackBar(
+                          content: Text('Could not launch news'),
+                        ));
+                      }
+                    },
+                    child: Container(
+                      width: mediaQuery.size.width,
+                      height: 192.0,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(25.0),
+                          // topLeft: Radius.circular(25.0),
+                        ),
+                        gradient: LinearGradient(
+                          colors: [
+                            Colors.black.withOpacity(0.8),
+                            Colors.black.withOpacity(0.0),
+                          ],
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          stops: [
+                            0.0,
+                            0.7,
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -453,96 +479,103 @@ class _WidgetLatestNewsState extends State<WidgetLatestNews> {
                   await launch(itemArticle.url);
                 }
               },
-              child: Container(
-                width: mediaQuery.size.width,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Expanded(
-                      child: SizedBox(
-                        height: 72.0,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Text(
-                              itemArticle.title,
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 3,
-                              style: TextStyle(
-                                fontSize: 16.0,
-                                color: Color(0xFF325384),
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                            Wrap(
-                              crossAxisAlignment: WrapCrossAlignment.center,
+              child: Card(color: Color(0xFFB8BEDD),
+                elevation: 0,
+                shape: RoundedRectangleBorder(
+                    borderRadius:
+                        BorderRadius.only(bottomLeft: Radius.circular(25))),
+                child: Container(
+                  width: mediaQuery.size.width,
+                  child: Padding(
+                    padding: const EdgeInsets.all(6.0),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Expanded(
+                          child: SizedBox(
+                            height: 75.0,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
-                                Icon(
-                                  Icons.launch,
-                                  size: 12.0,
-                                  color: Color(0xFF325384).withOpacity(0.5),
-                                ),
-                                SizedBox(width: 4.0),
                                 Text(
-                                  itemArticle.source.name,
+                                  itemArticle.title,
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 3,
                                   style: TextStyle(
-                                    color: Color(0xFF325384).withOpacity(0.5),
-                                    fontSize: 12.0,
+                                    fontSize: 16.0,
+                                    color: newsTitleColor,
+                                    fontWeight: FontWeight.w400,
                                   ),
+                                ),
+                                Wrap(
+                                  crossAxisAlignment: WrapCrossAlignment.center,
+                                  children: <Widget>[
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 8.0),
+                                      child: Icon(
+                                        Icons.launch,
+                                        size: 12.0,
+                                        color:
+                                            Color(0xFF325384).withOpacity(0.5),
+                                      ),
+                                    ),
+                                    SizedBox(width: 4.0),
+                                    Text(
+                                      itemArticle.source.name,
+                                      style: TextStyle(
+                                        color:
+                                            Color(0xFF325384).withOpacity(0.5),
+                                        fontSize: 12.0,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ],
                             ),
-                          ],
+                          ),
                         ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 16.0),
-                      child: ClipRRect(
-                        /*child: Image.network(
-                          itemArticle.urlToImage ??
-                              'http://api.bengkelrobot.net:8001/assets/images/img_not_found.jpg',
-                          width: 72.0,
-                          height: 72.0,
-                          fit: BoxFit.cover,
-                        ),*/
-                        child: CachedNetworkImage(
-                          imageUrl: itemArticle.urlToImage,
-                          imageBuilder: (context, imageProvider) {
-                            return Container(
-                              width: 72.0,
-                              height: 72.0,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image: imageProvider,
-                                  fit: BoxFit.cover,
+                        Padding(
+                          padding: const EdgeInsets.only(left: 16.0),
+                          child: ClipRRect(
+                            child: CachedNetworkImage(
+                              imageUrl: itemArticle.urlToImage,
+                              imageBuilder: (context, imageProvider) {
+                                return Container(
+                                  width: 72.0,
+                                  height: 72.0,
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: imageProvider,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                );
+                              },
+                              placeholder: (context, url) => Container(
+                                width: 72.0,
+                                height: 72.0,
+                                child: Center(
+                                  child: Platform.isAndroid
+                                      ? CircularProgressIndicator()
+                                      : CupertinoActivityIndicator(),
                                 ),
                               ),
-                            );
-                          },
-                          placeholder: (context, url) => Container(
-                            width: 72.0,
-                            height: 72.0,
-                            child: Center(
-                              child: Platform.isAndroid
-                                  ? CircularProgressIndicator()
-                                  : CupertinoActivityIndicator(),
+                              errorWidget: (context, url, error) => Image.asset(
+                                'assets/images/img_not_found.jpg',
+                                fit: BoxFit.cover,
+                                width: 72.0,
+                                height: 72.0,
+                              ),
+                            ),
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(15.0),
                             ),
                           ),
-                          errorWidget: (context, url, error) => Image.asset(
-                            'assets/images/img_not_found.jpg',
-                            fit: BoxFit.cover,
-                            width: 72.0,
-                            height: 72.0,
-                          ),
                         ),
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(4.0),
-                        ),
-                      ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
               ),
             );
