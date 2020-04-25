@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:async';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
@@ -30,7 +31,7 @@ class HomeScreen extends StatelessWidget {
               decoration: BoxDecoration(
                 color: Color(0xFFB8BEDD),
                 borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(20),
+                  bottomLeft: Radius.circular(25),
                 ),
               ),
               padding: EdgeInsets.only(
@@ -200,12 +201,12 @@ class WidgetCategory extends StatefulWidget {
 class _WidgetCategoryState extends State<WidgetCategory> {
   final listCategories = [
     Category('', 'All'),
-    Category('assets/images/img_business.png', 'Business'),
-    Category('assets/images/img_entertainment.png', 'Entertainment'),
-    Category('assets/images/img_health.png', 'Health'),
-    Category('assets/images/img_science.png', 'Science'),
-    Category('assets/images/img_sport.png', 'Sport'),
-    Category('assets/images/img_technology.png', 'Technology'),
+    Category('assets/images/budget.png', 'Business'),
+    Category('assets/images/doctors-bag.png', 'Health'),
+    Category('assets/images/chemistry-book.png', 'Science'),
+    Category('assets/images/sport.png', 'Sport'),
+    Category('assets/images/hacking.png', 'Tech'),
+    Category('assets/images/music-band.png', 'Entertainment'),
   ];
   int indexSelectedCategory = 0;
   final Color allColor = Color.fromARGB(255, 225, 228, 242);
@@ -313,7 +314,14 @@ class WidgetLatestNews extends StatefulWidget {
 }
 
 class _WidgetLatestNewsState extends State<WidgetLatestNews> {
-  final Color newsTitleColor = Color(0xFF325384);
+  final Color newsTitleColor = Color(0xFF34234d);
+  // Completer<void> _refreshCompleter;
+  // @override
+  // void initState() {
+  //   super.initState();
+  // _refreshCompleter = Completer<void>();
+  // }
+
   @override
   Widget build(BuildContext context) {
     MediaQueryData mediaQuery = MediaQuery.of(context);
@@ -323,7 +331,7 @@ class _WidgetLatestNewsState extends State<WidgetLatestNews> {
         left: 16.0,
         top: 8.0,
         right: 16.0,
-        bottom: mediaQuery.padding.bottom + 16.0,
+        bottom: mediaQuery.padding.bottom,
       ),
       child: BlocListener<HomeBloc, DataState>(
         listener: (context, state) {
@@ -345,6 +353,17 @@ class _WidgetLatestNewsState extends State<WidgetLatestNews> {
 
   Widget _buildWidgetContentLatestNews(
       DataState state, MediaQueryData mediaQuery) {
+    // final listCategories = [
+    //   Category('', 'All'),
+    //   Category('assets/images/budget.png', 'Business'),
+    //   Category('assets/images/doctors-bag.png', 'Health'),
+    //   Category('assets/images/chemistry-book.png', 'Science'),
+    //   Category('assets/images/sport.png', 'Sport'),
+    //   Category('assets/images/hacking.png', 'Tech'),
+    //   Category('assets/images/music-band.png', 'Entertainment'),
+    // ];
+    // int indexSelectedCategory = 0;
+    // final homeBloc = BlocProvider.of<HomeBloc>(context);
     if (state is DataLoading) {
       return Center(
         child: Platform.isAndroid
@@ -353,7 +372,17 @@ class _WidgetLatestNewsState extends State<WidgetLatestNews> {
       );
     } else if (state is DataSuccess) {
       ResponseTopHeadlinesNews data = state.data;
-      return ListView.builder(
+      // _refreshCompleter?.complete();
+      // _refreshCompleter = Completer();
+      // return RefreshIndicator(
+      // onRefresh: () {
+      //   homeBloc.dispatch(RefreshData(
+      //       category: listCategories[indexSelectedCategory].title));
+      //   return _refreshCompleter.future;
+      // },
+      // child:
+      return
+      ListView.builder(
         padding: EdgeInsets.zero,
         itemCount: data.articles.length,
         // separatorBuilder: (context, index) {
@@ -361,6 +390,7 @@ class _WidgetLatestNewsState extends State<WidgetLatestNews> {
         // },
         itemBuilder: (context, index) {
           Article itemArticle = data.articles[index];
+          print(itemArticle.urlToImage);
           if (index == 0) {
             return Stack(
               children: <Widget>[
@@ -372,7 +402,7 @@ class _WidgetLatestNewsState extends State<WidgetLatestNews> {
                   child: ClipRRect(
                     child: CachedNetworkImage(
                       imageUrl: itemArticle.urlToImage,
-                      height: 192.0,
+                      height: 242.0,
                       width: mediaQuery.size.width,
                       fit: BoxFit.cover,
                       placeholder: (context, url) => Platform.isAndroid
@@ -404,7 +434,7 @@ class _WidgetLatestNewsState extends State<WidgetLatestNews> {
                     },
                     child: Container(
                       width: mediaQuery.size.width,
-                      height: 192.0,
+                      height: 242.0,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.only(
                           bottomLeft: Radius.circular(25.0),
@@ -412,14 +442,14 @@ class _WidgetLatestNewsState extends State<WidgetLatestNews> {
                         ),
                         gradient: LinearGradient(
                           colors: [
-                            Colors.black.withOpacity(0.8),
                             Colors.black.withOpacity(0.0),
+                            Color(0xFF000000).withOpacity(0.8),
                           ],
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter,
                           stops: [
-                            0.0,
-                            0.7,
+                            0.3,
+                            1.0,
                           ],
                         ),
                       ),
@@ -432,13 +462,14 @@ class _WidgetLatestNewsState extends State<WidgetLatestNews> {
                     Padding(
                       padding: const EdgeInsets.only(
                         left: 12.0,
-                        top: 12.0,
+                        top: 188.0,
                         right: 12.0,
                       ),
                       child: Text(
                         itemArticle.title,
                         style: TextStyle(
                           color: Colors.white,
+                          fontFamily: "Helvetica",
                         ),
                         overflow: TextOverflow.ellipsis,
                         maxLines: 2,
@@ -446,7 +477,7 @@ class _WidgetLatestNewsState extends State<WidgetLatestNews> {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(
-                        left: 12.0,
+                        left: 18.0,
                         top: 4.0,
                         right: 12.0,
                       ),
@@ -463,6 +494,7 @@ class _WidgetLatestNewsState extends State<WidgetLatestNews> {
                             style: TextStyle(
                               color: Colors.white.withOpacity(0.8),
                               fontSize: 11.0,
+                              fontFamily: "HelveticaL",
                             ),
                           ),
                         ],
@@ -479,101 +511,111 @@ class _WidgetLatestNewsState extends State<WidgetLatestNews> {
                   await launch(itemArticle.url);
                 }
               },
-              child: Card(color: Color(0xFFB8BEDD),
-                elevation: 0,
-                shape: RoundedRectangleBorder(
-                    borderRadius:
-                        BorderRadius.only(bottomLeft: Radius.circular(25))),
-                child: Container(
-                  width: mediaQuery.size.width,
-                  child: Padding(
-                    padding: const EdgeInsets.all(6.0),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Expanded(
-                          child: SizedBox(
-                            height: 75.0,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Text(
-                                  itemArticle.title,
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 3,
-                                  style: TextStyle(
-                                    fontSize: 16.0,
-                                    color: newsTitleColor,
-                                    fontWeight: FontWeight.w400,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 2.0),
+                child: Card(
+                  color: Color(0xFFB8BEDD),
+                  elevation: 0,
+                  shape: RoundedRectangleBorder(
+                      borderRadius:
+                          BorderRadius.only(bottomLeft: Radius.circular(25))),
+                  child: Container(
+                    width: mediaQuery.size.width,
+                    child: Padding(
+                      padding: const EdgeInsets.all(6.0),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Expanded(
+                            child: SizedBox(
+                              height: 75.0,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Text(
+                                    itemArticle.title,
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 3,
+                                    style: TextStyle(
+                                      fontSize: 16.0,
+                                      color: newsTitleColor,
+                                      fontWeight: FontWeight.w400,
+                                      fontFamily: "Helvetica",
+                                    ),
                                   ),
-                                ),
-                                Wrap(
-                                  crossAxisAlignment: WrapCrossAlignment.center,
-                                  children: <Widget>[
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 8.0),
-                                      child: Icon(
-                                        Icons.launch,
-                                        size: 12.0,
-                                        color:
-                                            Color(0xFF325384).withOpacity(0.5),
+                                  Wrap(
+                                    crossAxisAlignment:
+                                        WrapCrossAlignment.center,
+                                    children: <Widget>[
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 8.0),
+                                        child: Icon(
+                                          Icons.launch,
+                                          size: 12.0,
+                                          color: Color(0xFF34234d)
+                                              .withOpacity(0.5),
+                                        ),
                                       ),
-                                    ),
-                                    SizedBox(width: 4.0),
-                                    Text(
-                                      itemArticle.source.name,
-                                      style: TextStyle(
-                                        color:
-                                            Color(0xFF325384).withOpacity(0.5),
-                                        fontSize: 12.0,
+                                      SizedBox(width: 4.0),
+                                      Text(
+                                        itemArticle.source.name,
+                                        style: TextStyle(
+                                          color: Color(0xFF34234d)
+                                              .withOpacity(0.5),
+                                          fontSize: 12.0,
+                                          fontFamily: "HelveticaL",
+                                        ),
                                       ),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 16.0),
-                          child: ClipRRect(
-                            child: CachedNetworkImage(
-                              imageUrl: itemArticle.urlToImage,
-                              imageBuilder: (context, imageProvider) {
-                                return Container(
+                          Padding(
+                            padding: const EdgeInsets.only(left: 16.0),
+                            child: ClipRRect(
+                              child: CachedNetworkImage(
+                                imageUrl: itemArticle.urlToImage,
+                                imageBuilder: (context, imageProvider) {
+                                  return Container(
+                                    width: 72.0,
+                                    height: 72.0,
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        image: imageProvider,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  );
+                                },
+                                placeholder: (context, url) => Container(
                                   width: 72.0,
                                   height: 72.0,
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                      image: imageProvider,
-                                      fit: BoxFit.cover,
-                                    ),
+                                  child: Center(
+                                    child: Platform.isAndroid
+                                        ? CircularProgressIndicator()
+                                        : CupertinoActivityIndicator(),
                                   ),
-                                );
-                              },
-                              placeholder: (context, url) => Container(
-                                width: 72.0,
-                                height: 72.0,
-                                child: Center(
-                                  child: Platform.isAndroid
-                                      ? CircularProgressIndicator()
-                                      : CupertinoActivityIndicator(),
+                                ),
+                                errorWidget: (context, url, error) =>
+                                    Image.asset(
+                                  'assets/images/img_not_found.jpg',
+                                  fit: BoxFit.cover,
+                                  width: 72.0,
+                                  height: 72.0,
                                 ),
                               ),
-                              errorWidget: (context, url, error) => Image.asset(
-                                'assets/images/img_not_found.jpg',
-                                fit: BoxFit.cover,
-                                width: 72.0,
-                                height: 72.0,
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(15.0),
                               ),
                             ),
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(15.0),
-                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -581,6 +623,7 @@ class _WidgetLatestNewsState extends State<WidgetLatestNews> {
             );
           }
         },
+        // ),
       );
     } else {
       return Container();
