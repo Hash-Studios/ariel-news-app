@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_news_app/src/model/topheadlinesnews/response_top_headlinews_news.dart';
 import 'dart:async';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
+import 'package:share/share.dart';
 
 class WebPage extends StatefulWidget {
   Article itemArticle;
@@ -74,9 +75,10 @@ class _WebPageState extends State<WebPage> {
           backgroundColor: Color(0xFFB8BEDD),
           actions: <Widget>[
             IconButton(
-              icon: Icon(Icons.refresh, color: Color(0xFF34234d)),
+              icon: Icon(Icons.share, color: Color(0xFF34234d)),
               onPressed: () {
-                flutterWebviewPlugin.reload();
+                Share.share(widget.itemArticle.url,
+                    subject: 'Check out this news from Ariel News App.');
                 // flutterWebviewPlugin.reloadUrl(); // if you want to reloade another url
               },
             ),
