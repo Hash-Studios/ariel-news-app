@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app/src/bloc/home/home_bloc.dart';
 import 'package:flutter_news_app/src/model/category/category.dart';
 import 'package:flutter_news_app/src/model/topheadlinesnews/response_top_headlinews_news.dart';
+import 'package:flutter_news_app/src/ui/article.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -389,7 +390,6 @@ class _WidgetLatestNewsState extends State<WidgetLatestNews> {
         // },
         itemBuilder: (context, index) {
           Article itemArticle = data.articles[index];
-          print(itemArticle.urlToImage);
           if (index == 0) {
             return Stack(
               children: <Widget>[
@@ -426,7 +426,15 @@ class _WidgetLatestNewsState extends State<WidgetLatestNews> {
                   child: GestureDetector(
                     onTap: () async {
                       if (await canLaunch(itemArticle.url)) {
-                        await launch(itemArticle.url);
+                        // await launch(itemArticle.url);
+                        await Navigator.push(
+                          context,
+                          CupertinoPageRoute(
+                            builder: (context) => ArticlePage(
+                              itemArticle: itemArticle,
+                            ),
+                          ),
+                        );
                       } else {
                         scaffoldState.currentState.showSnackBar(SnackBar(
                           content: Text('Could not launch news'),
@@ -509,7 +517,15 @@ class _WidgetLatestNewsState extends State<WidgetLatestNews> {
             return GestureDetector(
               onTap: () async {
                 if (await canLaunch(itemArticle.url)) {
-                  await launch(itemArticle.url);
+                  // await launch(itemArticle.url);
+                  await Navigator.push(
+                    context,
+                    CupertinoPageRoute(
+                      builder: (context) => ArticlePage(
+                        itemArticle: itemArticle,
+                      ),
+                    ),
+                  );
                 }
               },
               child: Padding(
