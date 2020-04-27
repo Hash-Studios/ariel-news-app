@@ -6,6 +6,7 @@ import 'dart:io';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'dart:async';
 import 'package:url_launcher/url_launcher.dart';
+import './webpage.dart';
 
 final GlobalKey<ScaffoldState> scaffoldState2 = GlobalKey<ScaffoldState>();
 
@@ -210,7 +211,7 @@ class _ArticlePageState extends State<ArticlePage> {
               await Navigator.push(
                 context,
                 CupertinoPageRoute(
-                  builder: (context) => ArticlePage(
+                  builder: (context) => WebPage(
                     itemArticle: widget.itemArticle,
                     mediaQuery: widget.mediaQuery,
                   ),
