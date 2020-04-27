@@ -12,6 +12,7 @@ dependencies:
   webview_flutter: ^0.3.20+2
   flutter_webview_plugin: ^0.3.11
   share: ^0.6.4
+  flutter_launcher_icons: ^0.7.5
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -46,6 +47,11 @@ dev_dependencies:
 
   # Tools to write binaries that run builders.
   build_runner: ^1.7.1
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icon/icon.png"
 
 flutter:
   # The following line ensures that the Material Icons font is
