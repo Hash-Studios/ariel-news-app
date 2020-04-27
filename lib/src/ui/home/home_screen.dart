@@ -381,8 +381,7 @@ class _WidgetLatestNewsState extends State<WidgetLatestNews> {
       //   return _refreshCompleter.future;
       // },
       // child:
-      return
-      ListView.builder(
+      return ListView.builder(
         padding: EdgeInsets.zero,
         itemCount: data.articles.length,
         // separatorBuilder: (context, index) {
@@ -401,7 +400,9 @@ class _WidgetLatestNewsState extends State<WidgetLatestNews> {
                           BorderRadius.only(bottomLeft: Radius.circular(25))),
                   child: ClipRRect(
                     child: CachedNetworkImage(
-                      imageUrl: itemArticle.urlToImage,
+                      imageUrl: itemArticle.urlToImage == null
+                          ? "https://raw.githubusercontent.com/duytq94/flutter-chat-demo/master/images/img_not_available.jpeg"
+                          : itemArticle.urlToImage,
                       height: 242.0,
                       width: mediaQuery.size.width,
                       fit: BoxFit.cover,
@@ -579,7 +580,9 @@ class _WidgetLatestNewsState extends State<WidgetLatestNews> {
                             padding: const EdgeInsets.only(left: 16.0),
                             child: ClipRRect(
                               child: CachedNetworkImage(
-                                imageUrl: itemArticle.urlToImage,
+                                imageUrl: itemArticle.urlToImage == null
+                                    ? "https://raw.githubusercontent.com/duytq94/flutter-chat-demo/master/images/img_not_available.jpeg"
+                                    : itemArticle.urlToImage,
                                 imageBuilder: (context, imageProvider) {
                                   return Container(
                                     width: 72.0,
