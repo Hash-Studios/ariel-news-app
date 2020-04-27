@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_news_app/src/model/topheadlinesnews/response_top_headlinews_news.dart';
-import 'dart:async';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:share/share.dart';
 
@@ -15,25 +14,10 @@ class WebPage extends StatefulWidget {
 
 class _WebPageState extends State<WebPage> {
   final flutterWebviewPlugin = new FlutterWebviewPlugin();
-  StreamSubscription<WebViewStateChanged> _onchanged;
+
   @override
   void initState() {
     super.initState();
-    _onchanged =
-        flutterWebviewPlugin.onStateChanged.listen((WebViewStateChanged state) {
-      if (mounted) {
-        if (state.type == WebViewState.finishLoad) {
-          // if the full website page loaded
-          print("loaded...");
-        } else if (state.type == WebViewState.abortLoad) {
-          // if there is a problem with loading the url
-          print("there is a problem...");
-        } else if (state.type == WebViewState.startLoad) {
-          // if the url started loading
-          print("start loading...");
-        }
-      }
-    });
   }
 
   @override

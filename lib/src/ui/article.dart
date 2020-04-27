@@ -22,7 +22,6 @@ class _ArticlePageState extends State<ArticlePage> {
   bool _pinned = true;
   bool _snap = false;
   bool _floating = false;
-  Completer<WebViewController> _controller = Completer<WebViewController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
