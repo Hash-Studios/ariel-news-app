@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_news_app/src/model/topheadlinesnews/response_top_headlinews_news.dart';
 import 'dart:io';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'dart:async';
 
 class ArticlePage extends StatefulWidget {
   Article itemArticle;
@@ -17,6 +18,7 @@ class _ArticlePageState extends State<ArticlePage> {
   bool _pinned = true;
   bool _snap = true;
   bool _floating = true;
+  Completer<WebViewController> _controller = Completer<WebViewController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,6 +42,9 @@ class _ArticlePageState extends State<ArticlePage> {
             floating: this._floating,
             expandedHeight: 262.0,
             centerTitle: true,
+            actions: [
+              NavigationControls(_controller.future),
+            ],
             flexibleSpace: FlexibleSpaceBar(
               title: Text(
                 widget.itemArticle.source.name,
@@ -80,13 +85,13 @@ class _ArticlePageState extends State<ArticlePage> {
                       ),
                       gradient: LinearGradient(
                         colors: [
-                          Colors.black.withOpacity(0.0),
-                          Color(0xFF000000).withOpacity(0.2),
+                          Colors.white.withOpacity(0.0),
+                          Color(0xFFAAAAAA).withOpacity(0.8),
                         ],
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
                         stops: [
-                          0.3,
+                          0.5,
                           1.0,
                         ],
                       ),
@@ -97,10 +102,68 @@ class _ArticlePageState extends State<ArticlePage> {
             ),
           ),
           SliverFillRemaining(
-            child: ,
+            child: SizedBox(
+              height: 800,
+              child: WebView(
+                initialUrl: widget.itemArticle.url,
+                onWebViewCreated: (WebViewController webViewController) {
+                  _controller.complete(webViewController);
+                },
+              ),
+            ),
           ),
         ],
       ),
     );
+  }
+}
+
+class NavigationControls extends StatelessWidget {
+  const NavigationControls(this._webViewControllerFuture)
+      : assert(_webViewControllerFuture != null);
+
+  final Future<WebViewController> _webViewControllerFuture;
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<WebViewController>(
+      future: _webViewControllerFuture,
+      builder:
+          (BuildContext context, AsyncSnapshot<WebViewController> snapshot) {
+        final bool webViewReady =
+            snapshot.connectionState == ConnectionState.done;
+        final WebViewController controller = snapshot.data;
+        return Row(
+          children: <Widget>[
+            IconButton(
+              icon: const Icon(Icons.arrow_back_ios),
+              onPressed: !webViewReady
+                  ? null
+                  : () => navigate(context, controller, goBack: true),
+            ),
+            IconButton(
+              icon: const Icon(Icons.arrow_forward_ios),
+              onPressed: !webViewReady
+                  ? null
+                  : () => navigate(context, controller, goBack: false),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  navigate(BuildContext context, WebViewController controller,
+      {bool goBack: false}) async {
+    bool canNavigate =
+        goBack ? await controller.canGoBack() : await controller.canGoForward();
+    if (canNavigate) {
+      goBack ? controller.goBack() : controller.goForward();
+    } else {
+      Scaffold.of(context).showSnackBar(
+        SnackBar(
+            content: Text("No ${goBack ? 'back' : 'forward'} history item")),
+      );
+    }
   }
 }
