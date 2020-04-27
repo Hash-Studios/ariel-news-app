@@ -5,6 +5,9 @@ import 'package:flutter_news_app/src/model/topheadlinesnews/response_top_headlin
 import 'dart:io';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'dart:async';
+import 'package:url_launcher/url_launcher.dart';
+
+final GlobalKey<ScaffoldState> scaffoldState2 = GlobalKey<ScaffoldState>();
 
 class ArticlePage extends StatefulWidget {
   Article itemArticle;
@@ -103,13 +106,17 @@ class _ArticlePageState extends State<ArticlePage> {
             ),
           ),
           SliverFixedExtentList(
-            itemExtent: 662.0,
+            itemExtent: 650.0,
             delegate: SliverChildListDelegate.fixed(
               [
                 Container(
                   color: Color.fromARGB(255, 225, 228, 242),
                   child: Card(
-                    margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                    elevation: 0,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(0))),
+                    color: Color(0xFFB8BEDD),
+                    margin: EdgeInsets.fromLTRB(10, 10, 10, 0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -188,51 +195,73 @@ class _ArticlePageState extends State<ArticlePage> {
 
   Widget _getBottomAppBar() {
     return BottomAppBar(
-      child: ButtonBar(
-        alignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              Text('pinned'),
-              Switch(
-                onChanged: (bool val) {
-                  setState(() {
-                    this._pinned = val;
-                  });
-                },
-                value: this._pinned,
+      elevation: 6,
+      color: Color.fromARGB(255, 225, 228, 242),
+      child: Card(
+        margin: EdgeInsets.all(10),
+        color: Color(0xFFB8BEDD),
+        elevation: 0,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(bottomLeft: Radius.circular(25))),
+        child: GestureDetector(
+          onTap: () async {
+            if (await canLaunch(widget.itemArticle.url)) {
+              // await launch(itemArticle.url);
+              await Navigator.push(
+                context,
+                CupertinoPageRoute(
+                  builder: (context) => ArticlePage(
+                    itemArticle: widget.itemArticle,
+                    mediaQuery: widget.mediaQuery,
+                  ),
+                ),
+              );
+            } else {
+              scaffoldState2.currentState.showSnackBar(SnackBar(
+                content: Text('Could not launch news'),
+              ));
+            }
+          },
+          child: Container(
+            width: widget.mediaQuery.size.width,
+            height: 50.0,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(25.0),
+                // topLeft: Radius.circular(25.0)
               ),
-            ],
+            ),
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Wrap(
+                    crossAxisAlignment: WrapCrossAlignment.center,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8.0),
+                        child: Icon(
+                          Icons.launch,
+                          size: 24.0,
+                          color: Color(0xFF34234d),
+                        ),
+                      ),
+                      SizedBox(width: 4.0),
+                      Text(
+                        widget.itemArticle.source.name,
+                        style: TextStyle(
+                          color: Color(0xFF34234d),
+                          fontSize: 24.0,
+                          fontFamily: "HelveticaL",
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
-          Row(
-            children: <Widget>[
-              Text('snap'),
-              Switch(
-                onChanged: (bool val) {
-                  setState(() {
-                    this._snap = val;
-                    // **Snapping only applies when the app bar is floating.**
-                    this._floating = this._floating || val;
-                  });
-                },
-                value: this._snap,
-              ),
-            ],
-          ),
-          Row(
-            children: <Widget>[
-              Text('floating'),
-              Switch(
-                onChanged: (bool val) {
-                  setState(() {
-                    this._floating = val;
-                  });
-                },
-                value: this._floating,
-              ),
-            ],
-          ),
-        ],
+        ),
       ),
     );
   }
