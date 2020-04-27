@@ -16,8 +16,8 @@ class ArticlePage extends StatefulWidget {
 
 class _ArticlePageState extends State<ArticlePage> {
   bool _pinned = true;
-  bool _snap = true;
-  bool _floating = true;
+  bool _snap = false;
+  bool _floating = false;
   Completer<WebViewController> _controller = Completer<WebViewController>();
   @override
   Widget build(BuildContext context) {
@@ -42,9 +42,9 @@ class _ArticlePageState extends State<ArticlePage> {
             floating: this._floating,
             expandedHeight: 262.0,
             centerTitle: true,
-            actions: [
-              NavigationControls(_controller.future),
-            ],
+            // actions: [
+            //   NavigationControls(_controller.future),
+            // ],
             flexibleSpace: FlexibleSpaceBar(
               title: Text(
                 widget.itemArticle.source.name,
@@ -103,14 +103,67 @@ class _ArticlePageState extends State<ArticlePage> {
           ),
           SliverFillRemaining(
             child: SizedBox(
-              height: 800,
-              child: WebView(
-                initialUrl: widget.itemArticle.url,
-                onWebViewCreated: (WebViewController webViewController) {
-                  _controller.complete(webViewController);
-                },
-              ),
-            ),
+                height: 600,
+                child: Container(
+                  color: Color.fromARGB(255, 225, 228, 242),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 16.0, horizontal: 10),
+                        child: Text(
+                          widget.itemArticle.title,
+                          style: TextStyle(
+                              color: Color(0xFF34234d),
+                              fontFamily: "Helvetica",
+                              fontSize: 24),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal:10.0,vertical:60),
+                        child: Text(
+                          widget.itemArticle.description,
+                          style: TextStyle(
+                              color: Color(0xFF34234d).withOpacity(0.8),
+                              fontFamily: "HelveticaL",
+                              fontSize: 18),
+                        ),
+                      ),
+                      Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Text(
+                              'By ' + widget.itemArticle.author,
+                              style: TextStyle(
+                                  color: Color(0xFF34234d),
+                                  fontFamily: "Helvetica",
+                                  fontSize: 18),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Text(
+                              widget.itemArticle.publishedAt.split('T')[0],
+                              style: TextStyle(
+                                  color: Color(0xFF34234d),
+                                  fontFamily: "Helvetica",
+                                  fontSize: 18),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                )
+                // WebView(
+                //   initialUrl: widget.itemArticle.url,
+                //   onWebViewCreated: (WebViewController webViewController) {
+                //     _controller.complete(webViewController);
+                //   },
+                // ),
+                ),
           ),
         ],
       ),
