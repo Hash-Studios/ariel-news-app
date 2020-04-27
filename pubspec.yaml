@@ -39,7 +39,6 @@ dependencies:
   # error widgets.
   cached_network_image: ^2.0.0-rc
 
-  flutter_stetho: ^0.5.0
 
 dev_dependencies:
   flutter_test:
