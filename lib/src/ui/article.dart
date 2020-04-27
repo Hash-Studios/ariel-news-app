@@ -22,6 +22,7 @@ class _ArticlePageState extends State<ArticlePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromARGB(255, 225, 228, 242),
       body: CustomScrollView(
         slivers: <Widget>[
           SliverAppBar(
@@ -101,69 +102,135 @@ class _ArticlePageState extends State<ArticlePage> {
               ),
             ),
           ),
-          SliverFillRemaining(
-            child: SizedBox(
-                height: 600,
-                child: Container(
+          SliverFixedExtentList(
+            itemExtent: 662.0,
+            delegate: SliverChildListDelegate.fixed(
+              [
+                Container(
                   color: Color.fromARGB(255, 225, 228, 242),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 16.0, horizontal: 10),
-                        child: Text(
-                          widget.itemArticle.title,
-                          style: TextStyle(
-                              color: Color(0xFF34234d),
-                              fontFamily: "Helvetica",
-                              fontSize: 24),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:10.0,vertical:60),
-                        child: Text(
-                          widget.itemArticle.description,
-                          style: TextStyle(
-                              color: Color(0xFF34234d).withOpacity(0.8),
-                              fontFamily: "HelveticaL",
-                              fontSize: 18),
-                        ),
-                      ),
-                      Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Text(
-                              'By ' + widget.itemArticle.author,
-                              style: TextStyle(
-                                  color: Color(0xFF34234d),
-                                  fontFamily: "Helvetica",
-                                  fontSize: 18),
-                            ),
+                  child: Card(
+                    margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              top: 20.0, left: 10, right: 10, bottom: 10),
+                          child: Text(
+                            widget.itemArticle.title == null
+                                ? "News"
+                                : widget.itemArticle.title,
+                            style: TextStyle(
+                                color: Color(0xFF34234d),
+                                fontFamily: "Helvetica",
+                                fontSize: 24),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Text(
-                              widget.itemArticle.publishedAt.split('T')[0],
-                              style: TextStyle(
-                                  color: Color(0xFF34234d),
-                                  fontFamily: "Helvetica",
-                                  fontSize: 18),
-                            ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 10.0, vertical: 40),
+                          child: Text(
+                            widget.itemArticle.description == null
+                                ? "News"
+                                : widget.itemArticle.description,
+                            style: TextStyle(
+                                color: Color(0xFF34234d).withOpacity(0.8),
+                                fontFamily: "HelveticaL",
+                                fontSize: 24),
                           ),
-                        ],
-                      ),
-                    ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Text(
+                                widget.itemArticle.author == null
+                                    ? " "
+                                    : "By " + widget.itemArticle.author,
+                                style: TextStyle(
+                                    color: Color(0xFF34234d),
+                                    fontFamily: "Helvetica",
+                                    fontSize: 18),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Text(
+                                widget.itemArticle.publishedAt == null
+                                    ? " "
+                                    : widget.itemArticle.publishedAt
+                                        .split('T')[0],
+                                style: TextStyle(
+                                    color: Color(0xFF34234d),
+                                    fontFamily: "Helvetica",
+                                    fontSize: 18),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
-                )
-                // WebView(
-                //   initialUrl: widget.itemArticle.url,
-                //   onWebViewCreated: (WebViewController webViewController) {
-                //     _controller.complete(webViewController);
-                //   },
-                // ),
                 ),
+                // SizedBox(height: 40)
+              ],
+            ),
+          ),
+          // SliverFillRemaining(
+          //   child:
+          // ),
+        ],
+      ),
+      bottomNavigationBar: this._getBottomAppBar(),
+    );
+  }
+
+  Widget _getBottomAppBar() {
+    return BottomAppBar(
+      child: ButtonBar(
+        alignment: MainAxisAlignment.spaceEvenly,
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              Text('pinned'),
+              Switch(
+                onChanged: (bool val) {
+                  setState(() {
+                    this._pinned = val;
+                  });
+                },
+                value: this._pinned,
+              ),
+            ],
+          ),
+          Row(
+            children: <Widget>[
+              Text('snap'),
+              Switch(
+                onChanged: (bool val) {
+                  setState(() {
+                    this._snap = val;
+                    // **Snapping only applies when the app bar is floating.**
+                    this._floating = this._floating || val;
+                  });
+                },
+                value: this._snap,
+              ),
+            ],
+          ),
+          Row(
+            children: <Widget>[
+              Text('floating'),
+              Switch(
+                onChanged: (bool val) {
+                  setState(() {
+                    this._floating = val;
+                  });
+                },
+                value: this._floating,
+              ),
+            ],
           ),
         ],
       ),
