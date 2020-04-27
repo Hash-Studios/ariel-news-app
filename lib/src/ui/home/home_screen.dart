@@ -432,6 +432,7 @@ class _WidgetLatestNewsState extends State<WidgetLatestNews> {
                           CupertinoPageRoute(
                             builder: (context) => ArticlePage(
                               itemArticle: itemArticle,
+                              mediaQuery: mediaQuery,
                             ),
                           ),
                         );
@@ -452,7 +453,7 @@ class _WidgetLatestNewsState extends State<WidgetLatestNews> {
                         gradient: LinearGradient(
                           colors: [
                             Colors.black.withOpacity(0.0),
-                            Color(0xFF000000).withOpacity(0.8),
+                            Color(0xFF000000).withOpacity(0.2),
                           ],
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter,
@@ -523,6 +524,7 @@ class _WidgetLatestNewsState extends State<WidgetLatestNews> {
                     CupertinoPageRoute(
                       builder: (context) => ArticlePage(
                         itemArticle: itemArticle,
+                        mediaQuery: mediaQuery,
                       ),
                     ),
                   );
