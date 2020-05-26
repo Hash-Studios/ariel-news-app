@@ -53,14 +53,6 @@ class HomeBloc extends Bloc<DataEvent, DataState> {
     } else {
       switch (categoryLowerCase) {
         case 'all':
-          // if (event is RefreshData) {
-          //   final data = await apiRepository.fetchTopHeadlinesNews();
-          //   if (data != null) {
-          //     yield DataSuccess(data);
-          //   } else {
-          //     yield DataFailed('Failed to fetch data');
-          //   }
-          // }
           final data = await apiRepository.fetchTopHeadlinesNews();
           if (data.error == null) {
             yield DataSuccess(data);
@@ -69,14 +61,6 @@ class HomeBloc extends Bloc<DataEvent, DataState> {
           }
           break;
         case 'business':
-          // if (event is RefreshData) {
-          //   final data = await apiRepository.fetchTopBusinessHeadlinesNews();
-          //   if (data != null) {
-          //     yield DataSuccess(data);
-          //   } else {
-          //     yield DataFailed(data.error);
-          //   }
-          // }
           final data = await apiRepository.fetchTopBusinessHeadlinesNews();
           if (data.error == null) {
             yield DataSuccess(data);
@@ -85,14 +69,6 @@ class HomeBloc extends Bloc<DataEvent, DataState> {
           }
           break;
         case 'entertainment':
-          // if (event is RefreshData) {
-          //   final data = await apiRepository.fetchTopEntertainmentHeadlinesNews();
-          //   if (data != null) {
-          //     yield DataSuccess(data);
-          //   } else {
-          //     yield DataFailed(data.error);
-          //   }
-          // }
           final data = await apiRepository.fetchTopEntertainmentHeadlinesNews();
           if (data.error == null) {
             yield DataSuccess(data);
@@ -101,14 +77,6 @@ class HomeBloc extends Bloc<DataEvent, DataState> {
           }
           break;
         case 'health':
-          // if (event is RefreshData) {
-          //   final data = await apiRepository.fetchTopHealthHeadlinesNews();
-          //   if (data != null) {
-          //     yield DataSuccess(data);
-          //   } else {
-          //     yield DataFailed(data.error);
-          //   }
-          // }
           final data = await apiRepository.fetchTopHealthHeadlinesNews();
           if (data.error == null) {
             yield DataSuccess(data);
@@ -117,14 +85,6 @@ class HomeBloc extends Bloc<DataEvent, DataState> {
           }
           break;
         case 'science':
-          // if (event is RefreshData) {
-          //   final data = await apiRepository.fetchTopScienceHeadlinesNews();
-          //   if (data != null) {
-          //     yield DataSuccess(data);
-          //   } else {
-          //     yield DataFailed(data.error);
-          //   }
-          // }
           final data = await apiRepository.fetchTopScienceHeadlinesNews();
           if (data.error == null) {
             yield DataSuccess(data);
@@ -133,14 +93,6 @@ class HomeBloc extends Bloc<DataEvent, DataState> {
           }
           break;
         case 'sport':
-          // if (event is RefreshData) {
-          //   final data = await apiRepository.fetchTopSportHeadlinesNews();
-          //   if (data != null) {
-          //     yield DataSuccess(data);
-          //   } else {
-          //     yield DataFailed(data.error);
-          //   }
-          // }
           final data = await apiRepository.fetchTopSportHeadlinesNews();
           if (data != null) {
             yield DataSuccess(data);
@@ -149,14 +101,6 @@ class HomeBloc extends Bloc<DataEvent, DataState> {
           }
           break;
         case 'tech':
-          // if (event is RefreshData) {
-          //   final data = await apiRepository.fetchTopTechnologyHeadlinesNews();
-          //   if (data != null) {
-          //     yield DataSuccess(data);
-          //   } else {
-          //     yield DataFailed(data.error);
-          //   }
-          // }
           final data = await apiRepository.fetchTopTechnologyHeadlinesNews();
           if (data != null) {
             yield DataSuccess(data);

@@ -4,7 +4,7 @@ import 'package:flutter_news_app/src/model/topheadlinesnews/response_top_headlin
 class ApiProvider {
   final Dio _dio = Dio();
   final String _baseUrl =
-      'https://newsapi.org/v2/top-headlines?country=in&apiKey=ed4f2df6d05f49d681aacd58aeb3fd6d';
+      'https://newsapi.org/v2/top-headlines?country=in&pageSize=100&apiKey=ed4f2df6d05f49d681aacd58aeb3fd6d';
 
   void printOutError(error, StackTrace stacktrace) {
     print('Exception occured: $error with stacktrace: $stacktrace');
@@ -79,4 +79,15 @@ class ApiProvider {
       return ResponseTopHeadlinesNews.withError('$error');
     }
   }
+
+  Future<ResponseTopHeadlinesNews> getSearchNews(String query) async {
+    try {
+      final response = await _dio.get('$_baseUrl&q=$query');
+      return ResponseTopHeadlinesNews.fromJson(response.data);
+    } catch (error, stacktrace) {
+      printOutError(error, stacktrace);
+      return ResponseTopHeadlinesNews.withError('$error');
+    }
+  }
+
 }

@@ -33,18 +33,21 @@ class ApiRepository {
       return _apiProvider.getTopHeadlinesNews();
     } else if (text == "entertinment") {
       return _apiProvider.getTopEntertainmentHeadlinesNews();
-    }else if (text == "tech") {
+    } else if (text == "tech") {
       return _apiProvider.getTopTechnologyHeadlinesNews();
-    }else if (text == "sport") {
+    } else if (text == "sport") {
       return _apiProvider.getTopSportHeadlinesNews();
-    }else if (text == "business") {
+    } else if (text == "business") {
       return _apiProvider.getTopBusinessHeadlinesNews();
-    }else if (text == "health") {
+    } else if (text == "health") {
       return _apiProvider.getTopHealthHeadlinesNews();
-    }else if (text == "science") {
+    } else if (text == "science") {
       return _apiProvider.getTopScienceHeadlinesNews();
-    }else {
+    } else {
       return _apiProvider.getTopHeadlinesNews();
     }
   }
+
+  Future<ResponseTopHeadlinesNews> fetchSearchNews(String query) =>
+      _apiProvider.getSearchNews(query);
 }
