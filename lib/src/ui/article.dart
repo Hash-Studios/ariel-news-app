@@ -29,12 +29,24 @@ class _ArticlePageState extends State<ArticlePage> {
       body: CustomScrollView(
         slivers: <Widget>[
           SliverAppBar(
-            leading: IconButton(
-                icon: Icon(
+            leading: Stack(
+              children: [
+                Center(
+                    child: Icon(
                   Icons.arrow_back,
-                  color: Color(0xFF34234d),
+                  color: Color(0xFFB8BEDD),
+                  size: 25,
+                )),
+                Center(
+                  child: IconButton(
+                      icon: Icon(
+                        Icons.arrow_back,
+                        color: Color(0xFF34234d),
+                      ),
+                      onPressed: () => Navigator.pop(context)),
                 ),
-                onPressed: () => Navigator.pop(context)),
+              ],
+            ),
             elevation: 0,
             stretchTriggerOffset: 400,
             shape: RoundedRectangleBorder(
@@ -76,28 +88,6 @@ class _ArticlePageState extends State<ArticlePage> {
                       errorWidget: (context, url, error) => Image.asset(
                         'assets/images/img_not_found.jpg',
                         fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    width: widget.mediaQuery.size.width,
-                    height: 292.0,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(25.0),
-                        // topLeft: Radius.circular(25.0),
-                      ),
-                      gradient: LinearGradient(
-                        colors: [
-                          Colors.white.withOpacity(0.0),
-                          Color(0xFFAAAAAA).withOpacity(0.8),
-                        ],
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        stops: [
-                          0.5,
-                          1.0,
-                        ],
                       ),
                     ),
                   ),
