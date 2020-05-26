@@ -19,7 +19,7 @@ class ArticlePage extends StatefulWidget {
 }
 
 class _ArticlePageState extends State<ArticlePage> {
-  bool _pinned = true;
+  bool _pinned = false;
   bool _snap = false;
   bool _floating = false;
   @override
@@ -50,13 +50,13 @@ class _ArticlePageState extends State<ArticlePage> {
             //   NavigationControls(_controller.future),
             // ],
             flexibleSpace: FlexibleSpaceBar(
-              title: Text(
-                widget.itemArticle.source.name,
-                style: TextStyle(
-                  fontFamily: "Helvetica",
-                  color: Color(0xFF34234d),
-                ),
-              ),
+              // title: Text(
+              //   widget.itemArticle.source.name,
+              //   style: TextStyle(
+              //     fontFamily: "Helvetica",
+              //     color: Color(0xFF34234d),
+              //   ),
+              // ),
               background: Stack(
                 children: [
                   ClipRRect(
@@ -106,7 +106,7 @@ class _ArticlePageState extends State<ArticlePage> {
             ),
           ),
           SliverFixedExtentList(
-            itemExtent: 650.0,
+            itemExtent: 708.0,
             delegate: SliverChildListDelegate.fixed(
               [
                 Container(
@@ -161,6 +161,11 @@ class _ArticlePageState extends State<ArticlePage> {
                                     fontSize: 18),
                               ),
                             ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
                             Padding(
                               padding: const EdgeInsets.all(10.0),
                               child: Text(

@@ -410,8 +410,10 @@ class _WidgetLatestNewsState extends State<WidgetLatestNews> {
                       fit: BoxFit.cover,
                       placeholder: (context, url) => Platform.isAndroid
                           ? Container(
-                              margin: EdgeInsets.all(10),
-                              child: CircularProgressIndicator())
+                              height: 242,
+                              child: Center(
+                                  child: Container(
+                                      child: CircularProgressIndicator())))
                           : CupertinoActivityIndicator(),
                       errorWidget: (context, url, error) => Image.asset(
                         'assets/images/img_not_found.jpg',
