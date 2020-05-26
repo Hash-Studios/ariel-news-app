@@ -155,6 +155,7 @@ class WidgetTitle extends StatelessWidget {
   final String strToday;
   final Color headingColor = Color(0xFF34234d);
   final Color subHeadingColor = Color(0xFF34234d);
+
   WidgetTitle(this.strToday);
 
   @override
@@ -212,6 +213,7 @@ class _WidgetCategoryState extends State<WidgetCategory> {
   final Color selectedColor = Color(0xFF34234d);
   final Color unSelectedColor = Color(0xFF34234d);
   final Color selectedBorderColor = Color(0xFF34234d);
+
   @override
   void initState() {
     final homeBloc = BlocProvider.of<HomeBloc>(context);
@@ -314,6 +316,7 @@ class WidgetLatestNews extends StatefulWidget {
 
 class _WidgetLatestNewsState extends State<WidgetLatestNews> {
   final Color newsTitleColor = Color(0xFF34234d);
+
   // Completer<void> _refreshCompleter;
   // @override
   // void initState() {
@@ -392,6 +395,7 @@ class _WidgetLatestNewsState extends State<WidgetLatestNews> {
             return Stack(
               children: <Widget>[
                 Card(
+                  color: Colors.transparent,
                   elevation: 0,
                   shape: RoundedRectangleBorder(
                       borderRadius:
@@ -405,7 +409,9 @@ class _WidgetLatestNewsState extends State<WidgetLatestNews> {
                       width: mediaQuery.size.width,
                       fit: BoxFit.cover,
                       placeholder: (context, url) => Platform.isAndroid
-                          ? CircularProgressIndicator()
+                          ? Container(
+                              margin: EdgeInsets.all(10),
+                              child: CircularProgressIndicator())
                           : CupertinoActivityIndicator(),
                       errorWidget: (context, url, error) => Image.asset(
                         'assets/images/img_not_found.jpg',
