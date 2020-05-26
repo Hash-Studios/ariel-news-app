@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
@@ -11,7 +12,7 @@ import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 final GlobalKey<ScaffoldState> scaffoldState = GlobalKey<ScaffoldState>();
-
+int selectedCategory = 0;
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -242,6 +243,7 @@ class _WidgetCategoryState extends State<WidgetCategory> {
                   onTap: () {
                     setState(() {
                       indexSelectedCategory = index;
+                      selectedCategory = index;
                       homeBloc.dispatch(DataEvent(
                           listCategories[indexSelectedCategory].title));
                     });
@@ -317,12 +319,12 @@ class WidgetLatestNews extends StatefulWidget {
 class _WidgetLatestNewsState extends State<WidgetLatestNews> {
   final Color newsTitleColor = Color(0xFF34234d);
 
-  // Completer<void> _refreshCompleter;
-  // @override
-  // void initState() {
-  //   super.initState();
-  // _refreshCompleter = Completer<void>();
-  // }
+  Completer<void> _refreshCompleter;
+  @override
+  void initState() {
+    super.initState();
+  _refreshCompleter = Completer<void>();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -355,17 +357,16 @@ class _WidgetLatestNewsState extends State<WidgetLatestNews> {
 
   Widget _buildWidgetContentLatestNews(
       DataState state, MediaQueryData mediaQuery) {
-    // final listCategories = [
-    //   Category('', 'All'),
-    //   Category('assets/images/budget.png', 'Business'),
-    //   Category('assets/images/doctors-bag.png', 'Health'),
-    //   Category('assets/images/chemistry-book.png', 'Science'),
-    //   Category('assets/images/sport.png', 'Sport'),
-    //   Category('assets/images/hacking.png', 'Tech'),
-    //   Category('assets/images/music-band.png', 'Entertainment'),
-    // ];
-    // int indexSelectedCategory = 0;
-    // final homeBloc = BlocProvider.of<HomeBloc>(context);
+    final listCategories = [
+      Category('', 'All'),
+      Category('assets/images/budget.png', 'Business'),
+      Category('assets/images/doctors-bag.png', 'Health'),
+      Category('assets/images/chemistry-book.png', 'Science'),
+      Category('assets/images/sport.png', 'Sport'),
+      Category('assets/images/hacking.png', 'Tech'),
+      Category('assets/images/music-band.png', 'Entertainment'),
+    ];
+    final homeBloc = BlocProvider.of<HomeBloc>(context);
     if (state is DataLoading) {
       return Center(
         child: Platform.isAndroid
@@ -374,16 +375,17 @@ class _WidgetLatestNewsState extends State<WidgetLatestNews> {
       );
     } else if (state is DataSuccess) {
       ResponseTopHeadlinesNews data = state.data;
-      // _refreshCompleter?.complete();
-      // _refreshCompleter = Completer();
-      // return RefreshIndicator(
-      // onRefresh: () {
-      //   homeBloc.dispatch(RefreshData(
-      //       category: listCategories[indexSelectedCategory].title));
-      //   return _refreshCompleter.future;
-      // },
-      // child:
-      return ListView.builder(
+      _refreshCompleter?.complete();
+      _refreshCompleter = Completer();
+      return RefreshIndicator(
+      onRefresh: () {
+        homeBloc.dispatch(RefreshData(
+            category: listCategories[selectedCategory].title));
+        return _refreshCompleter.future;
+      },
+      child:
+      // return
+       ListView.builder(
         padding: EdgeInsets.zero,
         itemCount: data.articles.length,
         // separatorBuilder: (context, index) {
@@ -650,7 +652,7 @@ class _WidgetLatestNewsState extends State<WidgetLatestNews> {
             );
           }
         },
-        // ),
+        ),
       );
     } else {
       return Container();

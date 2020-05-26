@@ -26,13 +26,13 @@ class DataEvent {
   DataEvent(this.category);
 }
 
-// class RefreshData extends DataEvent {
-//   final String category;
+class RefreshData extends DataEvent {
+  final String category;
 
-//   RefreshData({this.category})
-//       : assert(category != null),
-//         super(category);
-// }
+  RefreshData({this.category})
+      : assert(category != null),
+        super(category);
+}
 
 class HomeBloc extends Bloc<DataEvent, DataState> {
   @override
@@ -43,129 +43,130 @@ class HomeBloc extends Bloc<DataEvent, DataState> {
     yield DataLoading();
     final apiRepository = ApiRepository();
     final categoryLowerCase = event.category.toLowerCase();
-    // if (event is RefreshData) {
-    //   final data = await apiRepository.fetchTopHeadline(event.category);
-    //   if (data.error == null) {
-    //     yield DataSuccess(data);
-    //   } else {
-    //     yield DataFailed('Failed to fetch data');
-    //   }
-    // }
-    switch (categoryLowerCase) {
-      case 'all':
-        // if (event is RefreshData) {
-        //   final data = await apiRepository.fetchTopHeadlinesNews();
-        //   if (data != null) {
-        //     yield DataSuccess(data);
-        //   } else {
-        //     yield DataFailed('Failed to fetch data');
-        //   }
-        // }
-        final data = await apiRepository.fetchTopHeadlinesNews();
-        if (data.error == null) {
-          yield DataSuccess(data);
-        } else {
-          yield DataFailed('Failed to fetch data');
-        }
-        break;
-      case 'business':
-        // if (event is RefreshData) {
-        //   final data = await apiRepository.fetchTopBusinessHeadlinesNews();
-        //   if (data != null) {
-        //     yield DataSuccess(data);
-        //   } else {
-        //     yield DataFailed(data.error);
-        //   }
-        // }
-        final data = await apiRepository.fetchTopBusinessHeadlinesNews();
-        if (data.error == null) {
-          yield DataSuccess(data);
-        } else {
-          yield DataFailed(data.error);
-        }
-        break;
-      case 'entertainment':
-        // if (event is RefreshData) {
-        //   final data = await apiRepository.fetchTopEntertainmentHeadlinesNews();
-        //   if (data != null) {
-        //     yield DataSuccess(data);
-        //   } else {
-        //     yield DataFailed(data.error);
-        //   }
-        // }
-        final data = await apiRepository.fetchTopEntertainmentHeadlinesNews();
-        if (data.error == null) {
-          yield DataSuccess(data);
-        } else {
-          yield DataFailed(data.error);
-        }
-        break;
-      case 'health':
-        // if (event is RefreshData) {
-        //   final data = await apiRepository.fetchTopHealthHeadlinesNews();
-        //   if (data != null) {
-        //     yield DataSuccess(data);
-        //   } else {
-        //     yield DataFailed(data.error);
-        //   }
-        // }
-        final data = await apiRepository.fetchTopHealthHeadlinesNews();
-        if (data.error == null) {
-          yield DataSuccess(data);
-        } else {
-          yield DataFailed(data.error);
-        }
-        break;
-      case 'science':
-        // if (event is RefreshData) {
-        //   final data = await apiRepository.fetchTopScienceHeadlinesNews();
-        //   if (data != null) {
-        //     yield DataSuccess(data);
-        //   } else {
-        //     yield DataFailed(data.error);
-        //   }
-        // }
-        final data = await apiRepository.fetchTopScienceHeadlinesNews();
-        if (data.error == null) {
-          yield DataSuccess(data);
-        } else {
-          yield DataFailed(data.error);
-        }
-        break;
-      case 'sport':
-        // if (event is RefreshData) {
-        //   final data = await apiRepository.fetchTopSportHeadlinesNews();
-        //   if (data != null) {
-        //     yield DataSuccess(data);
-        //   } else {
-        //     yield DataFailed(data.error);
-        //   }
-        // }
-        final data = await apiRepository.fetchTopSportHeadlinesNews();
-        if (data != null) {
-          yield DataSuccess(data);
-        } else {
-          yield DataFailed(data.error);
-        }
-        break;
-      case 'tech':
-        // if (event is RefreshData) {
-        //   final data = await apiRepository.fetchTopTechnologyHeadlinesNews();
-        //   if (data != null) {
-        //     yield DataSuccess(data);
-        //   } else {
-        //     yield DataFailed(data.error);
-        //   }
-        // }
-        final data = await apiRepository.fetchTopTechnologyHeadlinesNews();
-        if (data != null) {
-          yield DataSuccess(data);
-        } else {
-          yield DataFailed(data.error);
-        }
-        break;
-      default:
-        yield DataFailed('Unknown category');
+    if (event is RefreshData) {
+      final data = await apiRepository.fetchTopHeadline(event.category);
+      if (data.error == null) {
+        yield DataSuccess(data);
+      } else {
+        yield DataFailed('Failed to fetch data');
+      }
+    } else {
+      switch (categoryLowerCase) {
+        case 'all':
+          // if (event is RefreshData) {
+          //   final data = await apiRepository.fetchTopHeadlinesNews();
+          //   if (data != null) {
+          //     yield DataSuccess(data);
+          //   } else {
+          //     yield DataFailed('Failed to fetch data');
+          //   }
+          // }
+          final data = await apiRepository.fetchTopHeadlinesNews();
+          if (data.error == null) {
+            yield DataSuccess(data);
+          } else {
+            yield DataFailed('Failed to fetch data');
+          }
+          break;
+        case 'business':
+          // if (event is RefreshData) {
+          //   final data = await apiRepository.fetchTopBusinessHeadlinesNews();
+          //   if (data != null) {
+          //     yield DataSuccess(data);
+          //   } else {
+          //     yield DataFailed(data.error);
+          //   }
+          // }
+          final data = await apiRepository.fetchTopBusinessHeadlinesNews();
+          if (data.error == null) {
+            yield DataSuccess(data);
+          } else {
+            yield DataFailed(data.error);
+          }
+          break;
+        case 'entertainment':
+          // if (event is RefreshData) {
+          //   final data = await apiRepository.fetchTopEntertainmentHeadlinesNews();
+          //   if (data != null) {
+          //     yield DataSuccess(data);
+          //   } else {
+          //     yield DataFailed(data.error);
+          //   }
+          // }
+          final data = await apiRepository.fetchTopEntertainmentHeadlinesNews();
+          if (data.error == null) {
+            yield DataSuccess(data);
+          } else {
+            yield DataFailed(data.error);
+          }
+          break;
+        case 'health':
+          // if (event is RefreshData) {
+          //   final data = await apiRepository.fetchTopHealthHeadlinesNews();
+          //   if (data != null) {
+          //     yield DataSuccess(data);
+          //   } else {
+          //     yield DataFailed(data.error);
+          //   }
+          // }
+          final data = await apiRepository.fetchTopHealthHeadlinesNews();
+          if (data.error == null) {
+            yield DataSuccess(data);
+          } else {
+            yield DataFailed(data.error);
+          }
+          break;
+        case 'science':
+          // if (event is RefreshData) {
+          //   final data = await apiRepository.fetchTopScienceHeadlinesNews();
+          //   if (data != null) {
+          //     yield DataSuccess(data);
+          //   } else {
+          //     yield DataFailed(data.error);
+          //   }
+          // }
+          final data = await apiRepository.fetchTopScienceHeadlinesNews();
+          if (data.error == null) {
+            yield DataSuccess(data);
+          } else {
+            yield DataFailed(data.error);
+          }
+          break;
+        case 'sport':
+          // if (event is RefreshData) {
+          //   final data = await apiRepository.fetchTopSportHeadlinesNews();
+          //   if (data != null) {
+          //     yield DataSuccess(data);
+          //   } else {
+          //     yield DataFailed(data.error);
+          //   }
+          // }
+          final data = await apiRepository.fetchTopSportHeadlinesNews();
+          if (data != null) {
+            yield DataSuccess(data);
+          } else {
+            yield DataFailed(data.error);
+          }
+          break;
+        case 'tech':
+          // if (event is RefreshData) {
+          //   final data = await apiRepository.fetchTopTechnologyHeadlinesNews();
+          //   if (data != null) {
+          //     yield DataSuccess(data);
+          //   } else {
+          //     yield DataFailed(data.error);
+          //   }
+          // }
+          final data = await apiRepository.fetchTopTechnologyHeadlinesNews();
+          if (data != null) {
+            yield DataSuccess(data);
+          } else {
+            yield DataFailed(data.error);
+          }
+          break;
+        default:
+          yield DataFailed('Unknown category');
+      }
     }
   }
 }
