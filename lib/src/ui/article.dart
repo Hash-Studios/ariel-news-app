@@ -22,7 +22,7 @@ class ArticlePage extends StatefulWidget {
 }
 
 class _ArticlePageState extends State<ArticlePage> {
-  bool _pinned = true;
+  bool _pinned = false;
   bool _snap = false;
   bool _floating = false;
 
@@ -33,12 +33,24 @@ class _ArticlePageState extends State<ArticlePage> {
       body: CustomScrollView(
         slivers: <Widget>[
           SliverAppBar(
-            leading: IconButton(
-                icon: Icon(
+            leading: Stack(
+              children: [
+                Center(
+                    child: Icon(
                   Icons.arrow_back,
-                  color: Color(0xFF34234d),
+                  color: Color(0xFFB8BEDD),
+                  size: 25,
+                )),
+                Center(
+                  child: IconButton(
+                      icon: Icon(
+                        Icons.arrow_back,
+                        color: Color(0xFF34234d),
+                      ),
+                      onPressed: () => Navigator.pop(context)),
                 ),
-                onPressed: () => Navigator.pop(context)),
+              ],
+            ),
             elevation: 0,
             stretchTriggerOffset: 400,
             shape: RoundedRectangleBorder(
@@ -54,13 +66,13 @@ class _ArticlePageState extends State<ArticlePage> {
             //   NavigationControls(_controller.future),
             // ],
             flexibleSpace: FlexibleSpaceBar(
-              title: Text(
-                widget.itemArticle.source.name,
-                style: TextStyle(
-                  fontFamily: "Helvetica",
-                  color: Color(0xFF34234d),
-                ),
-              ),
+//               title: Text(
+//                 widget.itemArticle.source.name,
+//                 style: TextStyle(
+//                   fontFamily: "Helvetica",
+//                   color: Color(0xFF34234d),
+//                 ),
+//               ),
               background: InkWell(
                 onTap: () {
                   showImage();
@@ -115,7 +127,7 @@ class _ArticlePageState extends State<ArticlePage> {
             ),
           ),
           SliverFixedExtentList(
-            itemExtent: 650.0,
+            itemExtent: 708.0,
             delegate: SliverChildListDelegate.fixed(
               [
                 Container(
@@ -170,6 +182,11 @@ class _ArticlePageState extends State<ArticlePage> {
                                     fontSize: 18),
                               ),
                             ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
                             Padding(
                               padding: const EdgeInsets.all(10.0),
                               child: Text(
