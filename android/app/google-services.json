@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "384333569633",
+    "firebase_url": "https://ariel-news.firebaseio.com",
+    "project_id": "ariel-news",
+    "storage_bucket": "ariel-news.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:384333569633:android:f15e61a6dd975445581420",
+        "android_client_info": {
+          "package_name": "com.hash.ariel"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "384333569633-m8uosc5ia023l4krpnh7r47gsbo2cm6c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hash.ariel",
+            "certificate_hash": "184f2ebd0086d454f6ab1ba5149343ac04e85a11"
+          }
+        },
+        {
+          "client_id": "384333569633-jhmp670kulhc666ml01ge01unp3cthki.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB2SPUD2y2_-2-zHUCBzy5XyvYWPNmqEtw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "384333569633-jhmp670kulhc666ml01ge01unp3cthki.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -91,7 +91,11 @@ class _ArticlePageState extends State<ArticlePage> {
                         width: widget.mediaQuery.size.width,
                         fit: BoxFit.cover,
                         placeholder: (context, url) => Platform.isAndroid
-                            ? CircularProgressIndicator()
+                            ? Container(
+                              height: 292,
+                              child: Center(
+                                  child: Container(
+                                      child: CircularProgressIndicator())))
                             : CupertinoActivityIndicator(),
                         errorWidget: (context, url, error) => Image.asset(
                           'assets/images/img_not_found.jpg',
@@ -107,18 +111,18 @@ class _ArticlePageState extends State<ArticlePage> {
                           bottomLeft: Radius.circular(25.0),
                           // topLeft: Radius.circular(25.0),
                         ),
-                        gradient: LinearGradient(
-                          colors: [
-                            Colors.white.withOpacity(0.0),
-                            Color(0xFFAAAAAA).withOpacity(0.8),
-                          ],
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          stops: [
-                            0.5,
-                            1.0,
-                          ],
-                        ),
+                        // gradient: LinearGradient(
+                        //   colors: [
+                        //     Colors.white.withOpacity(0.0),
+                        //     Color(0xFFAAAAAA).withOpacity(0.8),
+                        //   ],
+                        //   begin: Alignment.topCenter,
+                        //   end: Alignment.bottomCenter,
+                        //   stops: [
+                        //     0.5,
+                        //     1.0,
+                        //   ],
+                        // ),
                       ),
                     ),
                   ],
@@ -294,15 +298,17 @@ class _ArticlePageState extends State<ArticlePage> {
 
   showImage() {
     Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => CustomImageView(
-                url: widget.itemArticle.urlToImage == null
-                    ? "https://raw.githubusercontent.com/duytq94/flutter-chat-demo/master/images/img_not_available.jpeg"
-                    : widget.itemArticle.urlToImage,
-                title: widget.itemArticle.title.length > 35
-                    ? widget.itemArticle.title.substring(0, 35) + ".."
-                    : widget.itemArticle.title)));
+      context,
+      MaterialPageRoute(
+        builder: (context) => CustomImageView(
+            url: widget.itemArticle.urlToImage == null
+                ? "https://raw.githubusercontent.com/duytq94/flutter-chat-demo/master/images/img_not_available.jpeg"
+                : widget.itemArticle.urlToImage,
+            title: widget.itemArticle.title.length > 35
+                ? widget.itemArticle.title.substring(0, 35) + "..."
+                : widget.itemArticle.title),
+      ),
+    );
   }
 }
 

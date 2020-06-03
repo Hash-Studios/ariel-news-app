@@ -1,4 +1,4 @@
-package com.ysn.flutter_news_app
+package com.hash.ariel
 
 import android.os.Bundle
 import io.flutter.app.FlutterActivity
