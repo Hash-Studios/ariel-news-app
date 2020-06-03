@@ -10,12 +10,14 @@ import 'package:flutter_news_app/src/model/topheadlinesnews/response_top_headlin
 import 'package:flutter_news_app/src/ui/article.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_news_app/globals.dart' as globals;
 
 final GlobalKey<ScaffoldState> scaffoldState = GlobalKey<ScaffoldState>();
-int selectedCategory = 0;
+int selectedCategory = globals.selectedCategory;
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    print(globals.selectedCategory);
     var strToday = getStrToday();
     var mediaQuery = MediaQuery.of(context);
 
@@ -209,7 +211,7 @@ class _WidgetCategoryState extends State<WidgetCategory> {
     Category('assets/images/hacking.png', 'Tech'),
     Category('assets/images/music-band.png', 'Entertainment'),
   ];
-  int indexSelectedCategory = 0;
+  int indexSelectedCategory;
   final Color allColor = Color.fromARGB(255, 225, 228, 242);
   final Color selectedColor = Color(0xFF34234d);
   final Color unSelectedColor = Color(0xFF34234d);
@@ -217,6 +219,8 @@ class _WidgetCategoryState extends State<WidgetCategory> {
 
   @override
   void initState() {
+    int indexSelectedCategory = globals.selectedCategory;
+    selectedCategory = indexSelectedCategory;
     final homeBloc = BlocProvider.of<HomeBloc>(context);
     homeBloc.dispatch(DataEvent(listCategories[indexSelectedCategory].title));
     super.initState();
@@ -242,6 +246,7 @@ class _WidgetCategoryState extends State<WidgetCategory> {
                 GestureDetector(
                   onTap: () {
                     setState(() {
+                      print(index);
                       indexSelectedCategory = index;
                       selectedCategory = index;
                       homeBloc.dispatch(DataEvent(
