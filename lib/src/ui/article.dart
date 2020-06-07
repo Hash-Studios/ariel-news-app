@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_news_app/src/Widgets/CustomImageView.dart';
+import 'package:flutter_news_app/src/Widgets/photoViewer.dart';
 import 'package:flutter_news_app/src/model/topheadlinesnews/response_top_headlinews_news.dart';
 import 'dart:io';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -83,23 +84,26 @@ class _ArticlePageState extends State<ArticlePage> {
                       borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(25.0),
                       ),
-                      child: CachedNetworkImage(
-                        imageUrl: widget.itemArticle.urlToImage == null
-                            ? "https://raw.githubusercontent.com/duytq94/flutter-chat-demo/master/images/img_not_available.jpeg"
-                            : widget.itemArticle.urlToImage,
-                        height: 292.0,
-                        width: widget.mediaQuery.size.width,
-                        fit: BoxFit.fill,
-                        placeholder: (context, url) => Platform.isAndroid
-                            ? Container(
-                                height: 292,
-                                child: Center(
-                                    child: Container(
-                                        child: CircularProgressIndicator())))
-                            : CupertinoActivityIndicator(),
-                        errorWidget: (context, url, error) => Image.asset(
-                          'assets/images/img_not_found.jpg',
+                      child: Hero(
+                        tag: "image",
+                        child: CachedNetworkImage(
+                          imageUrl: widget.itemArticle.urlToImage == null
+                              ? "https://raw.githubusercontent.com/duytq94/flutter-chat-demo/master/images/img_not_available.jpeg"
+                              : widget.itemArticle.urlToImage,
+                          height: 292.0,
+                          width: widget.mediaQuery.size.width,
                           fit: BoxFit.fill,
+                          placeholder: (context, url) => Platform.isAndroid
+                              ? Container(
+                                  height: 292,
+                                  child: Center(
+                                      child: Container(
+                                          child: CircularProgressIndicator())))
+                              : CupertinoActivityIndicator(),
+                          errorWidget: (context, url, error) => Image.asset(
+                            'assets/images/img_not_found.jpg',
+                            fit: BoxFit.fill,
+                          ),
                         ),
                       ),
                     ),
@@ -131,7 +135,7 @@ class _ArticlePageState extends State<ArticlePage> {
             ),
           ),
           SliverFixedExtentList(
-            itemExtent: MediaQuery.of(context).size.height-292,
+            itemExtent: MediaQuery.of(context).size.height - 292,
             delegate: SliverChildListDelegate.fixed(
               [
                 Container(
@@ -169,7 +173,7 @@ class _ArticlePageState extends State<ArticlePage> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.fromLTRB(10,0,10,40),
+                            padding: const EdgeInsets.fromLTRB(10, 0, 10, 40),
                             child: Text(
                               widget.itemArticle.description == null
                                   ? "News"
@@ -181,7 +185,8 @@ class _ArticlePageState extends State<ArticlePage> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 0),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 0),
                             child: Container(
                               child: Text(
                                 widget.itemArticle.author == null
@@ -195,7 +200,8 @@ class _ArticlePageState extends State<ArticlePage> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 0),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 0),
                             child: Container(
                               child: Text(
                                 widget.itemArticle.publishedAt == null
@@ -347,14 +353,19 @@ class _ArticlePageState extends State<ArticlePage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => CustomImageView(
-            url: widget.itemArticle.urlToImage == null
-                ? "https://raw.githubusercontent.com/duytq94/flutter-chat-demo/master/images/img_not_available.jpeg"
-                : widget.itemArticle.urlToImage,
-            title: widget.itemArticle.title.length > 35
-                ? widget.itemArticle.title.substring(0, 35) + "..."
-                : widget.itemArticle.title),
-      ),
+          builder: (context) => PhotoViewer(
+                url: widget.itemArticle.urlToImage == null
+                    ? "https://raw.githubusercontent.com/duytq94/flutter-chat-demo/master/images/img_not_available.jpeg"
+                    : widget.itemArticle.urlToImage,
+              )
+          // CustomImageView(
+          // url: widget.itemArticle.urlToImage == null
+          //     ? "https://raw.githubusercontent.com/duytq94/flutter-chat-demo/master/images/img_not_available.jpeg"
+          //     : widget.itemArticle.urlToImage,
+          //     title: widget.itemArticle.title.length > 35
+          //         ? widget.itemArticle.title.substring(0, 35) + "..."
+          //         : widget.itemArticle.title),
+          ),
     );
   }
 }
