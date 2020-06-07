@@ -36,30 +36,30 @@ class _WebPageState extends State<WebPage> {
             : widget.itemArticle.url,
         withJavascript: true, // run javascript
         withZoom: true, // if you want the user zoom-in and zoom-out
-        hidden:
-            true, // put it true if you want to show CircularProgressIndicator while waiting for the page to load
+        // hidden:
+        //     true, // put it true if you want to show CircularProgressIndicator while waiting for the page to load
 
         appBar: AppBar(
           title: Text(
             widget.itemArticle.source.name,
             style: TextStyle(
               fontFamily: "Helvetica",
-              color: Color(0xFF34234d),
+              color: Color(0xFF000000),
             ),
           ),
           elevation: 0,
           leading: IconButton(
               icon: Icon(
                 Icons.arrow_back,
-                color: Color(0xFF34234d),
+                color: Colors.red,
               ),
               onPressed: () => Navigator.pop(context)),
           shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.only(bottomLeft: Radius.circular(25))),
-          backgroundColor: Color(0xFFB8BEDD),
+              borderRadius: BorderRadius.all(Radius.circular(10))),
+          backgroundColor: Color(0xFFFFFFFF),
           actions: <Widget>[
             IconButton(
-              icon: Icon(Icons.share, color: Color(0xFF34234d)),
+              icon: Icon(Icons.share, color: Color(0xFF000000).withOpacity(0.5)),
               onPressed: () {
                 Share.share(widget.itemArticle.url,
                     subject: 'Check out this news from Ariel News App.');
@@ -67,13 +67,13 @@ class _WebPageState extends State<WebPage> {
               },
             ),
             IconButton(
-              icon: Icon(Icons.arrow_back_ios, color: Color(0xFF34234d)),
+              icon: Icon(Icons.arrow_back_ios, color: Color(0xFF000000).withOpacity(0.8)),
               onPressed: () {
                 flutterWebviewPlugin.goBack(); // for going back
               },
             ),
             IconButton(
-              icon: Icon(Icons.arrow_forward_ios, color: Color(0xFF34234d)),
+              icon: Icon(Icons.arrow_forward_ios, color: Color(0xFF000000).withOpacity(0.8)),
               onPressed: () {
                 flutterWebviewPlugin.goForward(); // for going forward
               },

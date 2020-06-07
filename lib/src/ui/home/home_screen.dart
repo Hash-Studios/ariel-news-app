@@ -14,6 +14,7 @@ import 'package:flutter_news_app/globals.dart' as globals;
 
 final GlobalKey<ScaffoldState> scaffoldState = GlobalKey<ScaffoldState>();
 int selectedCategory = globals.selectedCategory;
+
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -22,7 +23,7 @@ class HomeScreen extends StatelessWidget {
     var mediaQuery = MediaQuery.of(context);
 
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 225, 228, 242),
+      backgroundColor: Color(0xFFFFFFFF),
       key: scaffoldState,
       body: BlocProvider<HomeBloc>(
         builder: (context) => HomeBloc(),
@@ -31,7 +32,7 @@ class HomeScreen extends StatelessWidget {
           children: <Widget>[
             Container(
               decoration: BoxDecoration(
-                color: Color(0xFFB8BEDD),
+                color: Color(0xFFEAEAEA),
                 borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(25),
                 ),
@@ -74,7 +75,7 @@ class HomeScreen extends StatelessWidget {
         'Top stories at the moment',
         style: Theme.of(context).textTheme.caption.merge(
               TextStyle(
-                color: Color(0xFF34234d).withOpacity(0.5),
+                color: Color(0xFF000000).withOpacity(0.5),
                 fontFamily: "Helvetica",
               ),
             ),
@@ -90,7 +91,7 @@ class HomeScreen extends StatelessWidget {
         style: Theme.of(context).textTheme.subtitle.merge(
               TextStyle(
                 fontSize: 18.0,
-                color: Color(0xFF34234d).withOpacity(0.8),
+                color: Color(0xFF000000).withOpacity(1),
                 fontFamily: "Helvetica",
               ),
             ),
@@ -156,8 +157,8 @@ class HomeScreen extends StatelessWidget {
 
 class WidgetTitle extends StatelessWidget {
   final String strToday;
-  final Color headingColor = Color(0xFF34234d);
-  final Color subHeadingColor = Color(0xFF34234d);
+  final Color headingColor = Color(0xFF000000);
+  final Color subHeadingColor = Color(0xFF000000);
 
   WidgetTitle(this.strToday);
 
@@ -182,7 +183,7 @@ class WidgetTitle extends StatelessWidget {
                 text: strToday,
                 style: Theme.of(context).textTheme.caption.merge(
                       TextStyle(
-                        color: subHeadingColor.withOpacity(0.8),
+                        color: subHeadingColor.withOpacity(0.5),
                         fontSize: 10.0,
                         fontFamily: "Helvetica",
                       ),
@@ -212,10 +213,10 @@ class _WidgetCategoryState extends State<WidgetCategory> {
     Category('assets/images/music-band.png', 'Entertainment'),
   ];
   int indexSelectedCategory;
-  final Color allColor = Color.fromARGB(255, 225, 228, 242);
-  final Color selectedColor = Color(0xFF34234d);
-  final Color unSelectedColor = Color(0xFF34234d);
-  final Color selectedBorderColor = Color(0xFF34234d);
+  final Color allColor = Color(0xFFFFFFFF);
+  final Color selectedColor = Colors.red;
+  final Color unSelectedColor = Color(0xFF000000);
+  final Color selectedBorderColor = Colors.red;
 
   @override
   void initState() {
@@ -277,10 +278,17 @@ class _WidgetCategoryState extends State<WidgetCategory> {
                           height: 48.0,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            image: DecorationImage(
-                              image: AssetImage(itemCategory.image),
-                              fit: BoxFit.cover,
-                            ),
+                            image: indexSelectedCategory == index
+                                ? DecorationImage(
+                                    image: AssetImage(itemCategory.image),
+                                    fit: BoxFit.cover,
+                                  )
+                                : DecorationImage(
+                                    image: AssetImage(itemCategory.image),
+                                    colorFilter: ColorFilter.mode(
+                                        Colors.white, BlendMode.color),
+                                    fit: BoxFit.cover,
+                                  ),
                             border: indexSelectedCategory == index
                                 ? Border.all(
                                     color: selectedBorderColor,
@@ -322,13 +330,13 @@ class WidgetLatestNews extends StatefulWidget {
 }
 
 class _WidgetLatestNewsState extends State<WidgetLatestNews> {
-  final Color newsTitleColor = Color(0xFF34234d);
+  final Color newsTitleColor = Color(0xFF000000);
 
   Completer<void> _refreshCompleter;
   @override
   void initState() {
     super.initState();
-  _refreshCompleter = Completer<void>();
+    _refreshCompleter = Completer<void>();
   }
 
   @override
@@ -337,9 +345,9 @@ class _WidgetLatestNewsState extends State<WidgetLatestNews> {
     final HomeBloc homeBloc = BlocProvider.of<HomeBloc>(context);
     return Padding(
       padding: EdgeInsets.only(
-        left: 16.0,
+        left: 0.0,
         top: 8.0,
-        right: 16.0,
+        right: 0.0,
         bottom: mediaQuery.padding.bottom,
       ),
       child: BlocListener<HomeBloc, DataState>(
@@ -383,280 +391,308 @@ class _WidgetLatestNewsState extends State<WidgetLatestNews> {
       _refreshCompleter?.complete();
       _refreshCompleter = Completer();
       return RefreshIndicator(
-      onRefresh: () {
-        homeBloc.dispatch(RefreshData(
-            category: listCategories[selectedCategory].title));
-        return _refreshCompleter.future;
-      },
-      child:
-      // return
-       ListView.builder(
-        padding: EdgeInsets.zero,
-        itemCount: data.articles.length,
-        // separatorBuilder: (context, index) {
-        //   return Divider();
-        // },
-        itemBuilder: (context, index) {
-          Article itemArticle = data.articles[index];
-          if (index == 0) {
-            return Stack(
-              children: <Widget>[
-                Card(
-                  color: Colors.transparent,
-                  elevation: 0,
-                  shape: RoundedRectangleBorder(
-                      borderRadius:
-                          BorderRadius.only(bottomLeft: Radius.circular(25))),
-                  child: ClipRRect(
-                    child: CachedNetworkImage(
-                      imageUrl: itemArticle.urlToImage == null
-                          ? "https://raw.githubusercontent.com/duytq94/flutter-chat-demo/master/images/img_not_available.jpeg"
-                          : itemArticle.urlToImage,
-                      height: 242.0,
-                      width: mediaQuery.size.width,
-                      fit: BoxFit.cover,
-                      placeholder: (context, url) => Platform.isAndroid
-                          ? Container(
-                              height: 242,
-                              child: Center(
-                                  child: Container(
-                                      child: CircularProgressIndicator())))
-                          : CupertinoActivityIndicator(),
-                      errorWidget: (context, url, error) => Image.asset(
-                        'assets/images/img_not_found.jpg',
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(25.0),
-                      // topLeft: Radius.circular(25.0),
-                    ),
-                  ),
-                ),
-                Card(
-                  color: Colors.transparent,
-                  elevation: 0,
-                  child: GestureDetector(
-                    onTap: () async {
-                      if (await canLaunch(itemArticle.url)) {
-                        // await launch(itemArticle.url);
-                        await Navigator.push(
-                          context,
-                          CupertinoPageRoute(
-                            builder: (context) => ArticlePage(
-                              itemArticle: itemArticle,
-                              mediaQuery: mediaQuery,
+        onRefresh: () {
+          homeBloc.dispatch(
+              RefreshData(category: listCategories[selectedCategory].title));
+          return _refreshCompleter.future;
+        },
+        child:
+            // return
+            Scrollbar(
+          child: ListView.builder(
+            padding: EdgeInsets.zero,
+            itemCount: data.articles.length,
+            // separatorBuilder: (context, index) {
+            //   return Divider();
+            // },
+            itemBuilder: (context, index) {
+              Article itemArticle = data.articles[index];
+              if (index == 0) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Stack(
+                    children: <Widget>[
+                      Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            boxShadow: [
+                              BoxShadow(
+                                  offset: Offset(0, 5),
+                                  blurRadius: 10,
+                                  color: Color(0xFF000000).withOpacity(0.1))
+                            ]),
+                        child: Card(
+                          color: Colors.transparent,
+                          elevation: 0,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(25))),
+                          child: ClipRRect(
+                            child: CachedNetworkImage(
+                              imageUrl: itemArticle.urlToImage == null
+                                  ? "https://raw.githubusercontent.com/duytq94/flutter-chat-demo/master/images/img_not_available.jpeg"
+                                  : itemArticle.urlToImage,
+                              height: 242.0,
+                              width: mediaQuery.size.width,
+                              fit: BoxFit.cover,
+                              placeholder: (context, url) => Platform.isAndroid
+                                  ? Container(
+                                      height: 242,
+                                      child: Center(
+                                          child: Container(
+                                              child:
+                                                  CircularProgressIndicator())))
+                                  : CupertinoActivityIndicator(),
+                              errorWidget: (context, url, error) => Image.asset(
+                                'assets/images/img_not_found.jpg',
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(10),
+                              // topLeft: Radius.circular(25.0),
                             ),
                           ),
-                        );
-                      } else {
-                        scaffoldState.currentState.showSnackBar(SnackBar(
-                          content: Text('Could not launch news'),
-                        ));
-                      }
-                    },
-                    child: Container(
-                      width: mediaQuery.size.width,
-                      height: 242.0,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(25.0),
-                          // topLeft: Radius.circular(25.0),
-                        ),
-                        gradient: LinearGradient(
-                          colors: [
-                            Colors.black.withOpacity(0.0),
-                            Color(0xFF000000).withOpacity(0.2),
-                          ],
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          stops: [
-                            0.3,
-                            1.0,
-                          ],
                         ),
                       ),
-                    ),
-                  ),
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        left: 12.0,
-                        top: 188.0,
-                        right: 12.0,
-                      ),
-                      child: Text(
-                        itemArticle.title,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontFamily: "Helvetica",
-                        ),
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 2,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        left: 18.0,
-                        top: 4.0,
-                        right: 12.0,
-                      ),
-                      child: Wrap(
-                        children: <Widget>[
-                          Icon(
-                            Icons.launch,
-                            color: Colors.white.withOpacity(0.8),
-                            size: 12.0,
-                          ),
-                          SizedBox(width: 4.0),
-                          Text(
-                            '${itemArticle.source.name}',
-                            style: TextStyle(
-                              color: Colors.white.withOpacity(0.8),
-                              fontSize: 11.0,
-                              fontFamily: "HelveticaL",
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            );
-          } else {
-            return GestureDetector(
-              onTap: () async {
-                if (await canLaunch(itemArticle.url)) {
-                  // await launch(itemArticle.url);
-                  await Navigator.push(
-                    context,
-                    CupertinoPageRoute(
-                      builder: (context) => ArticlePage(
-                        itemArticle: itemArticle,
-                        mediaQuery: mediaQuery,
-                      ),
-                    ),
-                  );
-                }
-              },
-              child: Padding(
-                padding: const EdgeInsets.only(top: 2.0),
-                child: Card(
-                  color: Color(0xFFB8BEDD),
-                  elevation: 0,
-                  shape: RoundedRectangleBorder(
-                      borderRadius:
-                          BorderRadius.only(bottomLeft: Radius.circular(25))),
-                  child: Container(
-                    width: mediaQuery.size.width,
-                    child: Padding(
-                      padding: const EdgeInsets.all(6.0),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Expanded(
-                            child: SizedBox(
-                              height: 75.0,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  Text(
-                                    itemArticle.title,
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 3,
-                                    style: TextStyle(
-                                      fontSize: 16.0,
-                                      color: newsTitleColor,
-                                      fontWeight: FontWeight.w400,
-                                      fontFamily: "Helvetica",
-                                    ),
+                      Card(
+                        color: Colors.transparent,
+                        elevation: 0,
+                        child: GestureDetector(
+                          onTap: () async {
+                            if (await canLaunch(itemArticle.url)) {
+                              // await launch(itemArticle.url);
+                              await Navigator.push(
+                                context,
+                                CupertinoPageRoute(
+                                  builder: (context) => ArticlePage(
+                                    itemArticle: itemArticle,
+                                    mediaQuery: mediaQuery,
                                   ),
-                                  Wrap(
-                                    crossAxisAlignment:
-                                        WrapCrossAlignment.center,
-                                    children: <Widget>[
-                                      Padding(
-                                        padding:
-                                            const EdgeInsets.only(left: 8.0),
-                                        child: Icon(
-                                          Icons.launch,
-                                          size: 12.0,
-                                          color: Color(0xFF34234d)
-                                              .withOpacity(0.5),
-                                        ),
-                                      ),
-                                      SizedBox(width: 4.0),
-                                      Text(
-                                        itemArticle.source.name,
-                                        style: TextStyle(
-                                          color: Color(0xFF34234d)
-                                              .withOpacity(0.5),
-                                          fontSize: 12.0,
-                                          fontFamily: "HelveticaL",
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                ),
+                              );
+                            } else {
+                              scaffoldState.currentState.showSnackBar(SnackBar(
+                                content: Text('Could not launch news'),
+                              ));
+                            }
+                          },
+                          child: Container(
+                            width: mediaQuery.size.width,
+                            height: 242.0,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(10),
+                                // topLeft: Radius.circular(25.0),
+                              ),
+                              gradient: LinearGradient(
+                                colors: [
+                                  Colors.black.withOpacity(0.0),
+                                  Color(0xFF000000).withOpacity(0.2),
+                                ],
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                                stops: [
+                                  0.3,
+                                  1.0,
                                 ],
                               ),
                             ),
                           ),
+                        ),
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
                           Padding(
-                            padding: const EdgeInsets.only(left: 16.0),
-                            child: ClipRRect(
-                              child: CachedNetworkImage(
-                                imageUrl: itemArticle.urlToImage == null
-                                    ? "https://raw.githubusercontent.com/duytq94/flutter-chat-demo/master/images/img_not_available.jpeg"
-                                    : itemArticle.urlToImage,
-                                imageBuilder: (context, imageProvider) {
-                                  return Container(
-                                    width: 72.0,
-                                    height: 72.0,
-                                    decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                        image: imageProvider,
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                  );
-                                },
-                                placeholder: (context, url) => Container(
-                                  width: 72.0,
-                                  height: 72.0,
-                                  child: Center(
-                                    child: Platform.isAndroid
-                                        ? CircularProgressIndicator()
-                                        : CupertinoActivityIndicator(),
+                            padding: const EdgeInsets.only(
+                              left: 12.0,
+                              top: 188.0,
+                              right: 12.0,
+                            ),
+                            child: Text(
+                              itemArticle.title,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: "Helvetica",
+                              ),
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 2,
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              left: 18.0,
+                              top: 4.0,
+                              right: 12.0,
+                            ),
+                            child: Wrap(
+                              children: <Widget>[
+                                Icon(
+                                  Icons.launch,
+                                  color: Colors.white.withOpacity(0.8),
+                                  size: 12.0,
+                                ),
+                                SizedBox(width: 4.0),
+                                Text(
+                                  '${itemArticle.source.name}',
+                                  style: TextStyle(
+                                    color: Colors.white.withOpacity(0.8),
+                                    fontSize: 11.0,
+                                    fontFamily: "HelveticaL",
                                   ),
                                 ),
-                                errorWidget: (context, url, error) =>
-                                    Image.asset(
-                                  'assets/images/img_not_found.jpg',
-                                  fit: BoxFit.cover,
-                                  width: 72.0,
-                                  height: 72.0,
-                                ),
-                              ),
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(15.0),
-                              ),
+                              ],
                             ),
                           ),
                         ],
                       ),
+                    ],
+                  ),
+                );
+              } else {
+                return GestureDetector(
+                  onTap: () async {
+                    if (await canLaunch(itemArticle.url)) {
+                      // await launch(itemArticle.url);
+                      await Navigator.push(
+                        context,
+                        CupertinoPageRoute(
+                          builder: (context) => ArticlePage(
+                            itemArticle: itemArticle,
+                            mediaQuery: mediaQuery,
+                          ),
+                        ),
+                      );
+                    }
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          boxShadow: [
+                            BoxShadow(
+                                offset: Offset(0, 5),
+                                blurRadius: 10,
+                                color: Color(0xFF000000).withOpacity(0.1))
+                          ]),
+                      child: Card(
+                        color: Color(0xFFFFFFFF),
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                        ),
+                        child: Container(
+                          width: mediaQuery.size.width,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 6, vertical: 12),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Expanded(
+                                  child: SizedBox(
+                                    height: 75.0,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: <Widget>[
+                                        Text(
+                                          itemArticle.title,
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 3,
+                                          style: TextStyle(
+                                            fontSize: 16.0,
+                                            color: newsTitleColor,
+                                            fontWeight: FontWeight.w400,
+                                            fontFamily: "Helvetica",
+                                          ),
+                                        ),
+                                        Wrap(
+                                          crossAxisAlignment:
+                                              WrapCrossAlignment.center,
+                                          children: <Widget>[
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 8.0),
+                                              child: Icon(
+                                                Icons.launch,
+                                                size: 12.0,
+                                                color: Color(0xFF34234d)
+                                                    .withOpacity(0.5),
+                                              ),
+                                            ),
+                                            SizedBox(width: 4.0),
+                                            Text(
+                                              itemArticle.source.name,
+                                              style: TextStyle(
+                                                color: Color(0xFF34234d)
+                                                    .withOpacity(0.5),
+                                                fontSize: 12.0,
+                                                fontFamily: "HelveticaL",
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 16.0),
+                                  child: ClipRRect(
+                                    child: CachedNetworkImage(
+                                      imageUrl: itemArticle.urlToImage == null
+                                          ? "https://raw.githubusercontent.com/duytq94/flutter-chat-demo/master/images/img_not_available.jpeg"
+                                          : itemArticle.urlToImage,
+                                      imageBuilder: (context, imageProvider) {
+                                        return Container(
+                                          width: 72.0,
+                                          height: 72.0,
+                                          decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                              image: imageProvider,
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                      placeholder: (context, url) => Container(
+                                        width: 72.0,
+                                        height: 72.0,
+                                        child: Center(
+                                          child: Platform.isAndroid
+                                              ? CircularProgressIndicator()
+                                              : CupertinoActivityIndicator(),
+                                        ),
+                                      ),
+                                      errorWidget: (context, url, error) =>
+                                          Image.asset(
+                                        'assets/images/img_not_found.jpg',
+                                        fit: BoxFit.cover,
+                                        width: 72.0,
+                                        height: 72.0,
+                                      ),
+                                    ),
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(15.0),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
                   ),
-                ),
-              ),
-            );
-          }
-        },
+                );
+              }
+            },
+          ),
         ),
       );
     } else {

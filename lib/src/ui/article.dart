@@ -29,7 +29,7 @@ class _ArticlePageState extends State<ArticlePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 225, 228, 242),
+      backgroundColor: Color(0xFFFFFFFF),
       body: CustomScrollView(
         slivers: <Widget>[
           SliverAppBar(
@@ -38,14 +38,14 @@ class _ArticlePageState extends State<ArticlePage> {
                 Center(
                     child: Icon(
                   Icons.arrow_back,
-                  color: Color(0xFFB8BEDD),
+                  color: Color(0xFFFFFFFF),
                   size: 25,
                 )),
                 Center(
                   child: IconButton(
                       icon: Icon(
                         Icons.arrow_back,
-                        color: Color(0xFF34234d),
+                        color: Colors.red,
                       ),
                       onPressed: () => Navigator.pop(context)),
                 ),
@@ -56,7 +56,7 @@ class _ArticlePageState extends State<ArticlePage> {
             shape: RoundedRectangleBorder(
                 borderRadius:
                     BorderRadius.only(bottomLeft: Radius.circular(25))),
-            backgroundColor: Color(0xFFB8BEDD),
+            backgroundColor: Color(0xFFFFFFFF),
             pinned: this._pinned,
             snap: this._snap,
             floating: this._floating,
@@ -89,17 +89,17 @@ class _ArticlePageState extends State<ArticlePage> {
                             : widget.itemArticle.urlToImage,
                         height: 292.0,
                         width: widget.mediaQuery.size.width,
-                        fit: BoxFit.cover,
+                        fit: BoxFit.fill,
                         placeholder: (context, url) => Platform.isAndroid
                             ? Container(
-                              height: 292,
-                              child: Center(
-                                  child: Container(
-                                      child: CircularProgressIndicator())))
+                                height: 292,
+                                child: Center(
+                                    child: Container(
+                                        child: CircularProgressIndicator())))
                             : CupertinoActivityIndicator(),
                         errorWidget: (context, url, error) => Image.asset(
                           'assets/images/img_not_found.jpg',
-                          fit: BoxFit.cover,
+                          fit: BoxFit.fill,
                         ),
                       ),
                     ),
@@ -131,82 +131,92 @@ class _ArticlePageState extends State<ArticlePage> {
             ),
           ),
           SliverFixedExtentList(
-            itemExtent: 708.0,
+            itemExtent: 600.0,
             delegate: SliverChildListDelegate.fixed(
               [
                 Container(
-                  color: Color.fromARGB(255, 225, 228, 242),
-                  child: Card(
-                    elevation: 0,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(0))),
-                    color: Color(0xFFB8BEDD),
-                    margin: EdgeInsets.fromLTRB(10, 10, 10, 0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              top: 20.0, left: 10, right: 10, bottom: 10),
-                          child: Text(
-                            widget.itemArticle.title == null
-                                ? "News"
-                                : widget.itemArticle.title,
-                            style: TextStyle(
-                                color: Color(0xFF34234d),
-                                fontFamily: "Helvetica",
-                                fontSize: 24),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 10.0, vertical: 40),
-                          child: Text(
-                            widget.itemArticle.description == null
-                                ? "News"
-                                : widget.itemArticle.description,
-                            style: TextStyle(
-                                color: Color(0xFF34234d).withOpacity(0.8),
-                                fontFamily: "HelveticaL",
-                                fontSize: 24),
-                          ),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: Text(
-                                widget.itemArticle.author == null
-                                    ? " "
-                                    : "By " + widget.itemArticle.author,
-                                style: TextStyle(
-                                    color: Color(0xFF34234d),
-                                    fontFamily: "Helvetica",
-                                    fontSize: 18),
-                              ),
+                  color: Color(0xFFFFFFFF),
+                  child: Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                        boxShadow: [
+                          BoxShadow(
+                              offset: Offset(0, 5),
+                              blurRadius: 10,
+                              color: Color(0xFF000000).withOpacity(0.1))
+                        ]),
+                    child: Card(
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                      color: Color(0xFFFFFFFF),
+                      margin: EdgeInsets.fromLTRB(16, 16, 16, 16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                top: 20.0, left: 10, right: 10, bottom: 10),
+                            child: Text(
+                              widget.itemArticle.title == null
+                                  ? "News"
+                                  : widget.itemArticle.title,
+                              style: TextStyle(
+                                  color: Color(0xFF000000),
+                                  fontFamily: "Helvetica",
+                                  fontSize: 24),
                             ),
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: Text(
-                                widget.itemArticle.publishedAt == null
-                                    ? " "
-                                    : widget.itemArticle.publishedAt
-                                        .split('T')[0],
-                                style: TextStyle(
-                                    color: Color(0xFF34234d),
-                                    fontFamily: "Helvetica",
-                                    fontSize: 18),
-                              ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 10.0, vertical: 40),
+                            child: Text(
+                              widget.itemArticle.description == null
+                                  ? "News"
+                                  : widget.itemArticle.description,
+                              style: TextStyle(
+                                  color: Color(0xFF000000).withOpacity(0.8),
+                                  fontFamily: "HelveticaL",
+                                  fontSize: 24),
                             ),
-                          ],
-                        ),
-                      ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Text(
+                                  widget.itemArticle.author == null
+                                      ? " "
+                                      : "By " + widget.itemArticle.author,
+                                  style: TextStyle(
+                                      color: Color(0xFF000000),
+                                      fontFamily: "Helvetica",
+                                      fontSize: 18),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Text(
+                                  widget.itemArticle.publishedAt == null
+                                      ? " "
+                                      : widget.itemArticle.publishedAt
+                                          .split('T')[0],
+                                  style: TextStyle(
+                                      color: Color(0xFF000000),
+                                      fontFamily: "Helvetica",
+                                      fontSize: 18),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -219,22 +229,18 @@ class _ArticlePageState extends State<ArticlePage> {
           // ),
         ],
       ),
-      bottomNavigationBar: this._getBottomAppBar(),
-    );
-  }
-
-  Widget _getBottomAppBar() {
-    return BottomAppBar(
-      elevation: 6,
-      color: Color.fromARGB(255, 225, 228, 242),
-      child: Card(
-        margin: EdgeInsets.all(10),
-        color: Color(0xFFB8BEDD),
-        elevation: 0,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(bottomLeft: Radius.circular(25))),
-        child: GestureDetector(
-          onTap: () async {
+      floatingActionButton: Container(
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(100)),
+            boxShadow: [
+              BoxShadow(
+                  offset: Offset(0, 5),
+                  blurRadius: 10,
+                  color: Colors.red.withOpacity(1))
+            ]),
+        child: FloatingActionButton(
+          elevation: 0,
+          onPressed: () async {
             if (await canLaunch(widget.itemArticle.url)) {
               // await launch(itemArticle.url);
               await Navigator.push(
@@ -252,49 +258,96 @@ class _ArticlePageState extends State<ArticlePage> {
               ));
             }
           },
-          child: Container(
-            width: widget.mediaQuery.size.width,
-            height: 50.0,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(25.0),
-                // topLeft: Radius.circular(25.0)
-              ),
-            ),
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Wrap(
-                    crossAxisAlignment: WrapCrossAlignment.center,
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(left: 8.0),
-                        child: Icon(
-                          Icons.launch,
-                          size: 24.0,
-                          color: Color(0xFF34234d),
-                        ),
-                      ),
-                      SizedBox(width: 4.0),
-                      Text(
-                        widget.itemArticle.source.name,
-                        style: TextStyle(
-                          color: Color(0xFF34234d),
-                          fontSize: 24.0,
-                          fontFamily: "HelveticaL",
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
+          child: Icon(Icons.launch),
         ),
       ),
+      // bottomNavigationBar: this._getBottomAppBar(),
     );
   }
+
+  // Widget _getBottomAppBar() {
+  //   return BottomAppBar(
+  //     elevation: 10,
+  //     // color: Colors.transparent,
+  //     child: Container(
+  //       // decoration: BoxDecoration(
+  //       //   color: Colors.transparent,
+  //       //     borderRadius: BorderRadius.all(Radius.circular(10)),
+  //       //     boxShadow: [
+  //       //       BoxShadow(
+  //       //           offset: Offset(0, 5),
+  //       //           blurRadius: 10,
+  //       //           color: Color(0xFF000000).withOpacity(0.1))
+  //       //     ]),
+  //       child: Card(
+  //         margin: EdgeInsets.all(16),
+  //         color: Color(0xFFFFFFFF),
+  //         elevation: 0,
+  //         shape: RoundedRectangleBorder(
+  //             borderRadius: BorderRadius.all(Radius.circular(10))),
+  //         child: GestureDetector(
+  // onTap: () async {
+  //   if (await canLaunch(widget.itemArticle.url)) {
+  //     // await launch(itemArticle.url);
+  //     await Navigator.push(
+  //       context,
+  //       CupertinoPageRoute(
+  //         builder: (context) => WebPage(
+  //           itemArticle: widget.itemArticle,
+  //           mediaQuery: widget.mediaQuery,
+  //         ),
+  //       ),
+  //     );
+  //   } else {
+  //     scaffoldState2.currentState.showSnackBar(SnackBar(
+  //       content: Text('Could not launch news'),
+  //     ));
+  //   }
+  // },
+  //           child: Container(
+  //             width: widget.mediaQuery.size.width,
+  //             height: 50.0,
+  //             decoration: BoxDecoration(
+  //               borderRadius: BorderRadius.only(
+  //                 bottomLeft: Radius.circular(25.0),
+  //                 // topLeft: Radius.circular(25.0)
+  //               ),
+  //             ),
+  //             child: Column(
+  //               children: [
+  //                 Padding(
+  //                   padding: const EdgeInsets.all(8.0),
+  //                   child: Wrap(
+  //                     crossAxisAlignment: WrapCrossAlignment.center,
+  //                     children: <Widget>[
+  //                       Padding(
+  //                         padding: const EdgeInsets.only(left: 8.0),
+  //                         child: Icon(
+  //                           Icons.launch,
+  //                           size: 24.0,
+  //                           color: Color(0xFF34234d),
+  //                         ),
+  //                       ),
+  //                       SizedBox(width: 4.0),
+  //                       Text(
+  //                         widget.itemArticle.source.name,
+  //                         style: TextStyle(
+  //                           color: Color(0xFF34234d),
+  //                           fontSize: 24.0,
+  //                           fontFamily: "HelveticaL",
+  //                         ),
+  //                       ),
+  //                     ],
+  //                   ),
+  //                 ),
+  //               ],
+  //             ),
+  //           ),
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
 
   showImage() {
     Navigator.push(
