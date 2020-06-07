@@ -1,4 +1,3 @@
-import 'package:flutter/services.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:flutter/material.dart';
 

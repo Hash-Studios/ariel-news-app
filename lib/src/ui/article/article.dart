@@ -1,9 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_news_app/src/Widgets/CustomImageView.dart';
-import 'package:flutter_news_app/src/Widgets/photoViewer.dart';
 import 'package:flutter_news_app/src/model/topheadlinesnews/response_top_headlinews_news.dart';
+import 'package:flutter_news_app/src/ui/article/photoViewer.dart';
 import 'dart:io';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'dart:async';
