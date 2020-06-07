@@ -8,6 +8,7 @@ import 'package:flutter_news_app/src/bloc/home/home_bloc.dart';
 import 'package:flutter_news_app/src/model/category/category.dart';
 import 'package:flutter_news_app/src/model/topheadlinesnews/response_top_headlinews_news.dart';
 import 'package:flutter_news_app/src/ui/article/article.dart';
+import 'package:flutter_news_app/src/ui/carousel/stories.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_news_app/globals.dart' as globals;
@@ -488,11 +489,13 @@ class _WidgetLatestNewsState extends State<WidgetLatestNews> {
                                     await Navigator.push(
                                       context,
                                       CupertinoPageRoute(
-                                        builder: (context) => ArticlePage(
-                                          itemArticle: data.articles[i],
-                                          mediaQuery: mediaQuery,
-                                        ),
-                                      ),
+                                          builder: (context) => StoriesViewer(
+                                              articles: data.articles, index: i)
+                                          // ArticlePage(
+                                          //   itemArticle: data.articles[i],
+                                          //   mediaQuery: mediaQuery,
+                                          // ),
+                                          ),
                                     );
                                   } else {
                                     scaffoldState.currentState
