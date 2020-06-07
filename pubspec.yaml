@@ -19,6 +19,7 @@ dependencies:
   firebase_messaging: ^6.0.16
   firebase_analytics: ^5.0.14
   fluttertoast: ^4.0.1
+  carousel_slider: ^2.1.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
