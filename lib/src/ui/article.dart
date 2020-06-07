@@ -69,7 +69,7 @@ class _ArticlePageState extends State<ArticlePage> {
 //               title: Text(
 //                 widget.itemArticle.source.name,
 //                 style: TextStyle(
-//                   fontFamily: "Helvetica",
+//                   fontFamily: "NoeDisplay",
 //                   color: Color(0xFF34234d),
 //                 ),
 //               ),
@@ -131,7 +131,7 @@ class _ArticlePageState extends State<ArticlePage> {
             ),
           ),
           SliverFixedExtentList(
-            itemExtent: 600.0,
+            itemExtent: MediaQuery.of(context).size.height-292,
             delegate: SliverChildListDelegate.fixed(
               [
                 Container(
@@ -163,57 +163,51 @@ class _ArticlePageState extends State<ArticlePage> {
                                   : widget.itemArticle.title,
                               style: TextStyle(
                                   color: Color(0xFF000000),
-                                  fontFamily: "Helvetica",
+                                  fontFamily: "Caslon",
+                                  fontWeight: FontWeight.w600,
                                   fontSize: 24),
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 10.0, vertical: 40),
+                            padding: const EdgeInsets.fromLTRB(10,0,10,40),
                             child: Text(
                               widget.itemArticle.description == null
                                   ? "News"
                                   : widget.itemArticle.description,
                               style: TextStyle(
                                   color: Color(0xFF000000).withOpacity(0.8),
-                                  fontFamily: "HelveticaL",
-                                  fontSize: 24),
+                                  fontFamily: "Caslon",
+                                  fontSize: 18),
                             ),
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: Text(
-                                  widget.itemArticle.author == null
-                                      ? " "
-                                      : "By " + widget.itemArticle.author,
-                                  style: TextStyle(
-                                      color: Color(0xFF000000),
-                                      fontFamily: "Helvetica",
-                                      fontSize: 18),
-                                ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 0),
+                            child: Container(
+                              child: Text(
+                                widget.itemArticle.author == null
+                                    ? " "
+                                    : "By " + widget.itemArticle.author,
+                                style: TextStyle(
+                                    color: Color(0xFF000000),
+                                    fontFamily: "NoeDisplay",
+                                    fontSize: 18),
                               ),
-                            ],
+                            ),
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: Text(
-                                  widget.itemArticle.publishedAt == null
-                                      ? " "
-                                      : widget.itemArticle.publishedAt
-                                          .split('T')[0],
-                                  style: TextStyle(
-                                      color: Color(0xFF000000),
-                                      fontFamily: "Helvetica",
-                                      fontSize: 18),
-                                ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 0),
+                            child: Container(
+                              child: Text(
+                                widget.itemArticle.publishedAt == null
+                                    ? " "
+                                    : widget.itemArticle.publishedAt
+                                        .split('T')[0],
+                                style: TextStyle(
+                                    color: Color(0xFF000000),
+                                    fontFamily: "NoeDisplay",
+                                    fontSize: 14),
                               ),
-                            ],
+                            ),
                           ),
                         ],
                       ),
@@ -334,7 +328,7 @@ class _ArticlePageState extends State<ArticlePage> {
   //                         style: TextStyle(
   //                           color: Color(0xFF34234d),
   //                           fontSize: 24.0,
-  //                           fontFamily: "HelveticaL",
+  //                           fontFamily: "Caslon",
   //                         ),
   //                       ),
   //                     ],

@@ -76,9 +76,9 @@ class HomeScreen extends StatelessWidget {
         'Top stories at the moment',
         style: Theme.of(context).textTheme.caption.merge(
               TextStyle(
-                color: Color(0xFF000000).withOpacity(0.5),
-                fontFamily: "Helvetica",
-              ),
+                  color: Color(0xFF000000).withOpacity(0.5),
+                  fontFamily: "Caslon",
+                  fontSize: 14),
             ),
       ),
     );
@@ -91,9 +91,9 @@ class HomeScreen extends StatelessWidget {
         'Latest News',
         style: Theme.of(context).textTheme.subtitle.merge(
               TextStyle(
-                fontSize: 18.0,
+                fontSize: 22.0,
                 color: Color(0xFF000000).withOpacity(1),
-                fontFamily: "Helvetica",
+                fontFamily: "NoeDisplay",
               ),
             ),
       ),
@@ -123,7 +123,7 @@ class HomeScreen extends StatelessWidget {
                 'What are you looking for?',
                 style: TextStyle(
                   color: Colors.black26,
-                  fontFamily: "Helvetica",
+                  fontFamily: "NoeDisplay",
                 ),
               ),
             ),
@@ -175,9 +175,10 @@ class WidgetTitle extends StatelessWidget {
                 text: 'Ariel - News for you\n',
                 style: Theme.of(context).textTheme.title.merge(
                       TextStyle(
-                        color: headingColor,
-                        fontFamily: "Helvetica",
-                      ),
+                          color: headingColor,
+                          fontFamily: "NoeDisplay",
+                          fontSize: 22,
+                          fontWeight: FontWeight.w700),
                     ),
               ),
               TextSpan(
@@ -185,8 +186,8 @@ class WidgetTitle extends StatelessWidget {
                 style: Theme.of(context).textTheme.caption.merge(
                       TextStyle(
                         color: subHeadingColor.withOpacity(0.5),
-                        fontSize: 10.0,
-                        fontFamily: "Helvetica",
+                        fontSize: 14.0,
+                        fontFamily: "Caslon",
                       ),
                     ),
               ),
@@ -232,7 +233,7 @@ class _WidgetCategoryState extends State<WidgetCategory> {
   Widget build(BuildContext context) {
     final homeBloc = BlocProvider.of<HomeBloc>(context);
     return Container(
-      height: 74,
+      height: 78,
       child: ListView.builder(
         shrinkWrap: false,
         scrollDirection: Axis.horizontal,
@@ -304,7 +305,9 @@ class _WidgetCategoryState extends State<WidgetCategory> {
                   itemCategory.title,
                   style: TextStyle(
                     fontSize: 14,
-                    fontFamily: "HelveticaL",
+                    fontFamily: indexSelectedCategory == index
+                        ? "NoeDisplay"
+                        : "Caslon",
                     color: indexSelectedCategory == index
                         ? selectedColor
                         : unSelectedColor,
@@ -509,7 +512,7 @@ class _WidgetLatestNewsState extends State<WidgetLatestNews> {
                                     gradient: LinearGradient(
                                       colors: [
                                         Colors.black.withOpacity(0.0),
-                                        Color(0xFF000000).withOpacity(0.2),
+                                        Color(0xFF000000).withOpacity(0.5),
                                       ],
                                       begin: Alignment.topCenter,
                                       end: Alignment.bottomCenter,
@@ -528,15 +531,15 @@ class _WidgetLatestNewsState extends State<WidgetLatestNews> {
                                 Padding(
                                   padding: const EdgeInsets.only(
                                     left: 12.0,
-                                    top: 188.0,
+                                    top: 178.0,
                                     right: 12.0,
                                   ),
                                   child: Text(
                                     data.articles[i].title,
                                     style: TextStyle(
-                                      color: Colors.white,
-                                      fontFamily: "Helvetica",
-                                    ),
+                                        color: Colors.white,
+                                        fontFamily: "NoeDisplay",
+                                        fontSize: 16),
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 2,
                                   ),
@@ -560,7 +563,7 @@ class _WidgetLatestNewsState extends State<WidgetLatestNews> {
                                         style: TextStyle(
                                           color: Colors.white.withOpacity(0.8),
                                           fontSize: 11.0,
-                                          fontFamily: "HelveticaL",
+                                          fontFamily: "Caslon",
                                         ),
                                       ),
                                     ],
@@ -619,7 +622,7 @@ class _WidgetLatestNewsState extends State<WidgetLatestNews> {
                               children: <Widget>[
                                 Expanded(
                                   child: SizedBox(
-                                    height: 75.0,
+                                    height: 80.0,
                                     child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
@@ -634,7 +637,7 @@ class _WidgetLatestNewsState extends State<WidgetLatestNews> {
                                             fontSize: 16.0,
                                             color: newsTitleColor,
                                             fontWeight: FontWeight.w400,
-                                            fontFamily: "Helvetica",
+                                            fontFamily: "NoeDisplay",
                                           ),
                                         ),
                                         Wrap(
@@ -643,11 +646,11 @@ class _WidgetLatestNewsState extends State<WidgetLatestNews> {
                                           children: <Widget>[
                                             Padding(
                                               padding: const EdgeInsets.only(
-                                                  left: 8.0),
+                                                  left: 0.0),
                                               child: Icon(
                                                 Icons.launch,
                                                 size: 12.0,
-                                                color: Color(0xFF34234d)
+                                                color: Color(0xFF000000)
                                                     .withOpacity(0.5),
                                               ),
                                             ),
@@ -655,10 +658,10 @@ class _WidgetLatestNewsState extends State<WidgetLatestNews> {
                                             Text(
                                               itemArticle.source.name,
                                               style: TextStyle(
-                                                color: Color(0xFF34234d)
+                                                color: Color(0xFF000000)
                                                     .withOpacity(0.5),
                                                 fontSize: 12.0,
-                                                fontFamily: "HelveticaL",
+                                                fontFamily: "Caslon",
                                               ),
                                             ),
                                           ],
@@ -668,7 +671,8 @@ class _WidgetLatestNewsState extends State<WidgetLatestNews> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.only(left: 16.0),
+                                  padding: const EdgeInsets.only(
+                                      left: 16.0, right: 2),
                                   child: ClipRRect(
                                     child: CachedNetworkImage(
                                       imageUrl: itemArticle.urlToImage == null
@@ -676,8 +680,8 @@ class _WidgetLatestNewsState extends State<WidgetLatestNews> {
                                           : itemArticle.urlToImage,
                                       imageBuilder: (context, imageProvider) {
                                         return Container(
-                                          width: 72.0,
-                                          height: 72.0,
+                                          width: 78.0,
+                                          height: 78.0,
                                           decoration: BoxDecoration(
                                             image: DecorationImage(
                                               image: imageProvider,
@@ -687,8 +691,8 @@ class _WidgetLatestNewsState extends State<WidgetLatestNews> {
                                         );
                                       },
                                       placeholder: (context, url) => Container(
-                                        width: 72.0,
-                                        height: 72.0,
+                                        width: 78.0,
+                                        height: 78.0,
                                         child: Center(
                                           child: Platform.isAndroid
                                               ? CircularProgressIndicator()
@@ -699,12 +703,12 @@ class _WidgetLatestNewsState extends State<WidgetLatestNews> {
                                           Image.asset(
                                         'assets/images/img_not_found.jpg',
                                         fit: BoxFit.cover,
-                                        width: 72.0,
-                                        height: 72.0,
+                                        width: 78.0,
+                                        height: 78.0,
                                       ),
                                     ),
                                     borderRadius: BorderRadius.all(
-                                      Radius.circular(15.0),
+                                      Radius.circular(10.0),
                                     ),
                                   ),
                                 ),

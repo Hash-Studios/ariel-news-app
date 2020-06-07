@@ -43,7 +43,7 @@ class _WebPageState extends State<WebPage> {
           title: Text(
             widget.itemArticle.source.name,
             style: TextStyle(
-              fontFamily: "Helvetica",
+              fontFamily: "NoeDisplay",
               color: Color(0xFF000000),
             ),
           ),
