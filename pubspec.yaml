@@ -30,7 +30,6 @@ dependencies:
   url_launcher: ^5.2.0
   cached_network_image: ^2.0.0-rc
 
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -80,6 +79,12 @@ flutter:
     - family: NoeDisplay
       fonts:
         - asset: assets/fonts/NoeDisplay.ttf
+    - family: Gilroy
+      fonts:
+        - asset: assets/fonts/Gilroy.otf
+    - family: PlayfairDisplay
+      fonts:
+        - asset: assets/fonts/PlayfairDisplay.otf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

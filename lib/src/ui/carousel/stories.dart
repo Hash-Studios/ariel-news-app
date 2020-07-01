@@ -21,16 +21,16 @@ class _StoriesViewerState extends State<StoriesViewer> {
 
   @override
   Widget build(BuildContext context) {
-    if(widget.index==0){
-      i = [0,1,2,3,4];
-    }else if(widget.index==1){
-      i = [1,2,3,4,0];
-    }else if(widget.index==2){
-      i = [2,3,4,0,1];
-    }else if(widget.index==3){
-      i = [3,4,0,1,2];
-    }else if(widget.index==4){
-      i = [4,0,1,2,3];
+    if (widget.index == 0) {
+      i = [0, 1, 2, 3, 4];
+    } else if (widget.index == 1) {
+      i = [1, 2, 3, 4, 0];
+    } else if (widget.index == 2) {
+      i = [2, 3, 4, 0, 1];
+    } else if (widget.index == 3) {
+      i = [3, 4, 0, 1, 2];
+    } else if (widget.index == 4) {
+      i = [4, 0, 1, 2, 3];
     }
     return Scaffold(
       body: StoryView(

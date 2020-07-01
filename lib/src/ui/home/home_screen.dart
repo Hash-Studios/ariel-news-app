@@ -49,6 +49,12 @@ class HomeScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       WidgetTitle(strToday),
+                      IconButton(
+                        icon: Icon(Icons.settings),
+                        onPressed: () {
+                          print("Settings");
+                        },
+                      )
                     ],
                   ),
                   /*SizedBox(height: 8.0),
@@ -94,7 +100,7 @@ class HomeScreen extends StatelessWidget {
               TextStyle(
                 fontSize: 22.0,
                 color: Color(0xFF000000).withOpacity(1),
-                fontFamily: "NoeDisplay",
+                fontFamily: "PlayfairDisplay",
               ),
             ),
       ),
@@ -124,7 +130,7 @@ class HomeScreen extends StatelessWidget {
                 'What are you looking for?',
                 style: TextStyle(
                   color: Colors.black26,
-                  fontFamily: "NoeDisplay",
+                  fontFamily: "PlayfairDisplay",
                 ),
               ),
             ),
@@ -177,7 +183,7 @@ class WidgetTitle extends StatelessWidget {
                 style: Theme.of(context).textTheme.title.merge(
                       TextStyle(
                           color: headingColor,
-                          fontFamily: "NoeDisplay",
+                          fontFamily: "PlayfairDisplay",
                           fontSize: 22,
                           fontWeight: FontWeight.w700),
                     ),
@@ -306,14 +312,13 @@ class _WidgetCategoryState extends State<WidgetCategory> {
                   itemCategory.title,
                   style: TextStyle(
                     fontSize: 14,
-                    fontFamily: indexSelectedCategory == index
-                        ? "NoeDisplay"
-                        : "Caslon",
+                    fontFamily:
+                        indexSelectedCategory == index ? "Caslon" : "Caslon",
                     color: indexSelectedCategory == index
                         ? selectedColor
                         : unSelectedColor,
                     fontWeight: indexSelectedCategory == index
-                        ? FontWeight.bold
+                        ? FontWeight.normal
                         : FontWeight.normal,
                   ),
                 ),
@@ -515,7 +520,7 @@ class _WidgetLatestNewsState extends State<WidgetLatestNews> {
                                     gradient: LinearGradient(
                                       colors: [
                                         Colors.black.withOpacity(0.0),
-                                        Color(0xFF000000).withOpacity(0.5),
+                                        Color(0xFF000000).withOpacity(0.7),
                                       ],
                                       begin: Alignment.topCenter,
                                       end: Alignment.bottomCenter,
@@ -541,7 +546,7 @@ class _WidgetLatestNewsState extends State<WidgetLatestNews> {
                                     data.articles[i].title,
                                     style: TextStyle(
                                         color: Colors.white,
-                                        fontFamily: "NoeDisplay",
+                                        fontFamily: "Gilroy",
                                         fontSize: 16),
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 2,
@@ -639,8 +644,8 @@ class _WidgetLatestNewsState extends State<WidgetLatestNews> {
                                           style: TextStyle(
                                             fontSize: 16.0,
                                             color: newsTitleColor,
-                                            fontWeight: FontWeight.w400,
-                                            fontFamily: "NoeDisplay",
+                                            fontWeight: FontWeight.w600,
+                                            fontFamily: "Gilroy",
                                           ),
                                         ),
                                         Wrap(
