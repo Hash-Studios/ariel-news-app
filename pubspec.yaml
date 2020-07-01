@@ -82,6 +82,9 @@ flutter:
     - family: Gilroy
       fonts:
         - asset: assets/fonts/Gilroy.otf
+    - family: GilroyB
+      fonts:
+        - asset: assets/fonts/GilroyB.otf
     - family: PlayfairDisplay
       fonts:
         - asset: assets/fonts/PlayfairDisplay.otf
