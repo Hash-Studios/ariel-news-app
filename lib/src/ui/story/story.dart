@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:ui';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_news_app/src/ui/animations/seeMore.dart';
@@ -42,12 +43,12 @@ class _MyAppState extends State<MyApp> {
             StoryItem(
               NewsStory(
                 author: "Times of India",
-                authorImage: NetworkImage("https://picsum.photos/200"),
+                authorImage: "https://picsum.photos/200",
                 headline:
                     "Maharashtra, Mumbai, Pune Coronavirus Live Updates: No community transmission of Covid-19",
                 desc:
                     "Maharashtra Mumbai Coronavirus News Live Updates: A senior member of the Maharashtra government’s Covid-19 task force has tested positive for coronavirus, news agency PTI reported on Thursday. He had been admitted to hospital last week. The task force of nine senior doctors was formed on April 13 in view of the increasing number of coronavirus cases and deaths in the state, especially in Mumbai.",
-                image: NetworkImage("https://picsum.photos/800"),
+                image: "https://picsum.photos/821",
                 time: "12m",
                 controller: controller,
                 key: Key("1"),
@@ -56,12 +57,12 @@ class _MyAppState extends State<MyApp> {
             StoryItem(
               NewsStory(
                 author: "The Indian Express",
-                authorImage: NetworkImage("https://picsum.photos/201"),
+                authorImage: "https://picsum.photos/201",
                 headline:
                     "Mumbai rain alert live updates: IMD issues orange alert",
                 desc:
                     "IMD has predicted heavy to very heavy rainfall at isolated places in Mumbai and adjoining coastal districts, and issued an orange alert for the next two days.",
-                image: NetworkImage("https://picsum.photos/801"),
+                image: "https://picsum.photos/828",
                 time: "1h",
                 controller: controller,
                 key: Key("2"),
@@ -70,12 +71,12 @@ class _MyAppState extends State<MyApp> {
             StoryItem(
               NewsStory(
                 author: "Hindustan Times",
-                authorImage: NetworkImage("https://picsum.photos/202"),
+                authorImage: "https://picsum.photos/202",
                 headline:
                     "Coronavirus live updates: Amit Shah meets CMs of UP, Haryana, Delhi; discusses Covid-19 situation",
                 desc:
                     "During the last 24 hours, a total of 11,881 Covid-19 patients have been cured, taking the cumulative figure to 3,59,859. This further takes the recovery rate to 59.52%. Presently, there are 2,26,947 active cases and all are under medical supervision: Ministry of health.",
-                image: NetworkImage("https://picsum.photos/802"),
+                image: "https://picsum.photos/829",
                 time: "1h",
                 controller: controller,
                 key: Key("3"),
@@ -84,12 +85,12 @@ class _MyAppState extends State<MyApp> {
             StoryItem(
               NewsStory(
                 author: "The Deccan Chronicle",
-                authorImage: NetworkImage("https://picsum.photos/203"),
+                authorImage: "https://picsum.photos/203",
                 headline:
                     "Myanmar calls out China for arming terror groups, asks world to help",
                 desc:
                     "Myanmar, China’s closest ally in southeast Asia, has pointed fingers at Beijing for arming insurgent groups with sophisticated weapons and sought international cooperation to suppress rebel groups. In a recent interview to Russian state-run TV channel Zvezda, Myanmar’s Senior General Min Aung Hlaing said terrorist organisations active in Myanmar are backed by ‘strong forces’ and sought international cooperation to suppress rebel groups.",
-                image: NetworkImage("https://picsum.photos/803"),
+                image: "https://picsum.photos/827",
                 time: "3h",
                 controller: controller,
                 key: Key("4"),
@@ -118,10 +119,10 @@ class NewsStory extends StatefulWidget {
   final StoryController controller;
   final String headline;
   final String desc;
-  final ImageProvider image;
+  final String image;
   final String author;
   final String time;
-  final ImageProvider authorImage;
+  final String authorImage;
 
   @override
   _NewsStoryState createState() => _NewsStoryState();
@@ -132,6 +133,7 @@ class _NewsStoryState extends State<NewsStory> {
   PanelController panelController = PanelController();
   ScreenshotController screenshotController = ScreenshotController();
   File _imageFile;
+  int c = 0;
   @override
   Widget build(BuildContext context) {
     return Screenshot(
@@ -196,10 +198,27 @@ class _NewsStoryState extends State<NewsStory> {
           child: Stack(
             children: <Widget>[
               Center(
-                child: Image(
-                  image: widget.image,
-                  height: double.infinity,
+                child: CachedNetworkImage(
+                  imageBuilder: (context, image) {
+                    if (c == 0) {
+                      widget.controller.play();
+                      c++;
+                    }
+
+                    return Image(
+                      image: image,
+                      width: double.infinity,
+                      height: double.infinity,
+                      fit: BoxFit.cover,
+                    );
+                  },
+                  imageUrl: widget.image,
+                  placeholder: (context, text) {
+                    widget.controller.pause();
+                    return Center(child: CircularProgressIndicator());
+                  },
                   width: double.infinity,
+                  height: double.infinity,
                   fit: BoxFit.cover,
                 ),
               ),
@@ -252,7 +271,8 @@ class _NewsStoryState extends State<NewsStory> {
                       children: <Widget>[
                         CircleAvatar(
                           backgroundColor: Colors.black,
-                          backgroundImage: widget.authorImage,
+                          backgroundImage:
+                              CachedNetworkImageProvider(widget.authorImage),
                           radius: 18,
                         ),
                         SizedBox(
