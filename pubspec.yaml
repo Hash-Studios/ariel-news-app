@@ -29,6 +29,7 @@ dependencies:
   intl: ^0.16.0
   url_launcher: ^5.2.0
   cached_network_image: ^2.0.0-rc
+  sliding_up_panel: ^1.0.2
 
 dev_dependencies:
   flutter_test:
