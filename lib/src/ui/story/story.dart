@@ -3,8 +3,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_news_app/src/ui/animations/seeMore.dart';
-import 'package:gallery_saver/gallery_saver.dart';
 import 'package:screenshot/screenshot.dart';
+import 'package:share_extend/share_extend.dart';
 import 'package:story_view/story_view.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
@@ -18,7 +18,6 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   final controller = StoryController();
   ScreenshotController screenshotController = ScreenshotController();
-  File _imageFile;
   @override
   void initState() {
     super.initState();
@@ -38,35 +37,6 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       title: 'Material App',
       home: Scaffold(
-        // floatingActionButton: Padding(
-        //   padding: const EdgeInsets.all(24.0),
-        //   child: FloatingActionButton(
-        //     backgroundColor: Colors.transparent,
-        //     splashColor: Colors.transparent,
-        //     elevation: 0,
-        //     highlightElevation: 0,
-        //     onPressed: () {
-        //       screenshotController
-        //           .capture(
-        //         pixelRatio: 1.5,
-        //         delay: Duration(milliseconds: 10),
-        //       )
-        //           .then((File image) async {
-        //Capture Done
-        //         setState(() {
-        //           _imageFile = image;
-        //         });
-        //         GallerySaver.saveImage(image.path).then((value) {
-        //           setState(() {
-        //             print(value.toString());
-        //           });
-        //         });
-        //       }).catchError((onError) {
-        //         print(onError);
-        //       });
-        //     },
-        //   ),
-        // ),
         body: StoryView(
           [
             StoryItem(
@@ -80,7 +50,6 @@ class _MyAppState extends State<MyApp> {
                 image: NetworkImage("https://picsum.photos/800"),
                 time: "12m",
                 controller: controller,
-                // screenshotController: screenshotController,
                 key: Key("1"),
               ),
             ),
@@ -95,7 +64,6 @@ class _MyAppState extends State<MyApp> {
                 image: NetworkImage("https://picsum.photos/801"),
                 time: "1h",
                 controller: controller,
-                // screenshotController: screenshotController,
                 key: Key("2"),
               ),
             ),
@@ -110,7 +78,6 @@ class _MyAppState extends State<MyApp> {
                 image: NetworkImage("https://picsum.photos/802"),
                 time: "1h",
                 controller: controller,
-                // screenshotController: screenshotController,
                 key: Key("3"),
               ),
             ),
@@ -125,7 +92,6 @@ class _MyAppState extends State<MyApp> {
                 image: NetworkImage("https://picsum.photos/803"),
                 time: "3h",
                 controller: controller,
-                // screenshotController: screenshotController,
                 key: Key("4"),
               ),
             ),
@@ -147,11 +113,9 @@ class NewsStory extends StatefulWidget {
     @required this.authorImage,
     Key key,
     @required this.controller,
-    // @required this.screenshotController,
   }) : super(key: key);
 
   final StoryController controller;
-  // final ScreenshotController screenshotController;
   final String headline;
   final String desc;
   final ImageProvider image;
@@ -385,27 +349,7 @@ class _NewsStoryState extends State<NewsStory> {
                                 Icons.share,
                                 color: Colors.black54,
                               ),
-                              onPressed: () {
-                                screenshotController
-                                    .capture(
-                                  pixelRatio: 1.5,
-                                  delay: Duration(milliseconds: 10),
-                                )
-                                    .then((File image) async {
-                                  //Capture Done
-                                  setState(() {
-                                    _imageFile = image;
-                                  });
-                                  GallerySaver.saveImage(image.path)
-                                      .then((value) {
-                                    setState(() {
-                                      print(value.toString());
-                                    });
-                                  });
-                                }).catchError((onError) {
-                                  print(onError);
-                                });
-                              },
+                              onPressed: () {},
                             ),
                           ),
                           onLongPressStart: (details) {
@@ -421,19 +365,20 @@ class _NewsStoryState extends State<NewsStory> {
                               pixelRatio: 1.5,
                               delay: Duration(milliseconds: 10),
                             )
-                                .then((File image) async {
-                              //Capture Done
-                              setState(() {
-                                _imageFile = image;
-                              });
-                              GallerySaver.saveImage(image.path).then((value) {
-                                setState(() {
-                                  print(value.toString());
-                                });
-                              });
-                            }).catchError((onError) {
-                              print(onError);
-                            });
+                                .then(
+                              (File image) async {
+                                setState(
+                                  () {
+                                    _imageFile = image;
+                                  },
+                                );
+                                ShareExtend.share(image.path, "image");
+                              },
+                            ).catchError(
+                              (onError) {
+                                print(onError);
+                              },
+                            );
                           },
                         ),
                       ],
