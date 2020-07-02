@@ -1,14 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_news_app/src/ui/animations/seeMore.dart';
 import 'package:story_view/story_view.dart';
 
 void main() => runApp(MyApp());
-var caption = "Caption";
+var caption =
+    "Maharashtra, Mumbai, Pune Coronavirus Live Updates: No community transmission of Covid-19";
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void dispose() {
+    SystemChrome.setEnabledSystemUIOverlays(
+        [SystemUiOverlay.top, SystemUiOverlay.bottom]);
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    FlutterStatusbarcolor.setStatusBarColor(Colors.transparent);
+    SystemChrome.setEnabledSystemUIOverlays([]);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Material App',
@@ -28,34 +42,6 @@ class MyApp extends StatelessWidget {
                         fit: BoxFit.cover,
                       ),
                     ),
-                    SafeArea(
-                      child: Align(
-                        alignment: Alignment.bottomCenter,
-                        child: Container(
-                          width: double.infinity,
-                          margin: EdgeInsets.only(
-                            bottom: 24,
-                          ),
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 24,
-                            vertical: 8,
-                          ),
-                          color: caption != null
-                              ? Colors.black54
-                              : Colors.transparent,
-                          child: caption != null
-                              ? Text(
-                                  caption,
-                                  style: TextStyle(
-                                    fontSize: 15,
-                                    color: Colors.white,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                )
-                              : SizedBox(),
-                        ),
-                      ),
-                    ),
                     Align(
                       alignment: Alignment.topCenter,
                       child: Container(
@@ -73,6 +59,56 @@ class MyApp extends StatelessWidget {
                           height: 100,
                           width: double.infinity,
                         ),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [
+                              Color(0x88000000),
+                              Color(0x00000000),
+                            ],
+                            begin: Alignment.bottomCenter,
+                            end: Alignment.topCenter,
+                          ),
+                        ),
+                        child: SizedBox(
+                          height: 150,
+                          width: double.infinity,
+                        ),
+                      ),
+                    ),
+                    SafeArea(
+                      child: Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Container(
+                          width: double.infinity,
+                          margin: EdgeInsets.only(
+                            bottom: 40,
+                          ),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 24,
+                            vertical: 8,
+                          ),
+                          child: Text(
+                            caption,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              fontSize: 15,
+                              color: Colors.white,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ),
+                    ),
+                    SafeArea(
+                      child: Align(
+                        alignment: Alignment.bottomCenter,
+                        child: SeeMore(),
                       ),
                     ),
                     SafeArea(
