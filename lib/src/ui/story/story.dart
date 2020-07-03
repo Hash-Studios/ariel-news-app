@@ -1,33 +1,27 @@
 import 'dart:io';
 import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_news_app/src/model/topheadlinesnews/response_top_headlinews_news.dart';
 import 'package:flutter_news_app/src/ui/animations/seeMore.dart';
+import 'package:flutter_news_app/src/ui/article/webpage.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:share_extend/share_extend.dart';
 import 'package:story_view/story_view.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class NewsStory extends StatefulWidget {
   const NewsStory({
-    @required this.headline,
-    @required this.desc,
-    @required this.image,
-    @required this.author,
-    @required this.time,
-    @required this.authorImage,
+    @required this.article,
     Key key,
     @required this.controller,
   }) : super(key: key);
 
   final StoryController controller;
-  final String headline;
-  final String desc;
-  final String image;
-  final String author;
-  final String time;
-  final String authorImage;
+  final Article article;
 
   @override
   _NewsStoryState createState() => _NewsStoryState();
@@ -39,8 +33,29 @@ class _NewsStoryState extends State<NewsStory> {
   ScreenshotController screenshotController = ScreenshotController();
   File _imageFile;
   int c = 0;
+  String headline;
+  String desc;
+  String link;
+  String image;
+  String author;
+  String time;
+  String authorImage;
+
+  @override
+  void initState() {
+    super.initState();
+    headline = widget.article.title;
+    desc = widget.article.description;
+    link = widget.article.url;
+    image = widget.article.urlToImage;
+    author = widget.article.source.name;
+    time = widget.article.publishedAt;
+    authorImage = widget.article.urlToImage;
+  }
+
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setEnabledSystemUIOverlays([]);
     return Screenshot(
       controller: screenshotController,
       child: SlidingUpPanel(
@@ -78,7 +93,7 @@ class _NewsStoryState extends State<NewsStory> {
                     vertical: 8,
                   ),
                   child: Text(
-                    widget.headline ?? "News Headline",
+                    headline ?? "News Headline",
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
@@ -117,7 +132,7 @@ class _NewsStoryState extends State<NewsStory> {
                       fit: BoxFit.cover,
                     );
                   },
-                  imageUrl: widget.image,
+                  imageUrl: image,
                   placeholder: (context, text) {
                     widget.controller.pause();
                     return Center(child: CircularProgressIndicator());
@@ -177,14 +192,14 @@ class _NewsStoryState extends State<NewsStory> {
                         CircleAvatar(
                           backgroundColor: Colors.black,
                           backgroundImage:
-                              CachedNetworkImageProvider(widget.authorImage),
+                              CachedNetworkImageProvider(authorImage),
                           radius: 18,
                         ),
                         SizedBox(
                           width: 10,
                         ),
                         Text(
-                          widget.author ?? "Ariel",
+                          author ?? "Ariel",
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
@@ -196,8 +211,7 @@ class _NewsStoryState extends State<NewsStory> {
                         Spacer(),
                         Text(
                           DateTime.now()
-                                      .difference(
-                                          DateTime.tryParse(widget.time))
+                                      .difference(DateTime.tryParse(time))
                                       .inHours
                                       .toString() +
                                   "h" ??
@@ -242,7 +256,7 @@ class _NewsStoryState extends State<NewsStory> {
                         vertical: 5,
                       ),
                       child: Text(
-                        widget.headline,
+                        headline,
                         style: TextStyle(
                             color: Colors.black,
                             fontSize: 20,
@@ -255,7 +269,7 @@ class _NewsStoryState extends State<NewsStory> {
                         vertical: 20,
                       ),
                       child: Text(
-                        widget.desc ?? "Swipe up to read more.",
+                        desc ?? "Swipe up to read more.",
                         style: TextStyle(
                             color: Colors.black,
                             fontSize: 15,
@@ -273,44 +287,84 @@ class _NewsStoryState extends State<NewsStory> {
                               fontFamily: "PlayfairDisplay",
                               fontSize: 20),
                         ),
-                        GestureDetector(
-                          child: Container(
-                            child: IconButton(
-                              icon: Icon(
-                                Icons.share,
-                                color: Colors.black54,
+                        Row(
+                          children: <Widget>[
+                            GestureDetector(
+                              child: Container(
+                                child: IconButton(
+                                  icon: Icon(
+                                    Icons.share,
+                                    color: Colors.black54,
+                                  ),
+                                  onPressed: () {},
+                                ),
                               ),
-                              onPressed: () {},
-                            ),
-                          ),
-                          onLongPressStart: (details) {
-                            print("Start");
-                          },
-                          onLongPressEnd: (details) {
-                            print("End");
-                          },
-                          onLongPress: () {
-                            HapticFeedback.mediumImpact();
-                            screenshotController
-                                .capture(
-                              pixelRatio: 1.5,
-                              delay: Duration(milliseconds: 10),
-                            )
-                                .then(
-                              (File image) async {
-                                setState(
-                                  () {
-                                    _imageFile = image;
+                              onLongPressStart: (details) {
+                                print("Start");
+                              },
+                              onLongPressEnd: (details) {
+                                print("End");
+                              },
+                              onLongPress: () {
+                                HapticFeedback.mediumImpact();
+                                screenshotController
+                                    .capture(
+                                  pixelRatio: 1.5,
+                                  delay: Duration(milliseconds: 10),
+                                )
+                                    .then(
+                                  (File image) async {
+                                    setState(
+                                      () {
+                                        _imageFile = image;
+                                      },
+                                    );
+                                    ShareExtend.share(image.path, "image");
+                                  },
+                                ).catchError(
+                                  (onError) {
+                                    print(onError);
                                   },
                                 );
-                                ShareExtend.share(image.path, "image");
                               },
-                            ).catchError(
-                              (onError) {
-                                print(onError);
+                            ),
+                            GestureDetector(
+                              child: Container(
+                                child: IconButton(
+                                  icon: Icon(
+                                    Icons.launch,
+                                    color: Colors.black54,
+                                  ),
+                                  onPressed: () {},
+                                ),
+                              ),
+                              onLongPressStart: (details) {
+                                print("Start");
                               },
-                            );
-                          },
+                              onLongPressEnd: (details) {
+                                print("End");
+                              },
+                              onLongPress: () async {
+                                HapticFeedback.mediumImpact();
+                                if (await canLaunch(link)) {
+                                  SystemChrome.setEnabledSystemUIOverlays([
+                                    SystemUiOverlay.top,
+                                    SystemUiOverlay.bottom
+                                  ]);
+                                  // await launch(itemArticle.url);
+                                  await Navigator.push(
+                                    context,
+                                    CupertinoPageRoute(
+                                      builder: (context) => WebPage(
+                                        itemArticle: widget.article,
+                                        mediaQuery: MediaQuery.of(context),
+                                      ),
+                                    ),
+                                  );
+                                }
+                              },
+                            ),
+                          ],
                         ),
                       ],
                     ),
