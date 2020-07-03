@@ -78,7 +78,7 @@ class _NewsStoryState extends State<NewsStory> {
                     vertical: 8,
                   ),
                   child: Text(
-                    widget.headline,
+                    widget.headline ?? "News Headline",
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
@@ -184,7 +184,7 @@ class _NewsStoryState extends State<NewsStory> {
                           width: 10,
                         ),
                         Text(
-                          widget.author,
+                          widget.author ?? "Ariel",
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
@@ -195,7 +195,13 @@ class _NewsStoryState extends State<NewsStory> {
                         ),
                         Spacer(),
                         Text(
-                          widget.time,
+                          DateTime.now()
+                                      .difference(
+                                          DateTime.tryParse(widget.time))
+                                      .inHours
+                                      .toString() +
+                                  "h" ??
+                              "1h",
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
@@ -249,7 +255,7 @@ class _NewsStoryState extends State<NewsStory> {
                         vertical: 20,
                       ),
                       child: Text(
-                        widget.desc,
+                        widget.desc ?? "Swipe up to read more.",
                         style: TextStyle(
                             color: Colors.black,
                             fontSize: 15,
