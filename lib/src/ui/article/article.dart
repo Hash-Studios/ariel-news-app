@@ -159,48 +159,50 @@ class _ArticlePageState extends State<ArticlePage> {
                         children: [
                           Padding(
                             padding: const EdgeInsets.only(
-                                top: 20.0, left: 10, right: 10, bottom: 10),
+                                top: 24.0, left: 24, right: 24, bottom: 20),
                             child: Text(
                               widget.itemArticle.title == null
                                   ? "News"
                                   : widget.itemArticle.title,
                               style: TextStyle(
-                                  color: Color(0xFF000000),
-                                  fontFamily: "Caslon",
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 24),
+                                  color: Colors.black,
+                                  fontFamily: "Roboto",
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.w500),
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.fromLTRB(10, 0, 10, 40),
+                            padding: const EdgeInsets.fromLTRB(24, 0, 24, 40),
                             child: Text(
                               widget.itemArticle.description == null
                                   ? "News"
                                   : widget.itemArticle.description,
                               style: TextStyle(
-                                  color: Color(0xFF000000).withOpacity(0.8),
-                                  fontFamily: "Caslon",
-                                  fontSize: 18),
+                                  fontFamily: "Roboto",
+                                  color: Colors.black,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w300),
                             ),
                           ),
                           Padding(
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 10, vertical: 0),
+                                horizontal: 24, vertical: 0),
                             child: Container(
                               child: Text(
                                 widget.itemArticle.author == null
                                     ? " "
                                     : "By " + widget.itemArticle.author,
                                 style: TextStyle(
-                                    color: Color(0xFF000000),
-                                    fontFamily: "NoeDisplay",
+                                    color: Colors.black87,
+                                    fontFamily: "Roboto",
+                                    fontWeight: FontWeight.w300,
                                     fontSize: 18),
                               ),
                             ),
                           ),
                           Padding(
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 10, vertical: 0),
+                                horizontal: 24, vertical: 0),
                             child: Container(
                               child: Text(
                                 widget.itemArticle.publishedAt == null
@@ -208,8 +210,9 @@ class _ArticlePageState extends State<ArticlePage> {
                                     : widget.itemArticle.publishedAt
                                         .split('T')[0],
                                 style: TextStyle(
-                                    color: Color(0xFF000000),
-                                    fontFamily: "NoeDisplay",
+                                    color: Colors.black87,
+                                    fontFamily: "Roboto",
+                                    fontWeight: FontWeight.w300,
                                     fontSize: 14),
                               ),
                             ),

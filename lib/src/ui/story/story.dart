@@ -258,9 +258,10 @@ class _NewsStoryState extends State<NewsStory> {
                       child: Text(
                         headline,
                         style: TextStyle(
+                            fontFamily: "Roboto",
                             color: Colors.black,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold),
+                            fontSize: 22,
+                            fontWeight: FontWeight.w500),
                       ),
                     ),
                     Container(
@@ -271,9 +272,10 @@ class _NewsStoryState extends State<NewsStory> {
                       child: Text(
                         desc ?? "Swipe up to read more.",
                         style: TextStyle(
+                            fontFamily: "Roboto",
                             color: Colors.black,
-                            fontSize: 15,
-                            fontWeight: FontWeight.normal),
+                            fontSize: 18,
+                            fontWeight: FontWeight.w300),
                       ),
                     ),
                     Spacer(),

@@ -70,24 +70,6 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-    - family: Helvetica
-      fonts:
-        - asset: assets/fonts/Helvetica.ttf
-    - family: HelveticaL
-      fonts:
-        - asset: assets/fonts/HelveticaL.ttf
-    - family: Caslon
-      fonts:
-        - asset: assets/fonts/Caslon.otf
-    - family: NoeDisplay
-      fonts:
-        - asset: assets/fonts/NoeDisplay.ttf
-    - family: Gilroy
-      fonts:
-        - asset: assets/fonts/Gilroy.otf
-    - family: GilroyB
-      fonts:
-        - asset: assets/fonts/GilroyB.otf
     - family: PlayfairDisplay
       fonts:
         - asset: assets/fonts/PlayfairDisplay.otf
