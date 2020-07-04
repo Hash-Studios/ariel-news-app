@@ -9,6 +9,7 @@ import 'package:flutter_news_app/src/model/category/category.dart';
 import 'package:flutter_news_app/src/model/topheadlinesnews/response_top_headlinews_news.dart';
 import 'package:flutter_news_app/src/ui/article/article.dart';
 import 'package:flutter_news_app/src/ui/carousel/stories.dart';
+import 'package:flutter_news_app/src/ui/settings.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_news_app/globals.dart' as globals;
@@ -52,6 +53,10 @@ class HomeScreen extends StatelessWidget {
                       IconButton(
                         icon: Icon(Icons.settings),
                         onPressed: () {
+                          Navigator.push(
+                              context,
+                              new MaterialPageRoute(
+                                  builder: (context) => SettingsScreen()));
                           print("Settings");
                         },
                       )
