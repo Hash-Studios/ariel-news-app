@@ -72,6 +72,7 @@ class HomeScreen extends StatelessWidget {
             SizedBox(height: 16.0),
             _buildWidgetLabelLatestNews(context),
             _buildWidgetSubtitleLatestNews(context),
+            SizedBox(height: 10.0),
             Expanded(
               child: WidgetLatestNews(),
             ),
@@ -88,9 +89,10 @@ class HomeScreen extends StatelessWidget {
         'Top stories at the moment',
         style: Theme.of(context).textTheme.caption.merge(
               TextStyle(
-                  color: Color(0xFF000000).withOpacity(0.5),
-                  fontFamily: "Caslon",
-                  fontSize: 14),
+                  color: Color(0xFF000000).withOpacity(0.6),
+                  fontFamily: "Roboto",
+                  fontWeight: FontWeight.w300,
+                  fontSize: 12),
             ),
       ),
     );
@@ -197,10 +199,10 @@ class WidgetTitle extends StatelessWidget {
                 text: strToday,
                 style: Theme.of(context).textTheme.caption.merge(
                       TextStyle(
-                        color: subHeadingColor.withOpacity(0.5),
-                        fontSize: 14.0,
-                        fontFamily: "Caslon",
-                      ),
+                          color: Color(0xFF000000).withOpacity(0.6),
+                          fontFamily: "Roboto",
+                          fontWeight: FontWeight.w300,
+                          fontSize: 12),
                     ),
               ),
             ],
@@ -316,15 +318,15 @@ class _WidgetCategoryState extends State<WidgetCategory> {
                 Text(
                   itemCategory.title,
                   style: TextStyle(
-                    fontSize: 14,
+                    fontSize: 12,
                     fontFamily:
-                        indexSelectedCategory == index ? "Caslon" : "Caslon",
+                        indexSelectedCategory == index ? "Roboto" : "Roboto",
                     color: indexSelectedCategory == index
                         ? selectedColor
                         : unSelectedColor,
                     fontWeight: indexSelectedCategory == index
-                        ? FontWeight.normal
-                        : FontWeight.normal,
+                        ? FontWeight.w300
+                        : FontWeight.w300,
                   ),
                 ),
               ],
@@ -551,8 +553,9 @@ class _WidgetLatestNewsState extends State<WidgetLatestNews> {
                                     data.articles[i].title,
                                     style: TextStyle(
                                         color: Colors.white,
-                                        fontFamily: "Gilroy",
-                                        fontSize: 16),
+                                        fontFamily: "Roboto",
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 15),
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 2,
                                   ),
@@ -576,7 +579,8 @@ class _WidgetLatestNewsState extends State<WidgetLatestNews> {
                                         style: TextStyle(
                                           color: Colors.white.withOpacity(0.8),
                                           fontSize: 11.0,
-                                          fontFamily: "Caslon",
+                                          fontFamily: "Roboto",
+                                          fontWeight: FontWeight.w300,
                                         ),
                                       ),
                                     ],
@@ -629,7 +633,7 @@ class _WidgetLatestNewsState extends State<WidgetLatestNews> {
                           width: mediaQuery.size.width,
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 6, vertical: 12),
+                                horizontal: 10, vertical: 12),
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
@@ -647,10 +651,10 @@ class _WidgetLatestNewsState extends State<WidgetLatestNews> {
                                           overflow: TextOverflow.ellipsis,
                                           maxLines: 3,
                                           style: TextStyle(
-                                            fontSize: 16.0,
                                             color: newsTitleColor,
-                                            fontWeight: FontWeight.w600,
-                                            fontFamily: "Gilroy",
+                                            fontWeight: FontWeight.w400,
+                                            fontFamily: "Roboto",
+                                            fontSize: 15,
                                           ),
                                         ),
                                         Wrap(
@@ -673,8 +677,9 @@ class _WidgetLatestNewsState extends State<WidgetLatestNews> {
                                               style: TextStyle(
                                                 color: Color(0xFF000000)
                                                     .withOpacity(0.5),
-                                                fontSize: 12.0,
-                                                fontFamily: "Caslon",
+                                                fontSize: 11.0,
+                                                fontFamily: "Roboto",
+                                                fontWeight: FontWeight.w300,
                                               ),
                                             ),
                                           ],
