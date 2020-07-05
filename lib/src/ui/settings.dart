@@ -1,16 +1,13 @@
-import 'dart:io';
 import 'package:flutter_news_app/theme/jam_icons_icons.dart';
-import 'package:flutter_news_app/theme/themeModel.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:provider/provider.dart';
+
 import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:flutter_news_app/theme/toasts.dart' as toasts;
+
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_news_app/main.dart' as main;
-import 'package:flutter_news_app/globals.dart' as globals;
 
 class SettingsScreen extends StatefulWidget {
   @override
@@ -49,7 +46,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               'Personalisation',
               style: TextStyle(
                 fontSize: 14,
-                color: Theme.of(context).accentColor,
+                // color: Theme.of(context).accentColor,
               ),
             ),
           ),
@@ -85,7 +82,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               'General',
               style: TextStyle(
                 fontSize: 14,
-                color: Theme.of(context).accentColor,
+                // color: Theme.of(context).accentColor,
               ),
             ),
           ),
@@ -442,7 +439,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
               children: [
                 ListTile(
                     leading: CircleAvatar(
-                      backgroundImage: AssetImage("assets/images/hashstudio."),
+                      backgroundImage:
+                          AssetImage("assets/images/hashstudio.PNG"),
                     ),
                     title: new Text(
                       "Hash Studios Inc",
