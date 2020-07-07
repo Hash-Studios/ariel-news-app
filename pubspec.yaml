@@ -24,7 +24,9 @@ dependencies:
   story_view: ^0.11.0
   cupertino_icons: ^0.1.2
   dio: ^3.0.3
+
   flutter_bloc: ^0.21.0
+  
   json_serializable: ^3.2.3
   intl: ^0.16.0
   url_launcher: ^5.2.0
@@ -73,6 +75,26 @@ flutter:
     - family: PlayfairDisplay
       fonts:
         - asset: assets/fonts/PlayfairDisplay.otf
+    - family: Proxima Nova
+      fonts:
+        - asset: assets/fonts/ProximaNova-Regular.otf
+          weight: 500
+        - asset: assets/fonts/Proxima Nova Thin.otf
+          weight: 300
+        - asset: assets/fonts/Proxima Nova Thin.otf
+          weight: 400
+        - asset: assets/fonts/Proxima Nova Bold.otf
+          weight: 600
+        - asset: assets/fonts/Proxima Nova Extrabold.otf
+          weight: 700
+        - asset: assets/fonts/Proxima Nova Black.otf
+          weight: 800
+        - asset: assets/fonts/Proxima Nova Black.otf
+          weight: 900
+
+    - family:  JamIcons
+      fonts:
+        - asset: assets/fonts/JamIcons.ttf    
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro
