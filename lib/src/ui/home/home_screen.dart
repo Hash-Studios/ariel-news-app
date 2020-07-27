@@ -10,18 +10,19 @@ import 'package:flutter_news_app/src/model/topheadlinesnews/response_top_headlin
 import 'package:flutter_news_app/src/ui/article/article.dart';
 import 'package:flutter_news_app/src/ui/carousel/stories.dart';
 import 'package:flutter_news_app/src/ui/settings.dart';
+import 'package:flutter_news_app/theme/jam_icons_icons.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_news_app/main.dart' as main;
 import 'package:url_launcher/url_launcher.dart';
-import 'package:flutter_news_app/globals.dart' as globals;
 import 'package:carousel_slider/carousel_slider.dart';
 
 final GlobalKey<ScaffoldState> scaffoldState = GlobalKey<ScaffoldState>();
-int selectedCategory = globals.selectedCategory;
+int selectedCategory = main.selectedCategory;
 
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    print(globals.selectedCategory);
+    print(main.selectedCategory);
     var strToday = getStrToday();
     var mediaQuery = MediaQuery.of(context);
 
@@ -70,8 +71,24 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
             SizedBox(height: 16.0),
-            _buildWidgetLabelLatestNews(context),
-            _buildWidgetSubtitleLatestNews(context),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    _buildWidgetLabelLatestNews(context),
+                    _buildWidgetSubtitleLatestNews(context),
+                  ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child:
+                      IconButton(icon: Icon(JamIcons.search), onPressed: () {}),
+                )
+              ],
+            ),
             SizedBox(height: 10.0),
             Expanded(
               child: WidgetLatestNews(),
@@ -236,7 +253,7 @@ class _WidgetCategoryState extends State<WidgetCategory> {
 
   @override
   void initState() {
-    int indexSelectedCategory = globals.selectedCategory;
+    int indexSelectedCategory = main.selectedCategory;
     selectedCategory = indexSelectedCategory;
     final homeBloc = BlocProvider.of<HomeBloc>(context);
     homeBloc.dispatch(DataEvent(listCategories[indexSelectedCategory].title));
@@ -600,15 +617,11 @@ class _WidgetLatestNewsState extends State<WidgetLatestNews> {
                 return GestureDetector(
                   onTap: () async {
                     if (await canLaunch(itemArticle.url)) {
-                      // await launch(itemArticle.url);
                       await Navigator.push(
                         context,
                         CupertinoPageRoute(
-                          builder: (context) => ArticlePage(
-                            itemArticle: itemArticle,
-                            mediaQuery: mediaQuery,
-                          ),
-                        ),
+                            builder: (context) => StoriesViewer(
+                                articles: data.articles, index: index)),
                       );
                     }
                   },

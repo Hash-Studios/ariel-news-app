@@ -15,6 +15,7 @@ class StoriesViewer extends StatefulWidget {
 class _StoriesViewerState extends State<StoriesViewer> {
   final storyController = StoryController();
   List<int> i;
+  List<StoryItem> stories = [];
   @override
   void dispose() {
     storyController.dispose();
@@ -24,58 +25,33 @@ class _StoriesViewerState extends State<StoriesViewer> {
   }
 
   @override
+  void initState() {
+    i = rotate(
+        List<int>.generate(widget.articles.length, (s) => s), widget.index);
+    for (int p = 0; p < widget.articles.length; p++) {
+      stories.add(StoryItem(
+        NewsStory(
+          article: widget.articles[i[p]],
+          controller: storyController,
+          key: Key('$p'),
+        ),
+      ));
+    }
+    super.initState();
+  }
+
+  List<Object> rotate(List<Object> list, int v) {
+    if (list == null || list.isEmpty) return list;
+    var i = v % list.length;
+    return list.sublist(i)..addAll(list.sublist(0, i));
+  }
+
+  @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays([]);
-    if (widget.index == 0) {
-      i = [0, 1, 2, 3, 4];
-    } else if (widget.index == 1) {
-      i = [1, 2, 3, 4, 0];
-    } else if (widget.index == 2) {
-      i = [2, 3, 4, 0, 1];
-    } else if (widget.index == 3) {
-      i = [3, 4, 0, 1, 2];
-    } else if (widget.index == 4) {
-      i = [4, 0, 1, 2, 3];
-    }
     return Scaffold(
       body: StoryView(
-        [
-          StoryItem(
-            NewsStory(
-              article: widget.articles[i[0]],
-              controller: storyController,
-              key: Key('0'),
-            ),
-          ),
-          StoryItem(
-            NewsStory(
-              article: widget.articles[i[1]],
-              controller: storyController,
-              key: Key('1'),
-            ),
-          ),
-          StoryItem(
-            NewsStory(
-              article: widget.articles[i[2]],
-              controller: storyController,
-              key: Key('2'),
-            ),
-          ),
-          StoryItem(
-            NewsStory(
-              article: widget.articles[i[3]],
-              controller: storyController,
-              key: Key('3'),
-            ),
-          ),
-          StoryItem(
-            NewsStory(
-              article: widget.articles[i[4]],
-              controller: storyController,
-              key: Key('4'),
-            ),
-          ),
-        ],
+        stories,
         onStoryShow: (s) {
           print("Showing a story");
         },

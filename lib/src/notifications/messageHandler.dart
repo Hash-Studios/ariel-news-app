@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_news_app/src/ui/app.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:flutter_news_app/globals.dart' as globals;
+import 'package:flutter_news_app/main.dart' as main;
 
 Future<dynamic> myBackgroundMessageHandler(Map<String, dynamic> message) {
   if (message.containsKey('data')) {
@@ -33,26 +33,26 @@ class _MessageHandlerState extends State<MessageHandler> {
     _fcm.configure(
       onMessage: (Map<String, dynamic> message) async {
         print("onMessage: $message");
-        if(message['data']['tab']=='tech'){
+        if (message['data']['tab'] == 'tech') {
           print('changed global');
-          globals.selectedCategory = 5;
+          main.selectedCategory = 5;
         }
         _showFlutterToast(message);
       },
       onBackgroundMessage: myBackgroundMessageHandler,
       onLaunch: (Map<String, dynamic> message) async {
         print("onLaunch: $message");
-        if(message['data']['tab']=='tech'){
+        if (message['data']['tab'] == 'tech') {
           print('changed global');
-          globals.selectedCategory = 5;
+          main.selectedCategory = 5;
         }
         _showFlutterToast(message);
       },
       onResume: (Map<String, dynamic> message) async {
         print("onResume: $message");
-        if(message['data']['tab']=='tech'){
+        if (message['data']['tab'] == 'tech') {
           print('changed global');
-          globals.selectedCategory = 5;
+          main.selectedCategory = 5;
         }
         _showFlutterToast(message);
       },

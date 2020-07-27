@@ -109,7 +109,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   }),
               ListTile(
                 onTap: () {
-                  main.RestartWidget.restartApp(context);
+                  // main.RestartWidget.restartApp(context);
                 },
                 leading: Icon(JamIcons.refresh),
                 title: Text(
