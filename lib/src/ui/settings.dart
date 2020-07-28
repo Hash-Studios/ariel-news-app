@@ -2,7 +2,7 @@ import 'package:flutter_news_app/src/notifications/messageHandler.dart';
 import 'package:flutter_news_app/theme/jam_icons_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:share/share.dart';
+import 'package:share_extend/share_extend.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 
@@ -130,8 +130,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     style: TextStyle(fontSize: 12),
                   ),
                   onTap: () {
-                    Share.share(
-                        'Hey check out this amazing news app Ariel https://play.google.com/store/apps/details?id=com.hash.ariel');
+                    ShareExtend.share(
+                      'Hey check out this amazing news app Ariel https://play.google.com/store/apps/details?id=com.hash.ariel',
+                      "text",
+                    );
                   }),
               ListTile(
                   leading: Icon(

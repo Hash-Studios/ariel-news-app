@@ -8,7 +8,6 @@ import 'package:flutter_news_app/src/bloc/home/home_bloc.dart';
 import 'package:flutter_news_app/src/model/category/category.dart';
 import 'package:flutter_news_app/src/model/topheadlinesnews/response_top_headlinews_news.dart';
 import 'package:flutter_news_app/src/notifications/messageHandler.dart';
-import 'package:flutter_news_app/src/ui/article/article.dart';
 import 'package:flutter_news_app/src/ui/carousel/stories.dart';
 import 'package:flutter_news_app/src/ui/settings.dart';
 import 'package:flutter_news_app/theme/jam_icons_icons.dart';

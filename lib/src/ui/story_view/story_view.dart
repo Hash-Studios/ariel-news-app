@@ -2,7 +2,6 @@ import 'dart:math';
 import 'dart:ui';
 import 'dart:async';
 
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'story_video.dart';
 import 'story_image.dart';

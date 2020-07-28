@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_news_app/src/model/topheadlinesnews/response_top_headlinews_news.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
-import 'package:share/share.dart';
+import 'package:share_extend/share_extend.dart';
 
 class WebPage extends StatefulWidget {
   Article itemArticle;
@@ -59,21 +59,24 @@ class _WebPageState extends State<WebPage> {
           backgroundColor: Color(0xFFFFFFFF),
           actions: <Widget>[
             IconButton(
-              icon: Icon(Icons.share, color: Color(0xFF000000).withOpacity(0.5)),
+              icon:
+                  Icon(Icons.share, color: Color(0xFF000000).withOpacity(0.5)),
               onPressed: () {
-                Share.share(widget.itemArticle.url,
+                ShareExtend.share(widget.itemArticle.url, "text",
                     subject: 'Check out this news from Ariel News App.');
                 // flutterWebviewPlugin.reloadUrl(); // if you want to reloade another url
               },
             ),
             IconButton(
-              icon: Icon(Icons.arrow_back_ios, color: Color(0xFF000000).withOpacity(0.8)),
+              icon: Icon(Icons.arrow_back_ios,
+                  color: Color(0xFF000000).withOpacity(0.8)),
               onPressed: () {
                 flutterWebviewPlugin.goBack(); // for going back
               },
             ),
             IconButton(
-              icon: Icon(Icons.arrow_forward_ios, color: Color(0xFF000000).withOpacity(0.8)),
+              icon: Icon(Icons.arrow_forward_ios,
+                  color: Color(0xFF000000).withOpacity(0.8)),
               onPressed: () {
                 flutterWebviewPlugin.goForward(); // for going forward
               },

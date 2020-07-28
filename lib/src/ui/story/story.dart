@@ -8,7 +8,6 @@ import 'package:flutter_news_app/src/model/topheadlinesnews/response_top_headlin
 import 'package:flutter_news_app/src/ui/animations/seeMore.dart';
 import 'package:flutter_news_app/src/ui/article/webpage.dart';
 import 'package:flutter_news_app/src/ui/story_view/story_controller.dart';
-import 'package:flutter_news_app/theme/jam_icons_icons.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:share_extend/share_extend.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
@@ -237,8 +236,6 @@ class _NewsStoryState extends State<NewsStory> {
                             ),
                           ],
                         ),
-                        // FloatingActionButton(
-                        //     child: Icon(JamIcons.share), onPressed: () {})
                       ],
                     ),
                   ),
