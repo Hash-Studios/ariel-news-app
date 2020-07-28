@@ -9,18 +9,22 @@ import 'package:flutter_news_app/main.dart' as main;
 FirebaseMessaging f;
 Future<dynamic> myBackgroundMessageHandler(Map<String, dynamic> message) {
   if (message.containsKey('data')) {
-    // Handle data message
-    final dynamic data = message['data'];
-    print(data);
+    if (message['data']['tab'] == 'all') {
+      main.selectedCategory = 0;
+    } else if (message['data']['tab'] == 'business') {
+      main.selectedCategory = 1;
+    } else if (message['data']['tab'] == 'health') {
+      main.selectedCategory = 2;
+    } else if (message['data']['tab'] == 'science') {
+      main.selectedCategory = 3;
+    } else if (message['data']['tab'] == 'sport') {
+      main.selectedCategory = 4;
+    } else if (message['data']['tab'] == 'tech') {
+      main.selectedCategory = 5;
+    } else if (message['data']['tab'] == 'entertainment') {
+      main.selectedCategory = 6;
+    }
   }
-
-  if (message.containsKey('notification')) {
-    // Handle notification message
-    final dynamic notification = message['notification'];
-    print(notification);
-  }
-
-  // Or do other work.
 }
 
 class MessageHandler extends StatefulWidget {
