@@ -380,6 +380,9 @@ class StoryView extends StatefulWidget {
   /// What happens when user swipes up.
   final VoidCallback onSwipeUp;
 
+  /// What happens when user swipes down.
+  final VoidCallback onSwipeDown;
+
   /// What happens when user taps.
   final VoidCallback onTap;
 
@@ -395,7 +398,8 @@ class StoryView extends StatefulWidget {
     this.controller,
     this.onComplete,
     this.onSwipeUp,
-    @required this.onTap,
+    this.onSwipeDown,
+    this.onTap,
     this.onStoryShow,
     this.progressPosition = ProgressPosition.top,
     this.repeat = false,
@@ -634,14 +638,19 @@ class StoryViewState extends State<StoryView> with TickerProviderStateMixin {
           Align(
               alignment: Alignment.center,
               heightFactor: 1,
-              child: GestureDetector(
-                onPanUpdate: (details) {
-                  print(details.delta.dy);
-                  if (details.delta.dy < -10) {
-                    widget.onSwipeUp();
-                  }
-                },
-                onTap: widget.onTap,
+              child: SizedBox(
+                height: MediaQuery.of(context).size.height * 0.8,
+                child: GestureDetector(
+                  onPanUpdate: (details) {
+                    if (details.delta.dy < -10) {
+                      widget.onSwipeUp();
+                    }
+                    if (details.delta.dy > 10) {
+                      widget.onSwipeDown();
+                    }
+                  },
+                  onTap: widget.onTap,
+                ),
               )),
           Align(
             alignment: Alignment.centerLeft,
