@@ -1,10 +1,11 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_news_app/key.dart';
 import 'package:flutter_news_app/src/model/topheadlinesnews/response_top_headlinews_news.dart';
 
 class ApiProvider {
   final Dio _dio = Dio();
   final String _baseUrl =
-      'https://newsapi.org/v2/top-headlines?country=in&pageSize=100&apiKey=ed4f2df6d05f49d681aacd58aeb3fd6d';
+      'https://newsapi.org/v2/top-headlines?country=in&pageSize=100&apiKey=$apikey';
   void printOutError(error, StackTrace stacktrace) {
     print('Exception occured: $error with stacktrace: $stacktrace');
   }
@@ -88,5 +89,4 @@ class ApiProvider {
       return ResponseTopHeadlinesNews.withError('$error');
     }
   }
-
 }

@@ -295,7 +295,6 @@ class _NewsStoryState extends State<NewsStory> {
                                   fontWeight: FontWeight.w300),
                             ),
                           ),
-                          Spacer(),
                         ],
                       ),
                     ),
