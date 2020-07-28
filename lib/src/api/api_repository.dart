@@ -27,6 +27,9 @@ class ApiRepository {
   Future<ResponseTopHeadlinesNews> fetchTopTechnologyHeadlinesNews() =>
       _apiProvider.getTopTechnologyHeadlinesNews();
 
+  Future<ResponseTopHeadlinesNews> fetchSearchNews(String query) =>
+      _apiProvider.getSearchNews(query);
+
   Future<ResponseTopHeadlinesNews> fetchTopHeadline(String text) {
     text = text.toLowerCase();
     if (text == "all") {
@@ -44,10 +47,7 @@ class ApiRepository {
     } else if (text == "science") {
       return _apiProvider.getTopScienceHeadlinesNews();
     } else {
-      return _apiProvider.getTopHeadlinesNews();
+      return _apiProvider.getSearchNews(text);
     }
   }
-
-  Future<ResponseTopHeadlinesNews> fetchSearchNews(String query) =>
-      _apiProvider.getSearchNews(query);
 }

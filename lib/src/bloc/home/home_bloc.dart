@@ -109,7 +109,12 @@ class HomeBloc extends Bloc<DataEvent, DataState> {
           }
           break;
         default:
-          yield DataFailed('Unknown category');
+          final data = await apiRepository.fetchSearchNews(categoryLowerCase);
+          if (data != null) {
+            yield DataSuccess(data);
+          } else {
+            yield DataFailed(data.error);
+          }
       }
     }
   }

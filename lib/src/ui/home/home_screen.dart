@@ -60,7 +60,7 @@ class HomeScreen extends StatelessWidget {
                           onPressed: () {
                             Navigator.push(
                                 context,
-                                new MaterialPageRoute(
+                                new CupertinoPageRoute(
                                     builder: (context) => SettingsScreen()));
                             print("Settings");
                           },
@@ -68,8 +68,6 @@ class HomeScreen extends StatelessWidget {
                       )
                     ],
                   ),
-                  /*SizedBox(height: 8.0),
-                  buildWidgetSearch(),*/
                   SizedBox(height: 12.0),
                   WidgetCategory(),
                 ],
@@ -87,11 +85,11 @@ class HomeScreen extends StatelessWidget {
                     _buildWidgetSubtitleLatestNews(context),
                   ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child:
-                      IconButton(icon: Icon(JamIcons.search), onPressed: () {}),
-                )
+                // Padding(
+                //   padding: const EdgeInsets.all(8.0),
+                //   child:
+                //       IconButton(icon: Icon(JamIcons.search), onPressed: () {}),
+                // )
               ],
             ),
             SizedBox(height: 10.0),
@@ -132,44 +130,6 @@ class HomeScreen extends StatelessWidget {
                 fontFamily: "PlayfairDisplay",
               ),
             ),
-      ),
-    );
-  }
-
-  Widget buildWidgetSearch() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: Container(
-        padding: EdgeInsets.only(
-          left: 12.0,
-          top: 8.0,
-          right: 12.0,
-          bottom: 8.0,
-        ),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(
-            Radius.circular(20),
-          ),
-          color: Colors.white,
-        ),
-        child: Row(
-          children: <Widget>[
-            Expanded(
-              child: Text(
-                'What are you looking for?',
-                style: TextStyle(
-                  color: Colors.black26,
-                  fontFamily: "PlayfairDisplay",
-                ),
-              ),
-            ),
-            Icon(
-              Icons.search,
-              size: 16.0,
-              color: Colors.black26,
-            ),
-          ],
-        ),
       ),
     );
   }
