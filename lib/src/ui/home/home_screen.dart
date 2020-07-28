@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app/src/bloc/home/home_bloc.dart';
 import 'package:flutter_news_app/src/model/category/category.dart';
 import 'package:flutter_news_app/src/model/topheadlinesnews/response_top_headlinews_news.dart';
+import 'package:flutter_news_app/src/notifications/messageHandler.dart';
 import 'package:flutter_news_app/src/ui/article/article.dart';
 import 'package:flutter_news_app/src/ui/carousel/stories.dart';
 import 'package:flutter_news_app/src/ui/settings.dart';
@@ -281,6 +282,21 @@ class _WidgetCategoryState extends State<WidgetCategory> {
                   onTap: () {
                     setState(() {
                       print(index);
+                      if (index == 0) {
+                        f.subscribeToTopic('all');
+                      } else if (index == 0) {
+                        f.subscribeToTopic('business');
+                      } else if (index == 0) {
+                        f.subscribeToTopic('health');
+                      } else if (index == 0) {
+                        f.subscribeToTopic('science');
+                      } else if (index == 0) {
+                        f.subscribeToTopic('sport');
+                      } else if (index == 0) {
+                        f.subscribeToTopic('tech');
+                      } else if (index == 0) {
+                        f.subscribeToTopic('entertainment');
+                      }
                       indexSelectedCategory = index;
                       selectedCategory = index;
                       homeBloc.dispatch(DataEvent(
