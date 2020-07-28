@@ -7,11 +7,14 @@ import 'package:flutter/services.dart';
 import 'package:flutter_news_app/src/model/topheadlinesnews/response_top_headlinews_news.dart';
 import 'package:flutter_news_app/src/ui/animations/seeMore.dart';
 import 'package:flutter_news_app/src/ui/article/webpage.dart';
+import 'package:flutter_news_app/src/ui/story_view/story_controller.dart';
+import 'package:flutter_news_app/theme/jam_icons_icons.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:share_extend/share_extend.dart';
-import 'package:story_view/story_view.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+PanelController panelController;
 
 class NewsStory extends StatefulWidget {
   const NewsStory({
@@ -29,7 +32,6 @@ class NewsStory extends StatefulWidget {
 
 class _NewsStoryState extends State<NewsStory> {
   bool _isOpen = false;
-  PanelController panelController = PanelController();
   ScreenshotController screenshotController = ScreenshotController();
   File _imageFile;
   int c = 0;
@@ -44,6 +46,7 @@ class _NewsStoryState extends State<NewsStory> {
   @override
   void initState() {
     super.initState();
+    panelController = PanelController();
     headline = widget.article.title;
     desc = widget.article.description;
     link = widget.article.url;
@@ -198,32 +201,41 @@ class _NewsStoryState extends State<NewsStory> {
                         SizedBox(
                           width: 10,
                         ),
-                        Text(
-                          author ?? "Ariel",
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            Text(
+                              author ?? "Ariel",
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                            Text(
+                              DateTime.now()
+                                          .difference(DateTime.tryParse(time))
+                                          .inHours
+                                          .toString() +
+                                      "h" +
+                                      " ago" ??
+                                  "1h" + " ago",
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.normal,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
                         ),
-                        Spacer(),
-                        Text(
-                          DateTime.now()
-                                      .difference(DateTime.tryParse(time))
-                                      .inHours
-                                      .toString() +
-                                  "h" ??
-                              "1h",
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.normal,
-                            color: Colors.white,
-                          ),
-                        ),
+                        // FloatingActionButton(
+                        //     child: Icon(JamIcons.share), onPressed: () {})
                       ],
                     ),
                   ),

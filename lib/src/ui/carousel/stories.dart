@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_news_app/src/model/topheadlinesnews/response_top_headlinews_news.dart';
 import 'package:flutter_news_app/src/ui/story/story.dart';
-import 'package:story_view/story_view.dart';
+import 'package:flutter_news_app/src/ui/story_view/story_controller.dart';
+import 'package:flutter_news_app/src/ui/story_view/story_view.dart';
 
 class StoriesViewer extends StatefulWidget {
   List<Article> articles;
@@ -61,6 +62,9 @@ class _StoriesViewerState extends State<StoriesViewer> {
         progressPosition: ProgressPosition.top,
         repeat: false,
         controller: storyController,
+        onSwipeUp: () {
+          panelController.open();
+        },
       ),
     );
   }
