@@ -38,7 +38,7 @@ class _NewsStoryState extends State<NewsStory> {
   String headline;
   String desc;
   String link;
-  String image;
+  String imageUrl;
   String author;
   String time;
   String authorImage;
@@ -50,7 +50,7 @@ class _NewsStoryState extends State<NewsStory> {
     headline = widget.article.title;
     desc = widget.article.description;
     link = widget.article.url;
-    image = widget.article.urlToImage;
+    imageUrl = widget.article.urlToImage;
     author = widget.article.source.name;
     time = widget.article.publishedAt;
     authorImage = widget.article.urlToImage;
@@ -135,7 +135,8 @@ class _NewsStoryState extends State<NewsStory> {
                       fit: BoxFit.cover,
                     );
                   },
-                  imageUrl: image,
+                  imageUrl: imageUrl ??
+                      "https://raw.githubusercontent.com/Hash-Studios/ariel-news-app/master/assets/images/img_not_found.jpg",
                   placeholder: (context, text) {
                     widget.controller.pause();
                     return Center(child: CircularProgressIndicator());
@@ -194,8 +195,10 @@ class _NewsStoryState extends State<NewsStory> {
                       children: <Widget>[
                         CircleAvatar(
                           backgroundColor: Colors.black,
-                          backgroundImage:
-                              CachedNetworkImageProvider(authorImage),
+                          backgroundImage: CachedNetworkImageProvider(
+                            authorImage ??
+                                "https://raw.githubusercontent.com/Hash-Studios/ariel-news-app/master/assets/images/img_not_found.jpg",
+                          ),
                           radius: 18,
                         ),
                         SizedBox(
@@ -287,7 +290,7 @@ class _NewsStoryState extends State<NewsStory> {
                               vertical: 20,
                             ),
                             child: Text(
-                              desc ?? "Swipe up to read more.",
+                              desc ?? "",
                               style: TextStyle(
                                   fontFamily: "Roboto",
                                   color: Colors.black,
