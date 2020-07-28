@@ -36,13 +36,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
               children: [
                 Stack(
                   children: <Widget>[
-                    Container(),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
                       child: Center(
                         child: SizedBox(
                             width: MediaQuery.of(context).size.width / 2,
-                            child: Image.asset('assets/icons/icon.png')),
+                            child: Image.asset('assets/icon/icon.png')),
                       ),
                     )
                   ],
@@ -289,7 +288,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     title: new Text(
                       "1-2-ka-4-4-2-ka-1",
                       style: TextStyle(
-                          color: Theme.of(context).accentColor,
                           fontWeight: FontWeight.w500,
                           fontFamily: "Proxima Nova"),
                     ),

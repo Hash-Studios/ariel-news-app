@@ -13,7 +13,7 @@
 ![Stars](https://img.shields.io/github/stars/Hash-Studios/ariel-news-app)
 
 </div>
-<!-- <a href='https://play.google.com/store/apps/details?id=com.hash.ariel-news-app&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Ariel UI Mockup' src='demo/ariel-news-app_Mockup.png'/></a> -->
+<a href='https://play.google.com/store/apps/details?id=com.hash.ariel-news-app&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Ariel UI Mockup' src='demo/ArielMockup1.png'/></a>
 
 Ariel offers a beautiful interface for news readers. One can simply select the category of news they want like, Business, Health, Science, Sport, Technology, Entertainment and more. If they want they can also select All categories. Then they are presented with the top five highlights of the time, and below that a list of all news events from round the world. One can just click any news they want to read it in a story manner, where they can expand the news with swipe up, go forward with right tap, go backward with left tap, read the full web article or share the story with others.
 
@@ -52,41 +52,14 @@ Ariel relies on [NewsAPI.org](https://newsapi.org/) API for it's source of news 
 
 **Screens**
 
-| ![](demo/1.jpg) | ![](demo/2.jpg) | ![](demo/6.jpg) | ![](demo/8.jpg) | ![](demo/4.jpg) |
-| :-------------: | :-------------:  | :-------------:  | :-------------:  | :-------------:  |
-|     Explore     |    Curated    |    Abstract     |     Nature       |     Color Based     |
+| ![](demo/1.jpg) | ![](demo/2.jpg) | ![](demo/3.jpg) |
+| :-------------: | :-------------:  | :-------------:  |
+|     Home    |    Story    |    Story Detail     |
 
 
-| ![](demo/5.jpg) | ![](demo/24.jpg) | ![](demo/11.jpg) | ![](demo/16.jpg) | ![](demo/19.jpg) |
-| :-------------: | :-------------:  | :-------------:  | :-------------:  | :-------------:  |
-|     For you     |    Sports    |    Pattern     |     Monochrome       |     Cars     |
-
-
-| ![](demo/3.jpg) | ![](demo/31.jpg) | ![](demo/34.jpg) | ![](demo/27.jpg) | ![](demo/62.jpg) |
-| :-------------: | :-------------:  | :-------------:  | :-------------:  | :-------------:  |
-|     Color Picker    |    Favourites    |    Downloads     |     Search       |     Profile     |
-
-
-| ![](demo/60.jpg) | ![](demo/61.jpg) | ![](demo/63.jpg) | ![](demo/64.jpg) |
-| :-------------: | :-------------:  | :-------------:  | :-------------:  |
-|     Setups     |    Setups Info    |     Premium Info       |     Premium Pop Up    |
-
-
-| ![](demo/28.jpg) | ![](demo/30.jpg)| ![](demo/37.jpg)       | ![](demo/38.jpg)  | ![](demo/39.jpg)|
-| :-------------:  | :-------------: | :-------------:       | :-------------:  | :-------------: |
-|  Upload Popup    |    Uploading Screen       |  Wallpaper Display    | Clock for testing   | Wallpaper Info  |
-
-| ![](demo/41.jpg) | ![](demo/40.jpg) | ![](demo/33.jpg) | ![](demo/35.jpg) | ![](demo/36.jpg) |
-| :-------------: | :-------------:  | :-------------:  | :-------------:  | :-------------:  |
-|     Splash Screen    |    Quick Action Menu    |    Settings     |     Theme Switcher Dark       |     Theme Switcher Light    |
-
-This theme switcher toggle button was inspired by [Shubham](https://github.com/shubhamhackz) and you can check out his code [here](https://github.com/shubhamhackz/light_dark_toggle).
-
-**Light Theme**
-
-| ![](demo/42.jpg) | ![](demo/43.jpg)| ![](demo/44.jpg)| ![](demo/50.jpg) | ![](demo/47.jpg)|
-| :-------------:  | :-------------: | :-------------: | :-------------:  | :-------------: |
-|  Explore  |Search|  Favourites    |      Downloads   |      Profile  |
+| ![](demo/4.jpg) | ![](demo/5.jpg) | ![](demo/6.jpg) |
+| :-------------: | :-------------:  | :-------------:  |
+|     Sports     |    Full Article    |    Settings     |
 
 
 ## Support
@@ -99,7 +72,7 @@ If you like what we do, and would want to help us continue doing it, consider sp
 
 <a href='https://play.google.com/store/apps/details?id=com.hash.ariel-news-app&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png' width=200 /></a> -->
 
-<!-- ![ariel-news-app UI Mockup](demo/ariel-news-app_Mockup2.png) -->
+![ariel-news-app UI Mockup](demo/ArielMockup2.png)
 
 ## Dependencies
 
