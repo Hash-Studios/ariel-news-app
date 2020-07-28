@@ -263,34 +263,42 @@ class _NewsStoryState extends State<NewsStory> {
                 child: Column(
                   children: <Widget>[
                     Container(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 5,
-                        vertical: 5,
-                      ),
-                      child: Text(
-                        headline,
-                        style: TextStyle(
-                            fontFamily: "Roboto",
-                            color: Colors.black,
-                            fontSize: 22,
-                            fontWeight: FontWeight.w500),
+                      width: MediaQuery.of(context).size.width - 40,
+                      height: 280,
+                      child: ListView(
+                        children: <Widget>[
+                          Container(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 5,
+                              vertical: 5,
+                            ),
+                            child: Text(
+                              headline,
+                              style: TextStyle(
+                                  fontFamily: "Roboto",
+                                  color: Colors.black,
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                          ),
+                          Container(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 5,
+                              vertical: 20,
+                            ),
+                            child: Text(
+                              desc ?? "Swipe up to read more.",
+                              style: TextStyle(
+                                  fontFamily: "Roboto",
+                                  color: Colors.black,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w300),
+                            ),
+                          ),
+                          Spacer(),
+                        ],
                       ),
                     ),
-                    Container(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 5,
-                        vertical: 20,
-                      ),
-                      child: Text(
-                        desc ?? "Swipe up to read more.",
-                        style: TextStyle(
-                            fontFamily: "Roboto",
-                            color: Colors.black,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w300),
-                      ),
-                    ),
-                    Spacer(),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
@@ -303,80 +311,62 @@ class _NewsStoryState extends State<NewsStory> {
                         ),
                         Row(
                           children: <Widget>[
-                            GestureDetector(
-                              child: Container(
-                                child: IconButton(
-                                  icon: Icon(
-                                    Icons.share,
-                                    color: Colors.black54,
-                                  ),
-                                  onPressed: () {},
+                            Container(
+                              child: IconButton(
+                                icon: Icon(
+                                  Icons.share,
+                                  color: Colors.black54,
                                 ),
-                              ),
-                              onLongPressStart: (details) {
-                                print("Start");
-                              },
-                              onLongPressEnd: (details) {
-                                print("End");
-                              },
-                              onLongPress: () {
-                                HapticFeedback.mediumImpact();
-                                screenshotController
-                                    .capture(
-                                  pixelRatio: 1.5,
-                                  delay: Duration(milliseconds: 10),
-                                )
-                                    .then(
-                                  (File image) async {
-                                    setState(
-                                      () {
-                                        _imageFile = image;
-                                      },
-                                    );
-                                    ShareExtend.share(image.path, "image");
-                                  },
-                                ).catchError(
-                                  (onError) {
-                                    print(onError);
-                                  },
-                                );
-                              },
-                            ),
-                            GestureDetector(
-                              child: Container(
-                                child: IconButton(
-                                  icon: Icon(
-                                    Icons.launch,
-                                    color: Colors.black54,
-                                  ),
-                                  onPressed: () {},
-                                ),
-                              ),
-                              onLongPressStart: (details) {
-                                print("Start");
-                              },
-                              onLongPressEnd: (details) {
-                                print("End");
-                              },
-                              onLongPress: () async {
-                                HapticFeedback.mediumImpact();
-                                if (await canLaunch(link)) {
-                                  SystemChrome.setEnabledSystemUIOverlays([
-                                    SystemUiOverlay.top,
-                                    SystemUiOverlay.bottom
-                                  ]);
-                                  // await launch(itemArticle.url);
-                                  await Navigator.push(
-                                    context,
-                                    CupertinoPageRoute(
-                                      builder: (context) => WebPage(
-                                        itemArticle: widget.article,
-                                        mediaQuery: MediaQuery.of(context),
-                                      ),
-                                    ),
+                                onPressed: () {
+                                  HapticFeedback.mediumImpact();
+                                  screenshotController
+                                      .capture(
+                                    pixelRatio: 1.5,
+                                    delay: Duration(milliseconds: 10),
+                                  )
+                                      .then(
+                                    (File image) async {
+                                      setState(
+                                        () {
+                                          _imageFile = image;
+                                        },
+                                      );
+                                      ShareExtend.share(image.path, "image");
+                                    },
+                                  ).catchError(
+                                    (onError) {
+                                      print(onError);
+                                    },
                                   );
-                                }
-                              },
+                                },
+                              ),
+                            ),
+                            Container(
+                              child: IconButton(
+                                icon: Icon(
+                                  Icons.launch,
+                                  color: Colors.black54,
+                                ),
+                                onPressed: () async {
+                                  HapticFeedback.mediumImpact();
+                                  if (await canLaunch(link)) {
+                                    SystemChrome.setEnabledSystemUIOverlays([
+                                      SystemUiOverlay.top,
+                                      SystemUiOverlay.bottom
+                                    ]);
+                                    // await launch(itemArticle.url);
+                                    await Navigator.push(
+                                      context,
+                                      CupertinoPageRoute(
+                                        builder: (context) => WebPage(
+                                          itemArticle: widget.article,
+                                          mediaQuery: MediaQuery.of(context),
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                },
+                              ),
                             ),
                           ],
                         ),

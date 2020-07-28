@@ -65,6 +65,9 @@ class _StoriesViewerState extends State<StoriesViewer> {
         onSwipeUp: () {
           panelController.open();
         },
+        onTap: () {
+          if (panelController.isPanelOpen) panelController.close();
+        },
       ),
     );
   }

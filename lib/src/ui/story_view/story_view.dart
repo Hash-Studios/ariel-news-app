@@ -380,6 +380,9 @@ class StoryView extends StatefulWidget {
   /// What happens when user swipes up.
   final VoidCallback onSwipeUp;
 
+  /// What happens when user taps.
+  final VoidCallback onTap;
+
   /// If you would like to display the story as full-page, then set this to
   /// `false`. But in case you would display this as part of a page (eg. in
   /// a [ListView] or [Column]) then set this to `true`.
@@ -391,7 +394,8 @@ class StoryView extends StatefulWidget {
     this.storyItems, {
     this.controller,
     this.onComplete,
-    @required this.onSwipeUp,
+    this.onSwipeUp,
+    @required this.onTap,
     this.onStoryShow,
     this.progressPosition = ProgressPosition.top,
     this.repeat = false,
@@ -637,35 +641,8 @@ class StoryViewState extends State<StoryView> with TickerProviderStateMixin {
                     widget.onSwipeUp();
                   }
                 },
-              )
-              // RawGestureDetector(
-              //   gestures: <Type, GestureRecognizerFactory>{
-              //     TapGestureRecognizer:
-              //         GestureRecognizerFactoryWithHandlers<TapGestureRecognizer>(
-              //             () => TapGestureRecognizer(), (instance) {
-              //       instance
-              //         ..onTapDown = (details) {
-              //           controlPause();
-              //           debouncer?.cancel();
-              //           debouncer = Timer(Duration(milliseconds: 500), () {});
-              //         }
-              //         ..onTapUp = (details) {
-              //           if (debouncer?.isActive == true) {
-              //             debouncer.cancel();
-              //             debouncer = null;
-
-              //             goForward();
-              //           } else {
-              //             debouncer.cancel();
-              //             debouncer = null;
-
-              //             controlUnpause();
-              //           }
-              //         };
-              //     })
-              //   },
-              // ),
-              ),
+                onTap: widget.onTap,
+              )),
           Align(
             alignment: Alignment.centerLeft,
             heightFactor: 1,
@@ -675,6 +652,7 @@ class StoryViewState extends State<StoryView> with TickerProviderStateMixin {
                   goBack();
                 },
               ),
+              height: MediaQuery.of(context).size.height * 0.8,
               width: 70,
             ),
           ),
@@ -688,6 +666,7 @@ class StoryViewState extends State<StoryView> with TickerProviderStateMixin {
                 },
               ),
               width: 70,
+              height: MediaQuery.of(context).size.height * 0.8,
             ),
           ),
         ],
