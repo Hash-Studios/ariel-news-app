@@ -49,18 +49,22 @@ class HomeScreen extends StatelessWidget {
               child: Column(
                 children: <Widget>[
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       WidgetTitle(strToday),
-                      IconButton(
-                        icon: Icon(Icons.settings),
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              new MaterialPageRoute(
-                                  builder: (context) => SettingsScreen()));
-                          print("Settings");
-                        },
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 8.0, right: 8),
+                        child: IconButton(
+                          icon: Icon(JamIcons.settings_alt),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                new MaterialPageRoute(
+                                    builder: (context) => SettingsScreen()));
+                            print("Settings");
+                          },
+                        ),
                       )
                     ],
                   ),

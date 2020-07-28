@@ -25,9 +25,7 @@ dependencies:
   cupertino_icons: ^0.1.2
   dio: ^3.0.3
   video_player: ^0.10.11+2
-
   flutter_bloc: ^0.21.0
-  
   json_serializable: ^3.2.3
   intl: ^0.16.0
   url_launcher: ^5.2.0
@@ -60,6 +58,7 @@ flutter:
   #  - images/a_dot_ham.jpeg
   assets:
     - assets/images/
+    - assets/icon/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
