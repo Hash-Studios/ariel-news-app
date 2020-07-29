@@ -14,7 +14,7 @@ We use github to host code, to track issues and feature requests, as well as acc
 Pull requests are the best way to propose changes to the codebase (we use [Github Flow](https://guides.github.com/introduction/flow/index.html)). We actively welcome your pull requests:
 
 1. Fork the repo and create your branch from `master`.
-2. You need to create a file called key.dart with the following syntax that stores the username and password for the GitHub Repository where you want to save your uploaded wallpapers.
+2. You need to create a file called key.dart with the following syntax that stores the API Key you can get from NewsAPI.org.
 ```
 const String apikey = "your newsapi.org api key";
 ```
