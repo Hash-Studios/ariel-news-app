@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,7 +20,39 @@ import 'package:carousel_slider/carousel_slider.dart';
 final GlobalKey<ScaffoldState> scaffoldState = GlobalKey<ScaffoldState>();
 int selectedCategory = main.selectedCategory;
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
+  static const MobileAdTargetingInfo targetingInfo = MobileAdTargetingInfo(
+    testDevices: <String>[],
+    keywords: <String>['Apps', 'Games', 'Mobile', 'Game'],
+    nonPersonalizedAds: false,
+  );
+
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  BannerAd bannerAd = BannerAd(
+    // ca-app-pub-4649644680694757/4153253492
+    adUnitId: BannerAd.testAdUnitId,
+    size: AdSize.smartBanner,
+    targetingInfo: HomeScreen.targetingInfo,
+    listener: (MobileAdEvent event) {
+      print("BannerAd event is $event");
+    },
+  );
+  @override
+  void initState() {
+    bannerAd
+      ..load()
+      ..show(
+        anchorOffset: 60.0,
+        horizontalCenterOffset: 0.0,
+        anchorType: AnchorType.bottom,
+      );
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     print(main.selectedCategory);
