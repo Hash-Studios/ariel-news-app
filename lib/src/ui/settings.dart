@@ -1,5 +1,7 @@
-import 'package:flutter_news_app/src/notifications/messageHandler.dart';
-import 'package:flutter_news_app/theme/jam_icons_icons.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:ariel/payments/upgrade.dart';
+import 'package:ariel/src/notifications/messageHandler.dart';
+import 'package:ariel/theme/jam_icons_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:share_extend/share_extend.dart';
@@ -63,6 +65,26 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ),
           Column(
             children: [
+              ListTile(
+                  leading: Icon(
+                    JamIcons.stop_sign,
+                  ),
+                  title: Text(
+                    "Remove Ads",
+                    style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontFamily: "Proxima Nova"),
+                  ),
+                  subtitle: Text(
+                    "Remove annoying ads from the app",
+                    style: TextStyle(fontSize: 12),
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        CupertinoPageRoute(
+                            builder: (context) => UpgradeScreen()));
+                  }),
               ListTile(
                   leading: Icon(
                     JamIcons.pie_chart_alt,

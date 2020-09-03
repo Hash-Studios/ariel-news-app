@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_news_app/key.dart';
-import 'package:flutter_news_app/src/model/topheadlinesnews/response_top_headlinews_news.dart';
+import 'package:ariel/key.dart';
+import 'package:ariel/src/model/topheadlinesnews/response_top_headlinews_news.dart';
 
 class ApiProvider {
   final Dio _dio = Dio();

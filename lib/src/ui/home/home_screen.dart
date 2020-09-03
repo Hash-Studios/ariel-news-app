@@ -5,15 +5,15 @@ import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_news_app/src/bloc/home/home_bloc.dart';
-import 'package:flutter_news_app/src/model/category/category.dart';
-import 'package:flutter_news_app/src/model/topheadlinesnews/response_top_headlinews_news.dart';
-import 'package:flutter_news_app/src/notifications/messageHandler.dart';
-import 'package:flutter_news_app/src/ui/carousel/stories.dart';
-import 'package:flutter_news_app/src/ui/settings.dart';
-import 'package:flutter_news_app/theme/jam_icons_icons.dart';
+import 'package:ariel/src/bloc/home/home_bloc.dart';
+import 'package:ariel/src/model/category/category.dart';
+import 'package:ariel/src/model/topheadlinesnews/response_top_headlinews_news.dart';
+import 'package:ariel/src/notifications/messageHandler.dart';
+import 'package:ariel/src/ui/carousel/stories.dart';
+import 'package:ariel/src/ui/settings.dart';
+import 'package:ariel/theme/jam_icons_icons.dart';
 import 'package:intl/intl.dart';
-import 'package:flutter_news_app/main.dart' as main;
+import 'package:ariel/main.dart' as main;
 import 'package:url_launcher/url_launcher.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
@@ -46,7 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
     bannerAd
       ..load()
       ..show(
-        anchorOffset: 60.0,
+        anchorOffset: -20.0,
         horizontalCenterOffset: 0.0,
         anchorType: AnchorType.bottom,
       );

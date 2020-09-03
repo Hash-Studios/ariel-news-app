@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:flutter_news_app/src/api/api_repository.dart';
-import 'package:flutter_news_app/src/model/topheadlinesnews/response_top_headlinews_news.dart';
+import 'package:ariel/src/api/api_repository.dart';
+import 'package:ariel/src/model/topheadlinesnews/response_top_headlinews_news.dart';
 
 abstract class DataState {}
 

@@ -2,9 +2,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter_news_app/src/ui/app.dart';
+import 'package:ariel/payments/upgrade.dart';
+import 'package:ariel/src/ui/app.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:flutter_news_app/main.dart' as main;
+import 'package:ariel/main.dart' as main;
 
 FirebaseMessaging f;
 Future<dynamic> myBackgroundMessageHandler(Map<String, dynamic> message) {
@@ -35,6 +36,7 @@ class MessageHandler extends StatefulWidget {
 class _MessageHandlerState extends State<MessageHandler> {
   @override
   void initState() {
+    checkPremium();
     f = new FirebaseMessaging();
     f.requestNotificationPermissions();
     f.configure(

@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_news_app/src/model/topheadlinesnews/response_top_headlinews_news.dart';
+import 'package:ariel/src/model/topheadlinesnews/response_top_headlinews_news.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:share_extend/share_extend.dart';
 
