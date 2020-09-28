@@ -68,7 +68,7 @@ If you like what we do, and would want to help us continue doing it, consider sp
 
 <a href="https://www.buymeacoffee.com/HashStudios" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height=51 width=217></a>
 
-Ariel Wallpapers app is now available on Google Play, so you can support us by reviewing the app.
+Ariel News app is now available on Google Play, so you can support us by reviewing the app.
 
 <a href='https://play.google.com/store/apps/details?id=com.hash.ariel&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png' width=200 /></a>
 
