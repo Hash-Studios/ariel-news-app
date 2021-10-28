@@ -5,15 +5,13 @@
 
 ![flutter](https://img.shields.io/badge/Flutter-Framework-green?logo=flutter)
 ![Dart](https://img.shields.io/badge/Dart-Language-blue?logo=dart)
-![Play Store Downloads](https://img.shields.io/badge/Play%20Store%20Downloads-10+-green.svg)
-<!-- ![Play Store Rating](https://img.shields.io/badge/Play%20Store%20Rating-4.7-blue.svg) -->
 ![Size](https://img.shields.io/github/repo-size/Hash-Studios/ariel-news-app?color=green)
 ![Release](https://img.shields.io/github/v/release/Hash-Studios/ariel-news-app)
 ![License](https://img.shields.io/github/license/Hash-Studios/ariel-news-app)
 ![Stars](https://img.shields.io/github/stars/Hash-Studios/ariel-news-app)
 
 </div>
-<a href='https://play.google.com/store/apps/details?id=com.hash.ariel&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Ariel UI Mockup' src='demo/ArielMockup1.png'/></a>
+<img alt='Ariel UI Mockup' src='demo/ArielMockup1.png'/>
 
 Ariel offers a beautiful interface for news readers. One can simply select the category of news they want like, Business, Health, Science, Sport, Technology, Entertainment and more. If they want they can also select All categories. Then they are presented with the top five highlights of the time, and below that a list of all news events from round the world. One can just click any news they want to read it in a story manner, where they can expand the news with swipe up, go forward with right tap, go backward with left tap, read the full web article or share the story with others.
 
@@ -68,10 +66,6 @@ If you like what we do, and would want to help us continue doing it, consider sp
 
 <a href="https://www.buymeacoffee.com/HashStudios" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height=51 width=217></a>
 
-Ariel News app is now available on Google Play, so you can support us by reviewing the app.
-
-<a href='https://play.google.com/store/apps/details?id=com.hash.ariel&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png' width=200 /></a>
-
 ![ariel-news-app UI Mockup](demo/ArielMockup2.png)
 
 ## Dependencies
@@ -101,9 +95,7 @@ More details about these can be found in the [`pubspec.yaml`](https://github.com
 
 ## Usage
 
-The application files for Android devices can be found on [Google Play Store](https://play.google.com/store/apps/details?id=com.hash.ariel).
-
-More information about the releases can be found in the [Release](https://github.com/Hash-Studios/ariel-news-app/releases) tab.
+Information about the releases can be found in the [Release](https://github.com/Hash-Studios/ariel-news-app/releases) tab.
 
 ## Contributing
 
