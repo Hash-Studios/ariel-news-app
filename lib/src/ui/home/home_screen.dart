@@ -1,10 +1,7 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:firebase_admob/firebase_admob.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:ariel/main.dart' as main;
 import 'package:ariel/src/bloc/home/home_bloc.dart';
 import 'package:ariel/src/model/category/category.dart';
 import 'package:ariel/src/model/topheadlinesnews/response_top_headlinews_news.dart';
@@ -12,10 +9,14 @@ import 'package:ariel/src/notifications/messageHandler.dart';
 import 'package:ariel/src/ui/carousel/stories.dart';
 import 'package:ariel/src/ui/settings.dart';
 import 'package:ariel/theme/jam_icons_icons.dart';
-import 'package:intl/intl.dart';
-import 'package:ariel/main.dart' as main;
-import 'package:url_launcher/url_launcher.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:firebase_admob/firebase_admob.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 final GlobalKey<ScaffoldState> scaffoldState = GlobalKey<ScaffoldState>();
 int selectedCategory = main.selectedCategory;
@@ -155,7 +156,7 @@ class _HomeScreenState extends State<HomeScreen> {
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Text(
         'Latest News',
-        style: Theme.of(context).textTheme.subtitle.merge(
+        style: Theme.of(context).textTheme.subtitle1.merge(
               TextStyle(
                 fontSize: 22.0,
                 color: Color(0xFF000000).withOpacity(1),
@@ -201,7 +202,7 @@ class WidgetTitle extends StatelessWidget {
             children: [
               TextSpan(
                 text: 'Ariel - News for you\n',
-                style: Theme.of(context).textTheme.title.merge(
+                style: Theme.of(context).textTheme.headline6.merge(
                       TextStyle(
                           color: headingColor,
                           fontFamily: "PlayfairDisplay",
