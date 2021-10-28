@@ -1,6 +1,6 @@
-import 'package:bloc/bloc.dart';
 import 'package:ariel/src/api/api_repository.dart';
 import 'package:ariel/src/model/topheadlinesnews/response_top_headlinews_news.dart';
+import 'package:bloc/bloc.dart';
 
 abstract class DataState {}
 
@@ -35,8 +35,7 @@ class RefreshData extends DataEvent {
 }
 
 class HomeBloc extends Bloc<DataEvent, DataState> {
-  @override
-  DataState get initialState => DataInitial();
+  HomeBloc() : super(DataInitial());
 
   @override
   Stream<DataState> mapEventToState(DataEvent event) async* {
