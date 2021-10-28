@@ -3,9 +3,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
-import 'story_view.dart';
 import 'package:video_player/video_player.dart';
 
+import 'story_view.dart';
 import 'utils.dart';
 
 class VideoLoader {
@@ -101,7 +101,7 @@ class StoryVideoState extends State<StoryVideo> {
 
   Widget getContentView() {
     if (widget.videoLoader.state == LoadState.success &&
-        playerController.value.initialized) {
+        playerController.value.isInitialized) {
       return Center(
         child: AspectRatio(
           aspectRatio: playerController.value.aspectRatio,

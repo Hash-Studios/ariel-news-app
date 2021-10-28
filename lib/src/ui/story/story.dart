@@ -1,13 +1,15 @@
 import 'dart:io';
+import 'dart:typed_data';
 import 'dart:ui';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+
 import 'package:ariel/src/model/topheadlinesnews/response_top_headlinews_news.dart';
 import 'package:ariel/src/ui/animations/seeMore.dart';
 import 'package:ariel/src/ui/article/webpage.dart';
 import 'package:ariel/src/ui/story_view/story_controller.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:share_extend/share_extend.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
@@ -57,7 +59,7 @@ class _NewsStoryState extends State<NewsStory> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIOverlays([]);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
     return Screenshot(
       controller: screenshotController,
       child: SlidingUpPanel(
@@ -324,7 +326,8 @@ class _NewsStoryState extends State<NewsStory> {
                                     delay: Duration(milliseconds: 10),
                                   )
                                       .then(
-                                    (File image) async {
+                                    (Uint8List ulist) async {
+                                      final image = File.fromRawPath(ulist);
                                       setState(
                                         () {
                                           _imageFile = image;
@@ -349,10 +352,12 @@ class _NewsStoryState extends State<NewsStory> {
                                 onPressed: () async {
                                   HapticFeedback.mediumImpact();
                                   if (await canLaunch(link)) {
-                                    SystemChrome.setEnabledSystemUIOverlays([
-                                      SystemUiOverlay.top,
-                                      SystemUiOverlay.bottom
-                                    ]);
+                                    SystemChrome.setEnabledSystemUIMode(
+                                        SystemUiMode.manual,
+                                        overlays: [
+                                          SystemUiOverlay.top,
+                                          SystemUiOverlay.bottom
+                                        ]);
                                     // await launch(itemArticle.url);
                                     await Navigator.push(
                                       context,

@@ -64,7 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: Color(0xFFFFFFFF),
       key: scaffoldState,
       body: BlocProvider<HomeBloc>(
-        builder: (context) => HomeBloc(),
+        create: (context) => HomeBloc(),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -254,7 +254,7 @@ class _WidgetCategoryState extends State<WidgetCategory> {
     int indexSelectedCategory = main.selectedCategory;
     selectedCategory = indexSelectedCategory;
     final homeBloc = BlocProvider.of<HomeBloc>(context);
-    homeBloc.dispatch(DataEvent(listCategories[indexSelectedCategory].title));
+    homeBloc.add(DataEvent(listCategories[indexSelectedCategory].title));
     super.initState();
   }
 
@@ -296,7 +296,7 @@ class _WidgetCategoryState extends State<WidgetCategory> {
                       }
                       indexSelectedCategory = index;
                       selectedCategory = index;
-                      homeBloc.dispatch(DataEvent(
+                      homeBloc.add(DataEvent(
                           listCategories[indexSelectedCategory].title));
                     });
                   },
@@ -439,7 +439,7 @@ class _WidgetLatestNewsState extends State<WidgetLatestNews> {
       _refreshCompleter = Completer();
       return RefreshIndicator(
         onRefresh: () {
-          homeBloc.dispatch(
+          homeBloc.add(
               RefreshData(category: listCategories[selectedCategory].title));
           return _refreshCompleter.future;
         },
